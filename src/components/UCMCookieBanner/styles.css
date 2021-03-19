@@ -1,0 +1,368 @@
+/* purgecss start ignore */
+
+/* source css:
+ * - the core CSS from the UCM module was copied and pasted below
+ * - selectors and rules that are not relevant, or were superceded have been removed 
+ * - CSS overrides (specific to this app) are at the bottom of the file
+ */
+.ucm-animate-in,
+.ucm-fade-in {
+  opacity: 0 !important;
+}
+.ucm-animate-in-active,
+.ucm-fade-in-active {
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1 !important;
+}
+.ucm-animate-out,
+.ucm-fade-out {
+  opacity: 1 !important;
+}
+.ucm-animate-out-active,
+.ucm-fade-out-active {
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0 !important;
+}
+
+@media screen and (max-width: 768px) {
+  .ucm-push-container--animating {
+    -webkit-transition: -webkit-transform 0.5s ease-in-out;
+    -moz-transition: -moz-transform 0.5s ease-in-out;
+  }
+  .ucm-push-container--opened {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    -moz-transform: translate3d(-100%, 0, 0);
+    overflow: hidden;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+  .ucm-push-container--closing {
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+  }
+  .ucm-push-container--animating .ucm-push-view,
+  .ucm-push-container--animating .ucm-push-view--custom,
+  .ucm-push-container--opened .ucm-push-view,
+  .ucm-push-container--opened .ucm-push-view--custom {
+    display: block;
+  }
+  .ucm-push-view {
+    -webkit-transform: translate3d(100%, 0, 0);
+    -moz-transform: translate3d(100%, 0, 0);
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #fff;
+    -webkit-overflow-scrolling: touch;
+  }
+  .ucm-push-view > * {
+    -webkit-transform: translateZ(0);
+  }
+}
+
+#ucm-banner form:focus,
+#ucm-details form:focus {
+  outline: none;
+}
+#ucm-wrapper {
+  position: static;
+}
+body.ucm-noscroll {
+  height: 100%;
+}
+.ucm-noscroll {
+  overflow: hidden;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+.ucm-button {
+  display: inline-block;
+  position: relative;
+  border: 0;
+  white-space: nowrap;
+  line-height: 33px;
+  color: #000;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.ucm-button[disabled] {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  cursor: default;
+}
+
+.ucm-button--default:hover {
+  transition: background 0.1s ease-out;
+}
+
+#ucm-details a {
+  text-decoration: none;
+}
+.ucm-absolute-center {
+  z-index: 50000;
+}
+.ucm-absolute-center,
+.ucm-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.ucm-mask {
+  z-index: 50001;
+  background: #000;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+.ucm-popin {
+  z-index: 50002;
+  position: absolute;
+  width: 800px;
+  left: 50%;
+  top: 50%;
+  margin-top: auto;
+  display: none;
+  transform: translateX(-50%) translateY(-50%);
+  background: #fff;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border: 0 none #000;
+}
+.ucm-popin--active {
+  display: block;
+}
+.ucm-popin--pushpop {
+  width: 500px;
+  transform: translateX(-50%) translateY(-50%);
+}
+.ucm-popin-inner {
+  padding: 20px;
+}
+.ucm-popin-close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  color: #000;
+  font-weight: 700;
+}
+
+.ucm-popin-head {
+  padding: 10px 0 15px;
+}
+.ucm-popin-middle {
+  padding-top: 10px;
+}
+
+.ucm-fieldCookie {
+  padding-left: 35px;
+}
+.ucm-fieldCookie label {
+  display: block;
+  position: relative;
+}
+
+.ucm-submit {
+  text-align: center;
+  padding: 20px;
+}
+.ucm-submit input {
+  line-height: 30px;
+  height: 30px;
+  padding: 0 15px;
+  border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border: 0 none #000;
+}
+@media screen and (min-width: 0px) and (max-width: 767px) {
+  .ucm-mask {
+    display: none;
+  }
+  .ucm-popin {
+    width: 100%;
+    height: 95%;
+    margin: 0;
+    left: 0;
+    top: 0;
+    margin-top: 0 !important;
+  }
+  .ucm--pushpop,
+  .ucm-popin {
+    transform: none;
+  }
+  .ucm-fieldCookie {
+    padding-left: 0;
+  }
+  .ucm-fieldCookie label {
+    display: block;
+    position: relative;
+    border-bottom: 1px solid #ccc;
+  }
+  .ucm-fieldCookie input {
+    position: relative;
+    left: 0;
+  }
+}
+.ucm__choices {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: -ms-flexbox;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+#ucm-banner.ucm-banner-pos {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: inherit;
+}
+#ucm-banner.ucm-banner-pos--push {
+  position: relative;
+  width: 100%;
+  display: block;
+  overflow: hidden;
+}
+#ucm-banner.ucm-banner-pos--bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+#ucm-banner a {
+  text-decoration: none;
+}
+#ucm-banner .ucm-openButton {
+  margin-left: 10px;
+  display: inline-block;
+}
+#ucm-banner .ucm-generalNotice {
+  padding: 0 5px 5px;
+}
+#ucm-banner .ucm-generalNotice--headline {
+  margin: 10px 0;
+  text-align: left;
+  font-weight: 400;
+}
+#ucm-banner .ucm-icon-info {
+  font-size: 15px;
+  margin-right: 10px;
+}
+#ucm-banner .ucm-head-text {
+  display: inline-block;
+}
+#ucm-banner .ucm-closeBanner {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  margin-top: -10px;
+  display: block;
+  border-radius: 2px 2px 2px 2px;
+  -moz-border-radius: 2px 2px 2px 2px;
+  -webkit-border-radius: 2px 2px 2px 2px;
+  border: 0 none #000;
+}
+@media screen and (min-width: 0px) and (max-width: 767px) {
+  #ucm-banner {
+    text-align: left;
+  }
+  #ucm-banner .ucm-icon-info {
+    position: absolute;
+    top: 2px;
+  }
+  #ucm-banner .ucm-head-text {
+    display: block;
+  }
+  #ucm-banner .ucm-head-text {
+    margin: 5px 25px 5px 20px;
+    text-align: justify;
+  }
+  #ucm-banner .ucm-openButton {
+    margin-left: 20px;
+    display: inline-block;
+  }
+}
+.ucm-popin--mobile#ucm-details {
+  display: block;
+  transform: none;
+  background-color: transparent;
+  height: auto;
+  position: static;
+}
+.ucm-popin--mobile .ucm-mask {
+  display: block;
+  transform: none;
+}
+.ucm-popin--mobile .ucm-popin {
+  max-height: 100%;
+  overflow-y: auto;
+  height: auto;
+  max-width: 700px;
+  width: 90%;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+.ucm-popin--mobile .ucm-fieldCookie {
+  padding-left: 35px;
+}
+.ucm-popin--mobile .ucm-fieldCookie label {
+  cursor: pointer;
+  border: none;
+  padding-bottom: 0;
+}
+.ucm-popin--mobile .ucm-fieldCookie input {
+  position: absolute;
+  left: -30px;
+}
+@media screen and (max-width: 768px) {
+  .ucm-push-view {
+    overflow: visible;
+  }
+  .ucm-popin--mobile .ucm__choice {
+    margin-bottom: 15px;
+  }
+  .ucm-popin--mobile .ucm-popin {
+    max-height: 95%;
+  }
+  .ucm-popin--mobile .ucm-fieldCookie {
+    margin-bottom: 1em;
+  }
+}
+
+/* Custom CSS */
+
+.ucm-popin p {
+  margin: 1rem 0;
+  color: #4b5563;
+}
+
+.ucm-popin .ucm__choices {
+  padding: 0.2rem 0;
+}
+
+.ucm-popin .ucm__choices .ucm-button {
+  font-weight: bold;
+  text-decoration: underline;
+  margin-right: 2rem;
+  text-transform: uppercase;
+}
+
+/* purgecss end ignore */

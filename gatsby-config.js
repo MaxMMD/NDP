@@ -1,26 +1,25 @@
+/**
+ * Configure your Gatsby site with this file.
+ *
+ * See: https://www.gatsbyjs.com/docs/gatsby-config/
+ */
+
 module.exports = {
-  siteMetadata: {
-    title: "Friends of Notre Dame",
-  },
+  /* Your site config here */
   plugins: [
     "gatsby-plugin-postcss",
-    "gatsby-plugin-image",
-    {
-      resolve: "gatsby-plugin-google-analytics",
-      options: {
-        trackingId: "",
-      },
-    },
     "gatsby-plugin-react-helmet",
-    "gatsby-plugin-sharp",
-    "gatsby-transformer-sharp",
     {
-      resolve: "gatsby-source-filesystem",
+      resolve: `gatsby-plugin-gdpr-cookies`,
       options: {
-        name: "images",
-        path: "./src/images/",
+        googleTagManager: {
+          trackingId: "", // leave empty if you want to disable the tracker
+          cookieName: "gatsby-gdpr-google-tagmanager", // default
+          dataLayerName: "dataLayer", // default
+        },
+        // defines the environments where the tracking should be available  - default is ["production"]
+        environments: ["production", "development"],
       },
-      __key: "images",
     },
   ],
-};
+}

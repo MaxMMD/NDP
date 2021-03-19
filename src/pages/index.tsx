@@ -1,0 +1,94 @@
+import React from "react"
+import CardGrid from "../components/CardGrid"
+import Icon from "../components/Icon"
+import Link from "../components/Link"
+import Puzzle from "../components/Puzzle"
+import Root from "../components/Root"
+import Spacer from "../components/Spacer"
+import { Paragraph, Subheading, Title } from "../components/Typography"
+import VideoCard from "../components/VideoCard"
+
+export default function Home() {
+  return (
+    <Root
+      className="homepage page bg-black text-white"
+      title="Friends of Notre Dame"
+      description="Nostrud ullamco aute elit duis culpa aliqua amet occaecat irure."
+    >
+      <div className="container mx-auto text-white py-6">
+        <div className="flex flex-wrap lg:flex-nowrap px-8 lg:px-32 justify-between">
+          <div className="w-full lg:w-1/2 flex-shrink-0">
+            <Puzzle />
+          </div>
+          <div className="w-full lg:w-1/2 mt-16 lg:pl-32">
+            <Title className="text-justify">
+              Friends of
+              <br />
+              Notre-Dame
+              <br />
+              de Paris
+            </Title>
+            <Paragraph.Base>
+              Lorem in exercitation elit esse minim fugiat. Pariatur
+              exercitation ex ipsum tempor enim proident. Nulla aliquip ad ipsum
+              amet duis consequat duis sint enim cupidatat commodo pariatur.
+              Veniam cupidatat id cillum dolore. Aute ullamco minim proident id.
+              Cupidatat ad anim cupidatat consectetur ex.
+            </Paragraph.Base>
+            <Paragraph.Base>
+              Est ad non commodo occaecat incididunt aliqua enim ipsum consequat
+              labore anim. Officia fugiat proident tempor ut nisi laborum
+              excepteur tempor ullamco aliquip anim irure. Incididunt aliqua
+              sint amet officia elit duis esse minim.
+            </Paragraph.Base>
+          </div>
+        </div>
+
+        <Spacer className="mt-32" />
+
+        <div className="flex mx-8 lg:mx-16 justify-between items-end pb-6 border-b border-gray-600">
+          <Subheading>Gallery</Subheading>
+          <Link>
+            See more <Icon.Chevron className="inline-block" />
+          </Link>
+        </div>
+
+        <div className="mx-8 lg:mx-16">
+          <Paragraph.Base className="lg:w-1/2">
+            Eiusmod sit duis esse sit. Cillum nisi magna occaecat consequat
+            incididunt occaecat eu occaecat laboris cupidatat ut anim nostrud
+            ullamco.
+          </Paragraph.Base>
+          <CardGrid />
+        </div>
+
+        <Spacer className="mt-32" />
+
+        <div className="flex mx-8 lg:mx-16 justify-between items-end pb-6 border-b border-gray-600">
+          <Subheading>Progress</Subheading>
+          <Link>
+            See more <Icon.Chevron className="inline-block" />
+          </Link>
+        </div>
+
+        <div className="mx-8 lg:mx-16">
+          <Paragraph.Base className="lg:w-1/2">
+            Eiusmod sit duis esse sit. Cillum nisi magna occaecat consequat
+            incididunt occaecat eu occaecat laboris cupidatat ut anim nostrud
+            ullamco.
+          </Paragraph.Base>
+
+          <Spacer />
+
+          <div className="VideoGrid lg:flex -my-2 -mx-2">
+            <VideoCard className="p-2" />
+            <VideoCard className="p-2" />
+            <VideoCard className="p-2" />
+          </div>
+        </div>
+
+        <Spacer className="mt-16" />
+      </div>
+    </Root>
+  )
+}

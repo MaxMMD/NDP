@@ -1,0 +1,11 @@
+.Header__menu--mobile {
+  transition: all 0.6s ease-in-out;
+}
+
+.Header__menu--mobile--inactive {
+  transform: translateY(-200%);
+}
+
+.Header__menu--mobile--active {
+  transform: translateY(92px);
+}

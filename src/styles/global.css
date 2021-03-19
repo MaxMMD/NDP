@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Roboto+Slab&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/** Core Styles **/
+
+body {
+  font-family: "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
+  background: black;
+}
+
+p ul {
+  list-style: disc;
+  margin-left: 1rem;
+}
+
+p ul li {
+  list-style-type: disc;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+p a {
+  text-decoration: underline;
+}
+
+/** Custom Utilities **/
+
+.section-marker[id] {
+  margin-top: -150px;
+  padding-top: 150px;
+}
+
+@screen lg {
+  .section-marker[id] {
+    margin-top: -100px;
+    padding-top: 100px;
+  }
+
+  .bg-app-placeholder {
+    position: relative;
+  }
+
+  .bg-app-placeholder:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    right: 12%;
+    background-image: url(../assets/placeholder_bg.png);
+    background-repeat: no-repeat;
+    background-position: top right;
+    transform: rotate(5deg);
+    z-index: -1;
+    opacity: 0.5;
+  }
+
+  section {
+    scroll-margin-top: 100px;
+  }
+}
+
+@layer utilities {
+  @variants responsive {
+    .scroll-snap {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none; /* Firefox */
+      -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: none; /* Internet Explorer 10+ */
+    }
+
+    .no-scroll-snap {
+      overflow-x: hidden;
+      scroll-snap-type: none;
+    }
+
+    .snap-aligncenter {
+      scroll-snap-align: center;
+    }
+
+    .scroll-snap::-webkit-scrollbar {
+      /* WebKit */
+      width: 0;
+      height: 0;
+    }
+  }
+}
+
+@layer utilities {
+  @variants responsive {
+    .aspect-ratio {
+      @apply block relative w-full;
+    }
+
+    .aspect-ratio-1\:1 {
+      padding-top: 100%;
+    }
+
+    .aspect-ratio-4\:3 {
+      padding-top: 75%;
+    }
+
+    .aspect-ratio-4\:5 {
+      padding-top: 125%;
+    }
+
+    .aspect-ratio-16\:9 {
+      padding-top: 56.25%;
+    }
+
+    .aspect-ratio-none {
+      padding-top: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .aspect-ratio:not(.aspect-ratio-none) > img,
+  .aspect-ratio:not(.aspect-ratio-none) > .aspect-ratio-child {
+    @apply absolute top-0 left-0 w-full h-full object-cover;
+  }
+}
