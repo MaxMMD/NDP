@@ -1,8 +1,10 @@
 import React from "react"
+import cx from "classnames"
 import "./PuzzlePiece.css"
 
 export interface Props {
   id: number
+  flipped?: boolean
 }
 
 function PuzzlePiece(props: Props) {

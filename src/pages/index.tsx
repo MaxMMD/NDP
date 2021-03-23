@@ -1,4 +1,5 @@
-import React from "react"
+import { graphql, PageProps } from "gatsby"
+import React, { useState } from "react"
 import CardGrid from "../components/CardGrid"
 import Icon from "../components/Icon"
 import Link from "../components/Link"
@@ -7,10 +8,13 @@ import Root from "../components/Root"
 import { Block, Spacer } from "../components/Layout"
 import { Paragraph, Subheading, Title } from "../components/Typography"
 import VideoCard from "../components/VideoCard"
-import { generateCards } from "../fixtures/data-generators"
 import TypeScreen from "../components/TypeScreen"
+import { convertJsonToCards } from "../fixtures/data-generators"
 
-export default function Home() {
+export default function Home({ data }: PageProps) {
+  const [autoFlipTrigger, setAutoFlipTrigger] = useState<number | null>(null)
+  const cards = convertJsonToCards(data)
+
   return (
     <Root
       className="homepage page bg-black text-white"
@@ -24,7 +28,7 @@ export default function Home() {
           className="flex flex-wrap lg:flex-nowrap justify-between"
         >
           <div className="w-full lg:w-1/2 flex-shrink-0">
-            <Puzzle />
+            <Puzzle triggerAutoFlip={autoFlipTrigger} />
           </div>
           <div className="w-full lg:w-1/2 mt-16 lg:pl-32">
             <Title className="text-justify">
@@ -65,7 +69,7 @@ export default function Home() {
             incididunt occaecat eu occaecat laboris cupidatat ut anim nostrud
             ullamco.
           </Paragraph.Base>
-          <CardGrid items={generateCards(25)} carousel />
+          <CardGrid items={cards} carousel />
         </Block>
 
         <Spacer className="mt-16 lg:mt-32" />
@@ -84,7 +88,7 @@ export default function Home() {
             ullamco.
           </Paragraph.Base>
 
-          <Spacer />
+          <Spacer className="mt-4 lg:mt-8" />
 
           <div className="VideoGrid lg:flex -my-2 -mx-2">
             <VideoCard className="p-2" />
@@ -103,7 +107,31 @@ export default function Home() {
           "Screen 3. Et cillum deserunt consequat cupidatat veniam dolore. Excepteur labore elit deserunt minim dolore elit ex. Ad enim elit ex velit velit ea mollit et enim.",
         ]}
         isVisibleOnLoad
+        onClose={() => {
+          setAutoFlipTrigger(Date.now())
+          console.log("The intro screen is now closed!")
+        }}
       />
     </Root>
   )
 }
+
+export const query = graphql`
+  query JSONDataQuery {
+    allArtefactsJson {
+      edges {
+        node {
+          id
+          slug
+          title
+          progress
+          image {
+            src
+            width
+            height
+          }
+        }
+      }
+    }
+  }
+`

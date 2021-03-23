@@ -66,7 +66,7 @@ function Header(props: Props) {
         </div>
         <ul
           className={cx(
-            "Header__menu--mobile md:hidden absolute top-0 left-0 w-full px-8 pt-16 bg-black border-b pb-6 border-gray-100 z-30",
+            "Header__menu--mobile md:hidden absolute top-0 left-0 w-full px-8 pt-16 bg-black border-b pb-6 border-white border-opacity-10 z-30",
             {
               "Header__menu--mobile--inactive": !mobileMenuIsActive,
               "Header__menu--mobile--active": mobileMenuIsActive,
@@ -82,7 +82,7 @@ function Header(props: Props) {
             />
           ))}
         </ul>
-        <ul className="Header__menu--desktop hidden md:flex md:w-auto px-4 md:px-0 border-b md:border-none border-gray-100 z-50">
+        <ul className="Header__menu--desktop hidden md:flex md:w-auto px-4 md:px-0 border-b md:border-none border-white border-opacity-10 z-50">
           {props.navItems.map((navItem, i) => (
             <NavItem
               key={i}
@@ -96,7 +96,7 @@ function Header(props: Props) {
       </div>
       <div
         className={cx(
-          "container border-t border-l border-r border-gray-600 h-3 mx-auto overflow-hidden transition-all duration-400",
+          "container border-t border-l border-r border-white border-opacity-40 h-3 mx-auto overflow-hidden transition-all duration-400",
           {
             "opacity-0": isFaded,
           }

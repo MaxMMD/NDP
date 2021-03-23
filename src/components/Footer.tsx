@@ -3,6 +3,8 @@ import cx from "classnames"
 import Link from "./Link"
 import { Paragraph } from "./Typography"
 import { PseudoButton } from "./FormElements"
+import SocialLinks from "./SocialLinks"
+import { Spacer } from "./Layout"
 
 function Footer(props: { className?: string }) {
   return (
@@ -29,6 +31,8 @@ function Footer(props: { className?: string }) {
         </div>
         <div className="pr-32">
           <Paragraph.Medium>Social</Paragraph.Medium>
+          <Spacer className="mt-4" />
+          <SocialLinks alignment="left" />
         </div>
       </div>
     </footer>

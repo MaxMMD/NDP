@@ -27,7 +27,10 @@ function VideoCard(props: Props) {
           ),
         })
       }}
-      className={cx("VideoCard w-full relative", props.className)}
+      className={cx(
+        "VideoCard w-full relative cursor-pointer",
+        props.className
+      )}
     >
       <Image
         containerClassName="aspect-ratio aspect-ratio-16:9"

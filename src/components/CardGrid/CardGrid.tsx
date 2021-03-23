@@ -38,11 +38,7 @@ function CardGrid(props: Props) {
                 key={`card-grid-item-${n}-${i}`}
                 className="w-full md:w-1/2 lg:w-1/4 py-6 md:px-6"
               >
-                <Card
-                  label={card.label}
-                  progress={card.progress}
-                  image={card.image}
-                />
+                <Card {...card} />
               </div>
             ))}
           </div>

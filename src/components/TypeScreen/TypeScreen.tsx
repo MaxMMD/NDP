@@ -5,6 +5,7 @@ import { Block, Spacer } from "../Layout"
 export interface Props {
   text: string[]
   isVisibleOnLoad?: boolean
+  onClose: () => void
 }
 
 function TypeScreen(props: Props) {
@@ -28,6 +29,7 @@ function TypeScreen(props: Props) {
 
     setTimeout(() => {
       setIsVisible(false)
+      props.onClose()
     }, 700)
   }
 

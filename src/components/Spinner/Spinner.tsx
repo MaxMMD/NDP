@@ -1,15 +1,17 @@
 import React from "react"
+import cx from "classnames"
 import framepng from "../../assets/fond_frame.png"
 
 interface Props {
   className?: string
+  animate?: boolean
 }
 
-function Spinner(props: Props) {
+function Spinner({ animate = true, className }: Props) {
   return (
-    <div className={props.className}>
+    <div className={className}>
       <img
-        className="opacity-50 animate-spin"
+        className={cx("opacity-50", { "animate-spin": animate })}
         src={framepng}
         width={50}
         height={50}

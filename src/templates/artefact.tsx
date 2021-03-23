@@ -5,9 +5,12 @@ import { Spacer, Block } from "../components/Layout"
 import CardGrid from "../components/CardGrid"
 import Icon from "../components/Icon"
 import FeatureItem from "../components/FeatureItem"
-import { generateCards } from "../fixtures/data-generators"
+import { convertJsonToCards, generateCards } from "../fixtures/data-generators"
+import { PageProps } from "gatsby"
 
-export default function Artefact() {
+export default function Artefact({ pageContext }: PageProps<any>) {
+  const { title, relatedArtefacts } = pageContext as any
+  const cards = convertJsonToCards(relatedArtefacts.data)
   return (
     <Root
       className="artefact-page page bg-black text-white"
@@ -25,22 +28,26 @@ export default function Artefact() {
         <Spacer />
 
         <Block padding="narrow">
-          <FeatureItem progress={66} />
+          <FeatureItem progress={66} title={title} />
         </Block>
 
         <Spacer className="mt-16 lg:mt-32" />
 
-        <Block>
-          <CardGrid items={generateCards(4)} carousel />
-        </Block>
+        {cards.length ? (
+          <>
+            <Block>
+              <CardGrid items={cards} carousel />
+            </Block>
 
-        <Spacer className="mt-10 lg:mt-20" />
+            <Spacer className="mt-10 lg:mt-20" />
 
-        <Block className="flex justify-end border-t border-gray-200 pt-8 pb-4">
-          <Link href="/gallery" className="text-2xl font-light">
-            See more <Icon.Chevron className="inline-block" />
-          </Link>
-        </Block>
+            <Block className="flex justify-end border-t border-gray-200 pt-8 pb-4">
+              <Link href="/gallery" className="text-2xl font-light">
+                See more <Icon.Chevron className="inline-block" />
+              </Link>
+            </Block>
+          </>
+        ) : null}
       </div>
     </Root>
   )

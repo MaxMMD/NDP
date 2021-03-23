@@ -7,6 +7,7 @@ import Image from "../Image"
 
 export interface CardProps {
   label: string
+  href: string
   image: {
     placeholder?: string
     src: string
@@ -25,7 +26,7 @@ function Card(props: Props) {
 
   return (
     <div ref={ref} className={cx("Card", props.className)}>
-      <Link href="/gallery/item-1">
+      <Link href={props.href}>
         <div className="Card__inner">
           <div className="Card__image overflow-hidden">
             <Image

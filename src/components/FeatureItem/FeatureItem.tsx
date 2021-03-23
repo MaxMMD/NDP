@@ -7,6 +7,7 @@ import ProgressBar from "../ProgressBar"
 import { Paragraph, Subheading } from "../Typography"
 
 export interface Props {
+  title: string
   progress: number
 }
 
@@ -50,7 +51,7 @@ function FeatureItem(props: Props) {
       </div>
       <div className="lg:w-2/5 mt-6 md:mt-12 lg:mt-0 lg:pl-16">
         <Subheading tag="h1" className="font-normal">
-          Name of Artifact
+          {props.title}
         </Subheading>
         <Paragraph.Base>
           Lorem in exercitation elit esse minim fugiat. Pariatur exercitation ex

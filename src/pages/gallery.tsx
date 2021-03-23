@@ -1,11 +1,14 @@
+import { graphql, PageProps } from "gatsby"
 import React from "react"
 import CardGrid from "../components/CardGrid"
 import Root from "../components/Root"
 import { Block, Spacer } from "../components/Layout"
 import { Paragraph } from "../components/Typography"
-import { generateCards } from "../fixtures/data-generators"
+import { convertJsonToCards } from "../fixtures/data-generators"
 
-export default function Gallery() {
+export default function Gallery({ data }: PageProps) {
+  const cards = convertJsonToCards(data)
+
   return (
     <Root
       className="gallery-page page bg-black text-white"
@@ -26,7 +29,7 @@ export default function Gallery() {
         <Spacer />
 
         <Block>
-          <CardGrid items={generateCards(25)} />
+          <CardGrid items={cards} />
         </Block>
 
         <Spacer />
@@ -34,3 +37,23 @@ export default function Gallery() {
     </Root>
   )
 }
+
+export const query = graphql`
+  query GalleryDataQuery {
+    allArtefactsJson {
+      edges {
+        node {
+          id
+          slug
+          title
+          progress
+          image {
+            src
+            width
+            height
+          }
+        }
+      }
+    }
+  }
+`

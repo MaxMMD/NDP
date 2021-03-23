@@ -6,8 +6,8 @@ const TEST_IMAGE =
 
 export function generateCards(n: number) {
   return Array.from(Array(n)).map((_, i) => ({
-    key: i,
     label: `Card Item #${i + 1}`,
+    href: `/gallery/item-${i + 1}`,
     image: {
       placeholder: PLACEHOLDER_IMAGE,
       src: i === 16 ? TEST_IMAGE : LIVE_IMAGE,
@@ -15,5 +15,20 @@ export function generateCards(n: number) {
       height: 600,
     },
     progress: 33,
+  }))
+}
+
+export function convertJsonToCards(data: any) {
+  const { allArtefactsJson } = (data as any) || {}
+
+  if (!allArtefactsJson) {
+    return []
+  }
+
+  return allArtefactsJson.edges.map(({ node }: any) => ({
+    label: node.title,
+    href: `/gallery/${node.slug}`,
+    image: node.image,
+    progress: node.progress,
   }))
 }
