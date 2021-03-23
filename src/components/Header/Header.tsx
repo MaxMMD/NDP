@@ -40,7 +40,7 @@ function Header(props: Props) {
       className={cx(
         "Header py-4 px-8 lg:px-0",
         {
-          "fixed top-0 left-0 w-full z-50": !!props.fixed,
+          "fixed top-0 left-0 w-full z-10": !!props.fixed,
           "is-faded": isFaded,
         },
         props.className

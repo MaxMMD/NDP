@@ -4,9 +4,11 @@ import Icon from "../components/Icon"
 import Link from "../components/Link"
 import Puzzle from "../components/Puzzle"
 import Root from "../components/Root"
-import Spacer from "../components/Spacer"
+import { Block, Spacer } from "../components/Layout"
 import { Paragraph, Subheading, Title } from "../components/Typography"
 import VideoCard from "../components/VideoCard"
+import { generateCards } from "../fixtures/data-generators"
+import TypeScreen from "../components/TypeScreen"
 
 export default function Home() {
   return (
@@ -14,9 +16,13 @@ export default function Home() {
       className="homepage page bg-black text-white"
       title="Friends of Notre Dame"
       description="Nostrud ullamco aute elit duis culpa aliqua amet occaecat irure."
+      showFrame
     >
       <div className="container mx-auto text-white py-6">
-        <div className="flex flex-wrap lg:flex-nowrap px-8 lg:px-32 justify-between">
+        <Block
+          padding="narrow"
+          className="flex flex-wrap lg:flex-nowrap justify-between"
+        >
           <div className="w-full lg:w-1/2 flex-shrink-0">
             <Puzzle />
           </div>
@@ -42,36 +48,36 @@ export default function Home() {
               sint amet officia elit duis esse minim.
             </Paragraph.Base>
           </div>
-        </div>
+        </Block>
 
-        <Spacer className="mt-32" />
+        <Spacer className="mt-16 lg:mt-32" />
 
-        <div className="flex mx-8 lg:mx-16 justify-between items-end pb-6 border-b border-gray-600">
+        <Block className="flex justify-between items-end pb-6 border-b border-gray-600">
           <Subheading>Gallery</Subheading>
-          <Link>
+          <Link href="/gallery">
             See more <Icon.Chevron className="inline-block" />
           </Link>
-        </div>
+        </Block>
 
-        <div className="mx-8 lg:mx-16">
+        <Block>
           <Paragraph.Base className="lg:w-1/2">
             Eiusmod sit duis esse sit. Cillum nisi magna occaecat consequat
             incididunt occaecat eu occaecat laboris cupidatat ut anim nostrud
             ullamco.
           </Paragraph.Base>
-          <CardGrid />
-        </div>
+          <CardGrid items={generateCards(25)} carousel />
+        </Block>
 
-        <Spacer className="mt-32" />
+        <Spacer className="mt-16 lg:mt-32" />
 
-        <div className="flex mx-8 lg:mx-16 justify-between items-end pb-6 border-b border-gray-600">
+        <Block className="flex justify-between items-end pb-6 border-b border-gray-600">
           <Subheading>Progress</Subheading>
-          <Link>
+          <Link href="/progress">
             See more <Icon.Chevron className="inline-block" />
           </Link>
-        </div>
+        </Block>
 
-        <div className="mx-8 lg:mx-16">
+        <Block>
           <Paragraph.Base className="lg:w-1/2">
             Eiusmod sit duis esse sit. Cillum nisi magna occaecat consequat
             incididunt occaecat eu occaecat laboris cupidatat ut anim nostrud
@@ -85,10 +91,19 @@ export default function Home() {
             <VideoCard className="p-2" />
             <VideoCard className="p-2" />
           </div>
-        </div>
+        </Block>
 
-        <Spacer className="mt-16" />
+        <Spacer />
       </div>
+
+      <TypeScreen
+        text={[
+          "Screen 1. Irure mollit exercitation voluptate id esse nulla eiusmod. Nostrud commodo irure occaecat labore. Amet irure commodo minim anim cillum cupidatat enim ipsum magna proident commodo exercitation.",
+          "Screen 2. Elit esse pariatur laboris quis id velit.",
+          "Screen 3. Et cillum deserunt consequat cupidatat veniam dolore. Excepteur labore elit deserunt minim dolore elit ex. Ad enim elit ex velit velit ea mollit et enim.",
+        ]}
+        isVisibleOnLoad
+      />
     </Root>
   )
 }
