@@ -42,6 +42,7 @@ function TypeScreen(props: Props) {
         : false
 
     if (hasDismissed || !props.isVisibleOnLoad) {
+      props.onClose()
       return
     }
 

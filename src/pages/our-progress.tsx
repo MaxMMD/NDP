@@ -59,7 +59,6 @@ export const query = graphql`
             fluid(maxWidth: 800, maxHeight: 450) {
               src
               srcSet
-              aspectRatio
             }
           }
         }

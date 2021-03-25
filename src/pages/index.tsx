@@ -13,7 +13,7 @@ import { GalleryPagePropsData, VideoPagePropsData } from "../types"
 export default function Home({
   data,
 }: PageProps<GalleryPagePropsData & VideoPagePropsData>) {
-  const [autoFlipTrigger, setAutoFlipTrigger] = useState<number>(0)
+  const [autoFlipTrigger, setAutoFlipTrigger] = useState<number | null>(null)
   const cards = data.allContentfulFriendsOfNotreDameArtefact.edges
   const videos = data.allContentfulFriendsOfNotreDameVideo.edges
 
@@ -154,7 +154,6 @@ export const query = graphql`
             fluid(maxWidth: 800, maxHeight: 450) {
               src
               srcSet
-              aspectRatio
             }
           }
         }

@@ -5,7 +5,7 @@ import { GalleryPagePropsData } from "../../types"
 import PuzzlePiece from "../PuzzlePiece"
 
 interface Props {
-  triggerAutoFlip?: number
+  triggerAutoFlip?: number | null
   disableAutoFlip?: boolean
 }
 
@@ -43,7 +43,7 @@ function Puzzle(props: Props) {
       ref: puzzleRef,
       pieceDelay: 50,
       randomise: false,
-      disabled: props.disableAutoFlip,
+      disabled: !!props.disableAutoFlip,
     },
     [props.triggerAutoFlip]
   )
