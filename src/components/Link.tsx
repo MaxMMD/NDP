@@ -1,5 +1,6 @@
 import React from "react"
 import { Link as GatsbyLink } from "gatsby"
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 import { slideToTargetElement } from "../utils/dom-utils"
 
 function Link({
@@ -27,9 +28,15 @@ function Link({
 
   if (href && href !== "/" && href.startsWith("/")) {
     return (
-      <GatsbyLink className={props.className} to={href}>
+      <AniLink
+        className={props.className}
+        cover
+        direction="up"
+        bg="#fff"
+        to={href}
+      >
         {children}
-      </GatsbyLink>
+      </AniLink>
     )
   }
 

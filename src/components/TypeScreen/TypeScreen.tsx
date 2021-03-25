@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react"
 import cx from "classnames"
 import { Block, Spacer } from "../Layout"
+import Puzzle from "../Puzzle"
+import { shuffle } from "lodash"
 
 export interface Props {
   text: string[]
@@ -8,20 +10,20 @@ export interface Props {
   onClose: () => void
 }
 
+const TYPE_SPEED = 50
+const TRANSITION_OUT_DELAY = 1500
+const TRANSITION_IN_DELAY = 700
+
 function TypeScreen(props: Props) {
   const textRef = useRef<HTMLParagraphElement>(null)
-  const hasDismissed =
-    typeof window !== "undefined"
-      ? sessionStorage?.getItem("fond-skip-intro")
-      : false
+  const puzzleContainerRef = useRef<HTMLDivElement>(null)
+  const [isGoingVisible, setIsGoingVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
 
-  const [isGoingVisible, setIsGoingVisible] = useState(
-    !!hasDismissed ? false : props.isVisibleOnLoad
-  )
-
-  const [isVisible, setIsVisible] = useState(
-    !!hasDismissed ? false : props.isVisibleOnLoad
-  )
+  const totalTypeScreenDuration = props.text.reduce((prev, current) => {
+    const textCompleteDuration = current.length * TYPE_SPEED
+    return prev + textCompleteDuration + TRANSITION_OUT_DELAY
+  }, 0)
 
   function onClose() {
     sessionStorage?.setItem("fond-skip-intro", "true")
@@ -34,6 +36,37 @@ function TypeScreen(props: Props) {
   }
 
   useEffect(() => {
+    const hasDismissed =
+      typeof window !== "undefined"
+        ? sessionStorage?.getItem("fond-skip-intro")
+        : false
+
+    if (hasDismissed || !props.isVisibleOnLoad) {
+      return
+    }
+
+    setIsVisible(true)
+
+    setTimeout(() => {
+      setIsGoingVisible(true)
+    }, 700)
+  }, [props.isVisibleOnLoad])
+
+  useEffect(() => {
+    if (isVisible) {
+      document.body.style.height = "100vh"
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.height = "auto"
+      document.body.style.overflow = "auto"
+    }
+  }, [isVisible])
+
+  useEffect(() => {
+    if (!isVisible) {
+      return
+    }
+
     function showBlock(i = 0) {
       const p = textRef.current
 
@@ -58,8 +91,8 @@ function TypeScreen(props: Props) {
 
             setTimeout(() => {
               showBlock(blockIndex + 1)
-            }, 700)
-          }, 1500)
+            }, TRANSITION_IN_DELAY)
+          }, TRANSITION_OUT_DELAY)
 
           return
         }
@@ -69,12 +102,33 @@ function TypeScreen(props: Props) {
 
         setTimeout(() => {
           addType(blockIndex, n + 1)
-        }, 50)
+        }, TYPE_SPEED)
       }
     }
 
     showBlock()
-  }, [])
+  }, [isVisible])
+
+  useEffect(() => {
+    if (!isVisible || !puzzleContainerRef.current) {
+      return
+    }
+
+    const pieces = shuffle([
+      ...(puzzleContainerRef.current.querySelectorAll(".PuzzlePiece") as any),
+    ])
+    const len = pieces.length
+    const initialSpeed = totalTypeScreenDuration / len
+
+    pieces.forEach((piece: any, i: number) => {
+      piece.style.opacity = "0"
+
+      piece.style.transition = `opacity 1s ease-in-out`
+      setTimeout(() => {
+        piece.style.opacity = "1.0"
+      }, initialSpeed * i)
+    })
+  }, [isVisible])
 
   if (!isVisible) {
     return null
@@ -90,6 +144,12 @@ function TypeScreen(props: Props) {
         }
       )}
     >
+      <div
+        ref={puzzleContainerRef}
+        className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 w-full h-full opacity-20 flex items-center"
+      >
+        <Puzzle disableAutoFlip />
+      </div>
       <div className="relative container mx-auto h-full flex items-center">
         <Block padding="narrow" className="lg:ml-16 lg:mr-0">
           <p
@@ -99,9 +159,9 @@ function TypeScreen(props: Props) {
           <Spacer />
           <span
             onClick={() => onClose()}
-            className="absolute bottom-0 right-8 lg:right-32 font-light text-2xl md:text-4xl tracking-wide cursor-pointer"
+            className="absolute bottom-0 right-8 lg:right-32 font-light text-xl md:text-3xl tracking-wide cursor-pointer"
           >
-            Skip
+            Continue
           </span>
         </Block>
       </div>

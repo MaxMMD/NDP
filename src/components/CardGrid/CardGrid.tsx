@@ -4,12 +4,12 @@ import chunk from "lodash.chunk"
 import Card from "../Card"
 import { useScrollSnapControls } from "../../hooks/useScrollSnapControls"
 import Icon from "../Icon"
-import { ArtefactNode } from "../../types"
+import { ArtefactType, Node } from "../../types"
 
 interface Props {
   carousel?: boolean
   cardLinkPath?: string
-  items: ArtefactNode[]
+  items: Node<ArtefactType>[]
 }
 function CardGrid({ items, cardLinkPath = "/gallery", ...props }: Props) {
   const carousel = useRef(null)

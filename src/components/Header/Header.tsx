@@ -56,7 +56,7 @@ function Header(props: Props) {
             hideBorder={isFaded}
           />
         </ul>
-        <div className="md:hidden -ml-3 z-50">
+        <div className="md:hidden -mt-2 -mr-4">
           <Hamburger
             color="white"
             animationStyle="spin"

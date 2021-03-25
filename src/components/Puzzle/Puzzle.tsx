@@ -6,6 +6,7 @@ import PuzzlePiece from "../PuzzlePiece"
 
 interface Props {
   triggerAutoFlip?: number
+  disableAutoFlip?: boolean
 }
 
 function Puzzle(props: Props) {
@@ -42,6 +43,7 @@ function Puzzle(props: Props) {
       ref: puzzleRef,
       pieceDelay: 50,
       randomise: false,
+      disabled: props.disableAutoFlip,
     },
     [props.triggerAutoFlip]
   )
@@ -49,7 +51,12 @@ function Puzzle(props: Props) {
   return (
     <div ref={puzzleRef} className="Puzzle w-full flex flex-wrap">
       {arr.map((a, i) => (
-        <PuzzlePiece key={a} id={a + 2} card={cards?.[i]} />
+        <PuzzlePiece
+          key={a}
+          id={a + 2}
+          card={cards?.[i]}
+          disableFlip={props.disableAutoFlip}
+        />
       ))}
     </div>
   )

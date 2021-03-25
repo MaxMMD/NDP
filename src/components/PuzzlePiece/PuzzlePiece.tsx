@@ -1,11 +1,13 @@
 import React from "react"
-import { ArtefactNode } from "../../types"
+import cx from "classnames"
+import { ArtefactType, Node } from "../../types"
 import "./PuzzlePiece.css"
 
 export interface Props {
   id: number
   flipped?: boolean
-  card?: ArtefactNode
+  card?: Node<ArtefactType>
+  disableFlip?: boolean
 }
 
 function PuzzlePiece(props: Props) {
@@ -20,12 +22,24 @@ function PuzzlePiece(props: Props) {
   }
 
   return (
-    <div className="w-1/6">
+    <div className="PuzzlePiece w-1/6">
       <div className="aspect-ratio">
         <div className="aspect-ratio-1:1">
-          <div className="flip-card absolute top-0 left-0 w-full h-full">
-            <div className="flip-card-inner relative w-full h-full transition-transform duration-700">
-              <div className="flip-card-front absolute w-full h-full bg-transparent">
+          <div
+            className={cx("absolute top-0 left-0 w-full h-full", {
+              "flip-card": !props.disableFlip,
+            })}
+          >
+            <div
+              className={cx("relative w-full h-full", {
+                "flip-card-inner transition-transform duration-700": !props.disableFlip,
+              })}
+            >
+              <div
+                className={cx("absolute w-full h-full bg-transparent", {
+                  "flip-card-front": !props.disableFlip,
+                })}
+              >
                 <img
                   className="w-full h-full"
                   src={`/images/puzzle-pieces/Notre_Dame_R3-${props.id.toLocaleString(
@@ -38,9 +52,11 @@ function PuzzlePiece(props: Props) {
                   alt="Avatar"
                 />
               </div>
-              <div className="flip-card-back absolute w-full h-full bg-black border border-white border-opacity-60">
-                <img className="w-full h-full" {...reverseImage} />
-              </div>
+              {!props.disableFlip ? (
+                <div className="flip-card-back absolute w-full h-full bg-black border border-white border-opacity-60">
+                  <img className="w-full h-full" {...reverseImage} />
+                </div>
+              ) : null}
             </div>
           </div>
         </div>

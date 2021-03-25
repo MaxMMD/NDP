@@ -43,7 +43,7 @@ function Modal() {
         >
           <>{renderer(content)}</>
           <span
-            className="absolute -top-12 -right-12 text-lg cursor-pointer"
+            className="absolute top-0 right-6 md:-top-12 md:-right-12 text-lg cursor-pointer"
             onClick={() => {
               setIsVisible(false)
               setTimeout(() => {

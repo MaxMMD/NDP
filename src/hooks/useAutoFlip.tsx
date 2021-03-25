@@ -9,7 +9,7 @@ export function useAutoFlip(options: any, triggers: any[] = []) {
   const randomise = options.randomise || false
 
   useEffect(() => {
-    if (!options.ref.current) {
+    if (!options.ref.current || options.disabled) {
       return
     }
 

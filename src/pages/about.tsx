@@ -14,8 +14,8 @@ export default function About(props: any) {
       description="Nostrud ullamco aute elit duis culpa aliqua amet occaecat irure."
     >
       <div className="container mx-auto text-white py-6">
-        <Block padding="none" className="flex">
-          <div className="lg:w-1/2">
+        <Block padding="none" className="md:flex">
+          <div className="w-full md:w-1/2 mb-6 md:mb-0">
             <Image
               containerClassName="aspect-ratio aspect-ratio-1:1"
               className="w-full h-full object-cover"
@@ -24,10 +24,10 @@ export default function About(props: any) {
               height={1100}
             />
           </div>
-          <div className="lg:w-1/2 lg:pl-32">
+          <div className="md:w-1/2 md:pl-8 lg:pl-32">
             <div>
               <Subheading>About</Subheading>
-              <Paragraph.Base className="mt-2">
+              <Paragraph.Base className="mb-6 mt-2">
                 Ex culpa ad est deserunt ex aliqua est proident. Culpa dolore
                 nisi magna anim velit amet anim ut voluptate. Aute ullamco ad
                 sint ex irure adipisicing nostrud minim consequat fugiat aliquip
@@ -37,7 +37,7 @@ export default function About(props: any) {
               </Paragraph.Base>
 
               <Subheading>Contact</Subheading>
-              <Paragraph.Base className="mt-2">
+              <Paragraph.Base className="mb-6 mt-2">
                 Minim commodo commodo
                 <br />
                 aliqua eu non ullamco
@@ -49,6 +49,9 @@ export default function About(props: any) {
                 fugiat ea fugiat consequat.
               </Paragraph.Base>
             </div>
+
+            <Spacer className="mt-16 lg:mt-0" />
+
             <div className="flex flex-col flex-wrap items-end">
               <Subheading>Follow us</Subheading>
 

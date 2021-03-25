@@ -13,7 +13,7 @@ function Footer(props: { className?: string }) {
         <PseudoButton>Donate</PseudoButton>
       </div>
       <div className="mx-8 lg:mx-16 flex flex-col md:flex-row border-t border-gray-200 py-8 justify-between">
-        <div className="pr-32">
+        <div className="mb-6 md:mb-0 md:pr-32">
           <Paragraph.Medium>About</Paragraph.Medium>
           <Paragraph.Small>
             Fugiat in qui consectetur cillum in ut consectetur ea. Sint ea nulla
@@ -21,7 +21,7 @@ function Footer(props: { className?: string }) {
             irure nulla cillum laboris.
           </Paragraph.Small>
         </div>
-        <div className="pr-32">
+        <div className="mb-6 md:mb-0 md:pr-32">
           <Paragraph.Medium>Contact</Paragraph.Medium>
           <Paragraph.Small>
             Fugiat in qui consectetur cillum in ut consectetur ea. Sint ea nulla
@@ -29,7 +29,7 @@ function Footer(props: { className?: string }) {
             irure nulla cillum laboris.
           </Paragraph.Small>
         </div>
-        <div className="pr-32">
+        <div className="mb-6 md:mb-0 md:pr-32">
           <Paragraph.Medium>Social</Paragraph.Medium>
           <Spacer className="mt-4" />
           <SocialLinks alignment="left" />

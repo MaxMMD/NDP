@@ -6,7 +6,7 @@ import CardGrid from "../components/CardGrid"
 import Icon from "../components/Icon"
 import FeatureItem from "../components/FeatureItem"
 import { PageProps } from "gatsby"
-import { ArtefactNode, ArtefactType } from "../types"
+import { ArtefactType } from "../types"
 
 export default function Artefact({
   pageContext,
@@ -17,11 +17,12 @@ export default function Artefact({
     description,
     images: resizedImages,
     restorationProgress,
+    related = [],
   } = pageContext
 
   const body = description?.childMdx?.body || ""
   const images = resizedImages.map(r => r.resize)
-  const cards: ArtefactNode[] = []
+  const cards = related.map(r => ({ node: r }))
 
   return (
     <Root

@@ -14,7 +14,7 @@ function NoImage(props: Props) {
 
 function OneImage(props: Props) {
   return (
-    <div className="w-full flex">
+    <div className="w-full md:flex">
       {props.images.map((img, i) => (
         <div
           key={`image-${i}`}
@@ -38,10 +38,10 @@ function TwoImages(props: Props) {
         <div
           key={`image-${i}`}
           className={cx(
-            "overflow-hidden w-full w-1/2 h-full border border-white border-opacity-40",
+            "overflow-hidden w-1/2 h-full border border-white border-opacity-40",
             {
-              "mr-2": i === 0,
-              "ml-2": i === 1,
+              "mr-1 md:mr-2": i === 0,
+              "ml-1 md:ml-2": i === 1,
             }
           )}
         >
@@ -65,8 +65,8 @@ function ThreeImages(props: Props) {
         <div
           key={i}
           className={cx({
-            "w-full md:w-1/3 md:flex md:flex-col md:pr-4": i === 0,
-            "w-full md:w-2/3": i === 1,
+            "w-1/3 flex flex-col pr-2 md:pr-4": i === 0,
+            "w-2/3": i === 1,
           })}
         >
           {group.map((img, n) => (
@@ -75,8 +75,8 @@ function ThreeImages(props: Props) {
               className={cx(
                 "overflow-hidden w-full h-full border border-white border-opacity-40",
                 {
-                  "mb-2": i === 0 && n === 0,
-                  "mt-2 mb-2 md:mb-0": i === 0 && n === 1,
+                  "mb-1 md:mb-2": i === 0 && n === 0,
+                  "mt-1 md:mt-2 mb-0": i === 0 && n === 1,
                 }
               )}
             >
@@ -102,8 +102,8 @@ function FourImages(props: Props) {
         <div
           key={i}
           className={cx({
-            "w-full md:w-1/2 md:flex md:flex-col md:pr-2": i === 0,
-            "w-full md:w-1/2 md:flex md:flex-col md:pl-2": i === 1,
+            "w-1/2 flex flex-col pr-1 md:pr-2": i === 0,
+            "w-1/2 flex flex-col pl-1 md:pl-2": i === 1,
           })}
         >
           {group.map((img, n) => (
@@ -112,8 +112,8 @@ function FourImages(props: Props) {
               className={cx(
                 "overflow-hidden w-full h-full border border-white border-opacity-40",
                 {
-                  "mb-2": n === 0,
-                  "mt-2 mb-2 md:mb-0": n === 1,
+                  "mb-1 md:mb-2": n === 0,
+                  "mt-1 md:mt-2 mb-2 md:mb-0": n === 1,
                 }
               )}
             >

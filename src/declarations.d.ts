@@ -10,3 +10,5 @@ declare module "*.css"
 
 declare module "gatsby-plugin-gdpr-cookies"
 declare module "@mdx-js/react"
+declare module "gatsby-plugin-transition-link"
+declare module "gatsby-plugin-transition-link/AniLink"

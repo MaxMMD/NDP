@@ -20,14 +20,30 @@ export interface ArtefactType {
       body: string
     }
   }
+  related?: ArtefactType[]
 }
 
-export interface ArtefactNode {
-  node: ArtefactType
+export interface VideoType {
+  id: string
+  title: string
+  coverImage: {
+    fluid: ImageType
+  }
+  videoEmbedUrl: string
+}
+
+export interface Node<T> {
+  node: T
 }
 
 export interface GalleryPagePropsData {
   allContentfulFriendsOfNotreDameArtefact: {
-    edges: ArtefactNode[]
+    edges: Node<ArtefactType>[]
+  }
+}
+
+export interface VideoPagePropsData {
+  allContentfulFriendsOfNotreDameVideo: {
+    edges: Node<VideoType>[]
   }
 }

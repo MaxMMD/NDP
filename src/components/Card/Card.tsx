@@ -4,9 +4,9 @@ import cx from "classnames"
 import Link from "../Link"
 import ProgressBar from "../ProgressBar"
 import Image from "../Image"
-import { ArtefactNode } from "../../types"
+import { ArtefactType, Node } from "../../types"
 
-export interface Props extends ArtefactNode {
+export interface Props extends Node<ArtefactType> {
   href: string
   className?: string
 }

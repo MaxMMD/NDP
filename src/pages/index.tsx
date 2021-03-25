@@ -9,11 +9,13 @@ import { Block, Spacer } from "../components/Layout"
 import { Paragraph, Subheading, Title } from "../components/Typography"
 import VideoCard from "../components/VideoCard"
 import TypeScreen from "../components/TypeScreen"
-import { GalleryPagePropsData } from "../types"
-
-export default function Home({ data }: PageProps<GalleryPagePropsData>) {
-  const [autoFlipTrigger, setAutoFlipTrigger] = useState<number | null>(null)
+import { GalleryPagePropsData, VideoPagePropsData } from "../types"
+export default function Home({
+  data,
+}: PageProps<GalleryPagePropsData & VideoPagePropsData>) {
+  const [autoFlipTrigger, setAutoFlipTrigger] = useState<number>(0)
   const cards = data.allContentfulFriendsOfNotreDameArtefact.edges
+  const videos = data.allContentfulFriendsOfNotreDameVideo.edges
 
   return (
     <Root
@@ -73,7 +75,7 @@ export default function Home({ data }: PageProps<GalleryPagePropsData>) {
 
         <Block className="flex justify-between items-end pb-6 border-b border-gray-600">
           <Subheading>Progress</Subheading>
-          <Link href="/progress">
+          <Link href="/our-progress">
             See more <Icon.Chevron className="inline-block" />
           </Link>
         </Block>
@@ -88,9 +90,13 @@ export default function Home({ data }: PageProps<GalleryPagePropsData>) {
           <Spacer className="mt-4 lg:mt-8" />
 
           <div className="VideoGrid lg:flex -my-2 -mx-2">
-            <VideoCard className="p-2" />
-            <VideoCard className="p-2" />
-            <VideoCard className="p-2" />
+            {videos.map(({ node }) => (
+              <VideoCard
+                key={node.id}
+                className="p-2 lg:w-1/3 flex-grow-0"
+                {...node}
+              />
+            ))}
           </div>
         </Block>
 
@@ -105,7 +111,9 @@ export default function Home({ data }: PageProps<GalleryPagePropsData>) {
         ]}
         isVisibleOnLoad
         onClose={() => {
-          setAutoFlipTrigger(Date.now())
+          setTimeout(() => {
+            setAutoFlipTrigger(Date.now())
+          }, 200)
         }}
       />
     </Root>
@@ -128,6 +136,25 @@ export const query = graphql`
               width
               height
               src
+            }
+          }
+        }
+      }
+    }
+    allContentfulFriendsOfNotreDameVideo(
+      limit: 3
+      filter: { node_locale: { eq: "en-US" } }
+    ) {
+      edges {
+        node {
+          videoEmbedUrl
+          title
+          id
+          coverImage {
+            fluid(maxWidth: 800, maxHeight: 450) {
+              src
+              srcSet
+              aspectRatio
             }
           }
         }

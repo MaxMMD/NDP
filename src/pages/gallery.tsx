@@ -4,7 +4,6 @@ import CardGrid from "../components/CardGrid"
 import Root from "../components/Root"
 import { Block, Spacer } from "../components/Layout"
 import { Paragraph } from "../components/Typography"
-import { convertJsonToCards } from "../fixtures/data-generators"
 import Select from "../components/Select"
 import { shuffle } from "lodash"
 import { GalleryPagePropsData } from "../types"
@@ -38,18 +37,20 @@ export default function Gallery({ data }: PageProps<GalleryPagePropsData>) {
 
         <Spacer className="mt-6 lg:mt-12" />
 
-        <div className="lg:w-1/5">
-          <Select
-            onChange={handleOnChange}
-            options={[
-              { label: "Sort", value: "" },
-              { label: "A-z", value: "alpha-asc" },
-              { label: "Z-a", value: "alpha-desc" },
-              { label: "Donations", value: "donations-desc" },
-              { label: "Featured", value: "featured-asc" },
-            ]}
-          />
-        </div>
+        <Block padding="none">
+          <div className="lg:w-1/5">
+            <Select
+              onChange={handleOnChange}
+              options={[
+                { label: "Sort", value: "" },
+                { label: "A-z", value: "alpha-asc" },
+                { label: "Z-a", value: "alpha-desc" },
+                { label: "Donations", value: "donations-desc" },
+                { label: "Featured", value: "featured-asc" },
+              ]}
+            />
+          </div>
+        </Block>
 
         <Spacer />
 
