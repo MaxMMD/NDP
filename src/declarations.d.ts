@@ -9,3 +9,4 @@ declare module "*.png"
 declare module "*.css"
 
 declare module "gatsby-plugin-gdpr-cookies"
+declare module "@mdx-js/react"

@@ -3,17 +3,29 @@
  *
  * See: https://www.gatsbyjs.com/docs/gatsby-config/
  */
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
 
 module.exports = {
   /* Your site config here */
   plugins: [
-    "gatsby-transformer-json",
+    {
+      resolve: `gatsby-source-contentful`,
+      options: {
+        spaceId: process.env.CONTENTFUL_SPACE_ID,
+        // Learn about environment variables: https://gatsby.dev/env-vars
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+      },
+    },
     {
       resolve: "gatsby-source-filesystem",
       options: {
         path: "./src/data/",
       },
     },
+    "gatsby-transformer-json",
+    "gatsby-plugin-mdx",
     "gatsby-plugin-postcss",
     "gatsby-plugin-react-helmet",
     {

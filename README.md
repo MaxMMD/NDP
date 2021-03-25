@@ -11,15 +11,22 @@ This is the homepage for the Advanced Contentful Editor. It uses Gatsby to gener
 ## Setup
 
 ```bash
-npm install
+yarn install
 ```
 
 ## Dev
 
-To get started developing, run:
+To get started developing, create a `.env.development` file for the build variables:
+
+```text
+CONTENTFUL_ACCESS_TOKEN=
+CONTENTFUL_SPACE_ID=
+```
+
+Then run:
 
 ```bash
-npm start
+yarn start
 ```
 
 After a short while, the website will be available on: [http://localhost:8000](http://localhost:8000)
@@ -33,7 +40,7 @@ For CSS, this project uses [TailwindCSS](https://tailwindcss.com/docs).
 To build for deployment, run:
 
 ```bash
-npm run build
+yarn run build
 ```
 
 This compiles all the content into the `/public` directory.
@@ -43,9 +50,9 @@ This compiles all the content into the `/public` directory.
 You can preview the built files locally by running the following commands:
 
 ```bash
-npm run clean # this removes any existing files from /public
-npm run build
-npm run serve
+yarn run clean # this removes any existing files from /public
+yarn run build
+yarn run serve
 ```
 
 This is particularly useful for ensuring Tailwind utility classes have not been unexpectedly purged while building for production.

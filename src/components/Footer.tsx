@@ -15,19 +15,19 @@ function Footer(props: { className?: string }) {
       <div className="mx-8 lg:mx-16 flex flex-col md:flex-row border-t border-gray-200 py-8 justify-between">
         <div className="pr-32">
           <Paragraph.Medium>About</Paragraph.Medium>
-          <Paragraph.Base>
+          <Paragraph.Small>
             Fugiat in qui consectetur cillum in ut consectetur ea. Sint ea nulla
             ad do sint ex veniam. Esse aliquip ut eu magna nulla tempor duis
             irure nulla cillum laboris.
-          </Paragraph.Base>
+          </Paragraph.Small>
         </div>
         <div className="pr-32">
           <Paragraph.Medium>Contact</Paragraph.Medium>
-          <Paragraph.Base>
+          <Paragraph.Small>
             Fugiat in qui consectetur cillum in ut consectetur ea. Sint ea nulla
             ad do sint ex veniam. Esse aliquip ut eu magna nulla tempor duis
             irure nulla cillum laboris.
-          </Paragraph.Base>
+          </Paragraph.Small>
         </div>
         <div className="pr-32">
           <Paragraph.Medium>Social</Paragraph.Medium>

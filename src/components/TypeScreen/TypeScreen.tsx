@@ -53,11 +53,14 @@ function TypeScreen(props: Props) {
             return
           }
 
-          p.style.opacity = "0"
-
           setTimeout(() => {
-            showBlock(blockIndex + 1)
-          }, 700)
+            p.style.opacity = "0"
+
+            setTimeout(() => {
+              showBlock(blockIndex + 1)
+            }, 700)
+          }, 1500)
+
           return
         }
 
@@ -66,7 +69,7 @@ function TypeScreen(props: Props) {
 
         setTimeout(() => {
           addType(blockIndex, n + 1)
-        }, 100)
+        }, 50)
       }
     }
 
@@ -88,7 +91,7 @@ function TypeScreen(props: Props) {
       )}
     >
       <div className="relative container mx-auto h-full flex items-center">
-        <Block padding="narrow" className="mx-16 mr-0">
+        <Block padding="narrow" className="lg:ml-16 lg:mr-0">
           <p
             ref={textRef}
             className="font-light text-2xl md:text-4xl leading-snug tracking-wide transition opacity-0 duration-1000"
@@ -96,7 +99,7 @@ function TypeScreen(props: Props) {
           <Spacer />
           <span
             onClick={() => onClose()}
-            className="absolute bottom-0 right-32 font-light text-2xl md:text-4xl tracking-wide cursor-pointer"
+            className="absolute bottom-0 right-8 lg:right-32 font-light text-2xl md:text-4xl tracking-wide cursor-pointer"
           >
             Skip
           </span>

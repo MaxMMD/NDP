@@ -9,11 +9,11 @@ import { Block, Spacer } from "../components/Layout"
 import { Paragraph, Subheading, Title } from "../components/Typography"
 import VideoCard from "../components/VideoCard"
 import TypeScreen from "../components/TypeScreen"
-import { convertJsonToCards } from "../fixtures/data-generators"
+import { GalleryPagePropsData } from "../types"
 
-export default function Home({ data }: PageProps) {
+export default function Home({ data }: PageProps<GalleryPagePropsData>) {
   const [autoFlipTrigger, setAutoFlipTrigger] = useState<number | null>(null)
-  const cards = convertJsonToCards(data)
+  const cards = data.allContentfulFriendsOfNotreDameArtefact.edges
 
   return (
     <Root
@@ -41,15 +41,12 @@ export default function Home({ data }: PageProps) {
             <Paragraph.Base>
               Lorem in exercitation elit esse minim fugiat. Pariatur
               exercitation ex ipsum tempor enim proident. Nulla aliquip ad ipsum
-              amet duis consequat duis sint enim cupidatat commodo pariatur.
-              Veniam cupidatat id cillum dolore. Aute ullamco minim proident id.
-              Cupidatat ad anim cupidatat consectetur ex.
+              amet duis consequat duis sint enim cupidatat.
             </Paragraph.Base>
             <Paragraph.Base>
               Est ad non commodo occaecat incididunt aliqua enim ipsum consequat
               labore anim. Officia fugiat proident tempor ut nisi laborum
-              excepteur tempor ullamco aliquip anim irure. Incididunt aliqua
-              sint amet officia elit duis esse minim.
+              excepteur tempor ullamco aliquip anim irure.
             </Paragraph.Base>
           </div>
         </Block>
@@ -109,7 +106,6 @@ export default function Home({ data }: PageProps) {
         isVisibleOnLoad
         onClose={() => {
           setAutoFlipTrigger(Date.now())
-          console.log("The intro screen is now closed!")
         }}
       />
     </Root>
@@ -118,17 +114,21 @@ export default function Home({ data }: PageProps) {
 
 export const query = graphql`
   query JSONDataQuery {
-    allArtefactsJson {
+    allContentfulFriendsOfNotreDameArtefact(
+      filter: { node_locale: { eq: "en-US" } }
+    ) {
       edges {
         node {
-          id
           slug
           title
-          progress
-          image {
-            src
-            width
-            height
+          id
+          restorationProgress
+          images {
+            resize(height: 488, width: 610) {
+              width
+              height
+              src
+            }
           }
         }
       }

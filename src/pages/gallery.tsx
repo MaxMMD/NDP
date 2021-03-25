@@ -1,13 +1,23 @@
 import { graphql, PageProps } from "gatsby"
-import React from "react"
+import React, { useState } from "react"
 import CardGrid from "../components/CardGrid"
 import Root from "../components/Root"
 import { Block, Spacer } from "../components/Layout"
 import { Paragraph } from "../components/Typography"
 import { convertJsonToCards } from "../fixtures/data-generators"
+import Select from "../components/Select"
+import { shuffle } from "lodash"
+import { GalleryPagePropsData } from "../types"
 
-export default function Gallery({ data }: PageProps) {
-  const cards = convertJsonToCards(data)
+export default function Gallery({ data }: PageProps<GalleryPagePropsData>) {
+  const cardData = data.allContentfulFriendsOfNotreDameArtefact.edges
+  const [cards, setCards] = useState(cardData)
+
+  function handleOnChange(e: any) {
+    if (e.target.value) {
+      setCards(shuffle(cards))
+    }
+  }
 
   return (
     <Root
@@ -26,6 +36,21 @@ export default function Gallery({ data }: PageProps) {
           </Paragraph.Base>
         </Block>
 
+        <Spacer className="mt-6 lg:mt-12" />
+
+        <div className="lg:w-1/5">
+          <Select
+            onChange={handleOnChange}
+            options={[
+              { label: "Sort", value: "" },
+              { label: "A-z", value: "alpha-asc" },
+              { label: "Z-a", value: "alpha-desc" },
+              { label: "Donations", value: "donations-desc" },
+              { label: "Featured", value: "featured-asc" },
+            ]}
+          />
+        </div>
+
         <Spacer />
 
         <Block>
@@ -39,18 +64,22 @@ export default function Gallery({ data }: PageProps) {
 }
 
 export const query = graphql`
-  query GalleryDataQuery {
-    allArtefactsJson {
+  query GalleryJSONDataQuery {
+    allContentfulFriendsOfNotreDameArtefact(
+      filter: { node_locale: { eq: "en-US" } }
+    ) {
       edges {
         node {
-          id
           slug
           title
-          progress
-          image {
-            src
-            width
-            height
+          id
+          restorationProgress
+          images {
+            resize(height: 488, width: 610) {
+              width
+              height
+              src
+            }
           }
         }
       }

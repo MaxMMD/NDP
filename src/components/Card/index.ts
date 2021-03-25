@@ -1,4 +1,3 @@
-import Card, { CardProps } from "./Card"
+import Card from "./Card"
 
-export { CardProps }
 export default Card

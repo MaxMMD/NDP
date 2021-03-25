@@ -5,12 +5,24 @@ import { Spacer, Block } from "../components/Layout"
 import CardGrid from "../components/CardGrid"
 import Icon from "../components/Icon"
 import FeatureItem from "../components/FeatureItem"
-import { convertJsonToCards, generateCards } from "../fixtures/data-generators"
 import { PageProps } from "gatsby"
+import { ArtefactNode, ArtefactType } from "../types"
 
-export default function Artefact({ pageContext }: PageProps<any>) {
-  const { title, relatedArtefacts } = pageContext as any
-  const cards = convertJsonToCards(relatedArtefacts.data)
+export default function Artefact({
+  pageContext,
+}: PageProps<any, ArtefactType>) {
+  const {
+    slug,
+    title,
+    description,
+    images: resizedImages,
+    restorationProgress,
+  } = pageContext
+
+  const body = description?.childMdx?.body || ""
+  const images = resizedImages.map(r => r.resize)
+  const cards: ArtefactNode[] = []
+
   return (
     <Root
       className="artefact-page page bg-black text-white"
@@ -22,13 +34,19 @@ export default function Artefact({ pageContext }: PageProps<any>) {
         <Block padding="none" className="text-lg font-light -mt-2">
           <Link href="/gallery">Gallery</Link>
           <span className="inline-block px-2">&gt;</span>
-          <span className="font-normal">Name of Artifact</span>
+          <span className="font-normal">{title}</span>
         </Block>
 
         <Spacer />
 
         <Block padding="narrow">
-          <FeatureItem progress={66} title={title} />
+          <FeatureItem
+            id={slug}
+            progress={restorationProgress}
+            title={title}
+            body={body}
+            images={images}
+          />
         </Block>
 
         <Spacer className="mt-16 lg:mt-32" />

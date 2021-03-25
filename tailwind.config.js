@@ -8,6 +8,9 @@ module.exports = {
         body: ["Helvetica Neueu", "Helvetica", "Arial", "sans-serif"],
         heading: ["Baskervville", "Times New Roman", "serif"],
       },
+      maxHeight: {
+        featuregallery: "690px",
+      },
     },
   },
   variants: {

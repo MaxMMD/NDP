@@ -1,4 +1,4 @@
-import React, { ImgHTMLAttributes, useRef, useState } from "react"
+import React, { ImgHTMLAttributes, useEffect, useRef, useState } from "react"
 import cx from "classnames"
 import Spinner from "../Spinner"
 
@@ -17,9 +17,14 @@ function Image({
   isVisible = true,
   ...imgProps
 }: Props) {
+  const imageRef = useRef<HTMLImageElement>(null)
   const [loaded, setLoaded] = useState(false)
 
   const shouldDisplay = loaded && isVisible
+
+  useEffect(() => {
+    if (imageRef.current?.complete) setLoaded(true)
+  }, [])
 
   return (
     <div className={cx(containerClassName, "relative")}>
@@ -27,6 +32,7 @@ function Image({
         {!shouldDisplay ? <Spinner /> : null}
       </div>
       <img
+        ref={imageRef}
         onLoad={() => {
           setLoaded(true)
         }}

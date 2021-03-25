@@ -1,17 +1,19 @@
 import React, { useRef } from "react"
 import cx from "classnames"
 import chunk from "lodash.chunk"
-import Card, { CardProps } from "../Card/Card"
+import Card from "../Card"
 import { useScrollSnapControls } from "../../hooks/useScrollSnapControls"
 import Icon from "../Icon"
+import { ArtefactNode } from "../../types"
 
 interface Props {
   carousel?: boolean
-  items: CardProps[]
+  cardLinkPath?: string
+  items: ArtefactNode[]
 }
-function CardGrid(props: Props) {
+function CardGrid({ items, cardLinkPath = "/gallery", ...props }: Props) {
   const carousel = useRef(null)
-  const chunks = chunk(props.items || [], 4)
+  const chunks = chunk(items, 4)
 
   const scrollSnapControls = useScrollSnapControls(carousel, {
     slideCount: chunks.length,
@@ -38,29 +40,29 @@ function CardGrid(props: Props) {
                 key={`card-grid-item-${n}-${i}`}
                 className="w-full md:w-1/2 lg:w-1/4 py-6 md:px-6"
               >
-                <Card {...card} />
+                <Card {...card} href={`${cardLinkPath}/${card.node.slug}`} />
               </div>
             ))}
           </div>
         ))}
       </div>
-      {chunks.length > 1 ? (
-        <div className="CardGrid__controls hidden lg:block">
-          <span
-            onClick={() =>
-              scrollSnapControls.goToSlide(scrollSnapControls.currentSlide + 1)
-            }
-            className="absolute top-1/2 -right-12 text-3xl transform -translate-y-1/2"
-          >
-            <Icon.Chevron />
-          </span>
+      {props.carousel && chunks.length > 1 ? (
+        <div className="CardGrid__controls hidden lg:flex justify-between w-full pt-6">
           <span
             onClick={() =>
               scrollSnapControls.goToSlide(scrollSnapControls.currentSlide - 1)
             }
-            className="absolute top-1/2 -left-12 text-3xl transform -translate-y-1/2"
+            className="cursor-pointer"
           >
-            <Icon.Chevron className="transform -rotate-180" />
+            <Icon.Chevron width={32} className="transform -rotate-180" />
+          </span>
+          <span
+            onClick={() =>
+              scrollSnapControls.goToSlide(scrollSnapControls.currentSlide + 1)
+            }
+            className="cursor-pointer"
+          >
+            <Icon.Chevron width={32} />
           </span>
         </div>
       ) : null}

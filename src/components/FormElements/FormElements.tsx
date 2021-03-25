@@ -22,10 +22,11 @@ export function TextField({
 
 function getButtonStyles(buttonStyle?: string, className?: string) {
   return cx(
-    "inline-block rounded-full transition duration-200 px-8 py-4 text-2xl font-normal border cursor-pointer",
+    "inline-block rounded-full transition duration-700 px-8 text-2xl font-normal border cursor-pointer",
     {
-      "bg-black hover:bg-white text-white hover:text-black":
-        buttonStyle === "default",
+      "bg-black hover:bg-white text-white hover:text-black": true,
+      "py-4": buttonStyle === "default",
+      "py-2": buttonStyle === "squished",
     },
     className
   )

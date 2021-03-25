@@ -84,7 +84,7 @@ export const Paragraph: {
   [key: string]: (props: ParagraphProps) => JSX.Element
 } = {
   Small: ({ className, ...props }) => (
-    <ParagraphBase className={cx("text-sm md:text-xs", className)} {...props} />
+    <ParagraphBase className={cx("text-sm font-light", className)} {...props} />
   ),
   Medium: ({ className, ...props }) => (
     <ParagraphBase
@@ -94,7 +94,7 @@ export const Paragraph: {
   ),
   Base: ({ className, ...props }) => (
     <ParagraphBase
-      className={cx("text-sm font-light my-6", className)}
+      className={cx("text-md font-light my-6", className)}
       {...props}
     />
   ),

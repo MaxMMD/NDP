@@ -1,15 +1,22 @@
 import React from "react"
-import cx from "classnames"
+import { ArtefactNode } from "../../types"
 import "./PuzzlePiece.css"
 
 export interface Props {
   id: number
   flipped?: boolean
+  card?: ArtefactNode
 }
 
 function PuzzlePiece(props: Props) {
   if (!props.id) {
     return null
+  }
+
+  const reverseImage = props.card?.node?.images?.[0]?.resize || {
+    src: "https://placehold.it/150x150/303030/FFFFFF?text=Back",
+    width: 150,
+    height: 150,
   }
 
   return (
@@ -31,12 +38,8 @@ function PuzzlePiece(props: Props) {
                   alt="Avatar"
                 />
               </div>
-              <div className="flip-card-back absolute w-full h-full bg-blue-600">
-                <img
-                  className="w-full h-full"
-                  src="https://placehold.it/500x500/FF0000/FFFFFF?text=Back"
-                  alt="Avatar"
-                />
+              <div className="flip-card-back absolute w-full h-full bg-black border border-white border-opacity-60">
+                <img className="w-full h-full" {...reverseImage} />
               </div>
             </div>
           </div>
