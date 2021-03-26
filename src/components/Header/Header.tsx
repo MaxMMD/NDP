@@ -86,7 +86,7 @@ function Header(props: Props) {
           {props.navItems.map((navItem, i) => (
             <NavItem
               key={i}
-              className="ml-16"
+              className="ml-16 w-20"
               isHidden={!navItem.highlight && isFaded}
               hideBorder={isFaded}
               {...navItem}

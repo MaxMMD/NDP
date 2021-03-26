@@ -106,3 +106,33 @@ p a {
     @apply absolute top-0 left-0 w-full h-full object-cover;
   }
 }
+
+.cls-1 {
+  stroke: #5e5e5e;
+  stroke-dasharray: 0 100;
+  opacity: 0;
+  animation: dash 4s ease-in forwards, fadeIn 0.4s linear forwards;
+}
+.cls-1,
+.cls-2 {
+  stroke-miterlimit: 10;
+}
+.cls-2 {
+  fill: none;
+  stroke: #fff;
+  stroke-dasharray: 0 100;
+  opacity: 0;
+  animation: dash 1s ease-out forwards, fadeIn 0.1s linear forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dash {
+  to {
+    stroke-dasharray: 100 0;
+  }
+}

@@ -10,6 +10,8 @@ import { Paragraph, Subheading, Title } from "../components/Typography"
 import VideoCard from "../components/VideoCard"
 import TypeScreen from "../components/TypeScreen"
 import { GalleryPagePropsData, VideoPagePropsData } from "../types"
+import TestSvg from "../components/TestSvg"
+import { PseudoButton } from "../components/FormElements"
 export default function Home({
   data,
 }: PageProps<GalleryPagePropsData & VideoPagePropsData>) {
@@ -101,6 +103,10 @@ export default function Home({
         </Block>
 
         <Spacer />
+
+        <div className="mx-8 lg:mx-16 flex pt-20 pb-12 border-t border-gray-200 justify-center items-center">
+          <PseudoButton>Donate</PseudoButton>
+        </div>
       </div>
 
       <TypeScreen
@@ -116,6 +122,12 @@ export default function Home({
           }, 200)
         }}
       />
+
+      {/* <div className="w-screen h-screen fixed top-0 left-0 bg-black z-50 flex items-center">
+        <div className="w-1/3 mx-auto">
+          <TestSvg />
+        </div>
+      </div> */}
     </Root>
   )
 }

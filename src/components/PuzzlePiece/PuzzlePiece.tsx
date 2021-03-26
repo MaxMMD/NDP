@@ -7,6 +7,7 @@ import "./PuzzlePiece.css"
 import Link from "../Link"
 
 export interface Props {
+  className?: string
   id: number
   flipped?: boolean
   card?: Node<ArtefactType>
@@ -32,8 +33,26 @@ function PuzzlePiece({ cardLinkPath = "/gallery", ...props }: Props) {
   const LinkWrapper = ({ children }: any) =>
     slug ? <Link href={`${cardLinkPath}/${slug}`}>{children}</Link> : children
 
+  let puzzleImgSrc = `/images/puzzle-pieces/Notre_Dame_R3-${props.id.toLocaleString(
+    "en-US",
+    {
+      minimumIntegerDigits: 2,
+      useGrouping: false,
+    }
+  )}.svg`
+
+  // if (props.id < 6) {
+  //   puzzleImgSrc = `/images/puzzle-pieces-test/ND_Puzzle_Outline_Test-${props.id.toLocaleString(
+  //     "en-US",
+  //     {
+  //       minimumIntegerDigits: 2,
+  //       useGrouping: false,
+  //     }
+  //   )}.svg`
+  // }
+
   return (
-    <div className="PuzzlePiece w-1/6">
+    <div className={cx("PuzzlePiece w-1/6", props.className)}>
       <div className="aspect-ratio">
         <div className="aspect-ratio-1:1">
           <LinkWrapper>
@@ -48,19 +67,13 @@ function PuzzlePiece({ cardLinkPath = "/gallery", ...props }: Props) {
                 })}
               >
                 <div
-                  className={cx("absolute w-full h-full bg-transparent", {
+                  className={cx("absolute w-full h-full", {
                     "flip-card-front": !props.disableFlip,
                   })}
                 >
                   <img
-                    className="w-full h-full"
-                    src={`/images/puzzle-pieces/Notre_Dame_R3-${props.id.toLocaleString(
-                      "en-US",
-                      {
-                        minimumIntegerDigits: 2,
-                        useGrouping: false,
-                      }
-                    )}.svg`}
+                    className="w-full h-full invert"
+                    src={puzzleImgSrc}
                     alt="Avatar"
                   />
                 </div>
@@ -70,7 +83,7 @@ function PuzzlePiece({ cardLinkPath = "/gallery", ...props }: Props) {
                       "flip-card-back absolute w-full h-full bg-black border border-white",
                       {
                         "p-6 border-opacity-10": !hasImage,
-                        "border-opacity-60": hasImage,
+                        "p-2 border-opacity-60": hasImage,
                       }
                     )}
                   >

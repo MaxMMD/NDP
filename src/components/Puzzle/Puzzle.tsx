@@ -1,4 +1,5 @@
 import { useStaticQuery, graphql } from "gatsby"
+import cx from "classnames"
 import React, { useRef } from "react"
 import { useAutoFlip } from "../../hooks/useAutoFlip"
 import { GalleryPagePropsData } from "../../types"
@@ -49,13 +50,19 @@ function Puzzle(props: Props) {
   )
 
   return (
-    <div ref={puzzleRef} className="Puzzle w-full flex flex-wrap">
+    <div
+      ref={puzzleRef}
+      className={cx("Puzzle w-full flex flex-wrap pt-2 pl-2", {
+        // "pt-2 pl-2": useJigsawPuzzle
+      })}
+    >
       {arr.map((a, i) => (
         <PuzzlePiece
           key={a}
           id={a + 2}
           card={cards?.[i]}
           disableFlip={props.disableAutoFlip}
+          // className="-mt-2 -ml-2"
         />
       ))}
     </div>

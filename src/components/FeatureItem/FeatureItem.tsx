@@ -38,21 +38,7 @@ function FeatureItem(props: Props) {
           >
             <MDXRenderer>{props.body}</MDXRenderer>
           </MDXProvider>
-        ) : (
-          <>
-            <Paragraph.Base>
-              PLACEHOLDER CONTENT Lorem in exercitation elit esse minim fugiat.
-              Pariatur exercitation ex ipsum tempor enim proident. Nulla aliquip
-              ad ipsum amet duis consequat duis sint enim cupidatat commodo
-              pariatur.
-            </Paragraph.Base>
-            <Paragraph.Base>
-              Est ad non commodo occaecat incididunt aliqua enim ipsum consequat
-              labore anim. Officia fugiat proident tempor ut nisi laborum
-              excepteur tempor ullamco aliquip anim irure.
-            </Paragraph.Base>
-          </>
-        )}
+        ) : null}
 
         <Spacer className="mt-8" />
 

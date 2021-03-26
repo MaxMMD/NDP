@@ -37,8 +37,8 @@ function CardGrid({ items, cardLinkPath = "/gallery", ...props }: Props) {
           >
             {a.map((card, i) => (
               <div
-                key={`card-grid-item-${n}-${i}`}
-                className="w-full md:w-1/2 lg:w-1/4 py-6 md:px-6"
+                key={`card-grid-item-${n}-${i}-${card.node.slug}`}
+                className="w-1/2 md:w-1/3 lg:w-1/4 px-2 py-6 md:px-6"
               >
                 <Card {...card} href={`${cardLinkPath}/${card.node.slug}`} />
               </div>

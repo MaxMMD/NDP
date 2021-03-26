@@ -1,22 +1,53 @@
 import { graphql, PageProps } from "gatsby"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
+import { shuffle } from "lodash"
 import CardGrid from "../components/CardGrid"
 import Root from "../components/Root"
 import { Block, Spacer } from "../components/Layout"
 import { Paragraph } from "../components/Typography"
 import Select from "../components/Select"
-import { shuffle } from "lodash"
 import { GalleryPagePropsData } from "../types"
+import cardSorting from "../utils/card-sorting"
 
 export default function Gallery({ data }: PageProps<GalleryPagePropsData>) {
   const cardData = data.allContentfulFriendsOfNotreDameArtefact.edges
   const [cards, setCards] = useState(cardData)
+  const [sortMode, setSortMode] = useState("")
+
+  useEffect(() => {
+    let newCards = []
+
+    switch (sortMode) {
+      case "alpha-asc": {
+        newCards = cardData.sort(cardSorting.alphaAsc)
+        break
+      }
+      case "alpha-desc": {
+        newCards = cardData.sort(cardSorting.alphaDesc)
+        break
+      }
+      case "featured-asc": {
+        newCards = cardData.sort(cardSorting.featured)
+        break
+      }
+      case "random": {
+        newCards = shuffle(cardData)
+        break
+      }
+      default:
+        newCards = cardData
+    }
+
+    console.log(newCards[0].node.title, cards[0].node.title)
+
+    setCards(newCards)
+  }, [sortMode])
 
   function handleOnChange(e: any) {
-    if (e.target.value) {
-      setCards(shuffle(cards))
-    }
+    setSortMode(e.target.value)
   }
+
+  console.log({ sortMode, cards })
 
   return (
     <Root
@@ -45,8 +76,8 @@ export default function Gallery({ data }: PageProps<GalleryPagePropsData>) {
                 { label: "Sort", value: "" },
                 { label: "A-z", value: "alpha-asc" },
                 { label: "Z-a", value: "alpha-desc" },
-                { label: "Donations", value: "donations-desc" },
                 { label: "Featured", value: "featured-asc" },
+                { label: "Random", value: "random" },
               ]}
             />
           </div>

@@ -30,6 +30,7 @@ function Root(props: Props) {
           fixed
           navItems={[
             { href: "/gallery", label: "Gallery" },
+            { href: "/our-progress", label: "Progress" },
             { href: "/about", label: "About" },
             { href: "/donate", label: "Donate", highlight: true },
           ]}

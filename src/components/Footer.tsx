@@ -9,9 +9,6 @@ import { Spacer } from "./Layout"
 function Footer(props: { className?: string }) {
   return (
     <footer className={cx("Footer container mx-auto", props.className)}>
-      <div className="mx-8 lg:mx-16 flex py-20 border-t border-gray-200 justify-center items-center">
-        <PseudoButton>Donate</PseudoButton>
-      </div>
       <div className="mx-8 lg:mx-16 flex flex-col md:flex-row border-t border-gray-200 py-8 justify-between">
         <div className="mb-6 md:mb-0 md:pr-32">
           <Paragraph.Medium>About</Paragraph.Medium>

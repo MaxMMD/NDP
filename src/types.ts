@@ -5,6 +5,12 @@ export interface ImageType {
   srcSet?: string
 }
 
+export interface MDXNode {
+  childMdx: {
+    body: string
+  }
+}
+
 export interface ArtefactType {
   slug: string
   title: string
@@ -15,11 +21,7 @@ export interface ArtefactType {
     resize: ImageType
     fluid: ImageType
   }>
-  description: {
-    childMdx: {
-      body: string
-    }
-  }
+  description: MDXNode
   related?: ArtefactType[]
 }
 
@@ -30,6 +32,17 @@ export interface VideoType {
     fluid: ImageType
   }
   videoEmbedUrl: string
+}
+
+export interface ContentfulPageType {
+  pageTitle: string
+  pageName: string
+  introduction?: MDXNode
+  image?: {
+    fluid: ImageType
+  }
+  copyBlock1?: MDXNode
+  copyBlock2?: MDXNode
 }
 
 export interface Node<T> {
@@ -45,5 +58,11 @@ export interface GalleryPagePropsData {
 export interface VideoPagePropsData {
   allContentfulFriendsOfNotreDameVideo: {
     edges: Node<VideoType>[]
+  }
+}
+
+export interface ContentfulPagePropsData {
+  allContentfulFriendsOfNotreDamePage: {
+    edges: Node<ContentfulPageType>[]
   }
 }
