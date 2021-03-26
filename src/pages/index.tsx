@@ -135,6 +135,7 @@ export default function Home({
 export const query = graphql`
   query JSONDataQuery {
     allContentfulFriendsOfNotreDameArtefact(
+      limit: 16
       filter: { node_locale: { eq: "en-US" } }
     ) {
       edges {

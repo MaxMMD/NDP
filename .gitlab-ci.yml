@@ -1,0 +1,13 @@
+stages: [test]
+
+variables:
+  CI_NODEJS_VERSION: 12-2020.11.30
+
+test:
+  interruptible: true
+  stage: test
+  image: ekino/ci-node:${CI_NODEJS_VERSION}
+  tags: [docker, ek-docker, ekino, france]
+  script:
+    - echo "testing"
+

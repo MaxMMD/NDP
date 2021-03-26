@@ -14,6 +14,7 @@ function Puzzle(props: Props) {
   const data: GalleryPagePropsData = useStaticQuery(graphql`
     query {
       allContentfulFriendsOfNotreDameArtefact(
+        limit: 42
         filter: { featured: { eq: true }, node_locale: { in: "en-US" } }
       ) {
         edges {
