@@ -72,7 +72,7 @@ function PuzzlePiece({ cardLinkPath = "/gallery", ...props }: Props) {
                   })}
                 >
                   <img
-                    className="w-full h-full invert"
+                    className="w-full h-full"
                     src={puzzleImgSrc}
                     alt="Avatar"
                   />

@@ -17,7 +17,7 @@ function ThreeDModel() {
       let player: any
       let loader = new THREE.FileLoader()
 
-      loader.load("/content/app.json", function (text) {
+      loader.load("/threejs/app.json", function (text) {
         player = new APP.Player({})
 
         player.load(JSON.parse(text))
@@ -46,8 +46,7 @@ function ThreeDModel() {
     <div
       id="container"
       ref={container}
-      className="bg-white"
-      style={{ width: "100%", height: "300px", margin: "auto" }}
+      className="bg-black w-screen h-screen overflow-hidden"
     ></div>
   )
 }
