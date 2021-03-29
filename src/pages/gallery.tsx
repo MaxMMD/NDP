@@ -12,7 +12,7 @@ import cardSorting from "../utils/card-sorting"
 export default function Gallery({ data }: PageProps<GalleryPagePropsData>) {
   const cardData = data.allContentfulFriendsOfNotreDameArtefact.edges
   const [cards, setCards] = useState(cardData)
-  const [sortMode, setSortMode] = useState("")
+  const [sortMode, setSortMode] = useState("published-desc")
 
   useEffect(() => {
     let newCards = []
@@ -26,8 +26,12 @@ export default function Gallery({ data }: PageProps<GalleryPagePropsData>) {
         newCards = cardData.sort(cardSorting.alphaDesc)
         break
       }
-      case "featured-asc": {
+      case "featured-desc": {
         newCards = cardData.sort(cardSorting.featured)
+        break
+      }
+      case "restored-desc": {
+        newCards = cardData.sort(cardSorting.restored)
         break
       }
       case "random": {
@@ -38,16 +42,12 @@ export default function Gallery({ data }: PageProps<GalleryPagePropsData>) {
         newCards = cardData
     }
 
-    console.log(newCards[0].node.title, cards[0].node.title)
-
     setCards(newCards)
   }, [sortMode])
 
   function handleOnChange(e: any) {
     setSortMode(e.target.value)
   }
-
-  console.log({ sortMode, cards })
 
   return (
     <Root
@@ -57,7 +57,7 @@ export default function Gallery({ data }: PageProps<GalleryPagePropsData>) {
       showFrame
     >
       <div className="container mx-auto text-white py-6">
-        <Block padding="none">
+        <Block>
           <Paragraph.Base className="lg:w-1/2">
             Laborum cillum officia commodo quis. Reprehenderit exercitation do
             deserunt ipsum nostrud deserunt reprehenderit sunt. Ipsum proident
@@ -68,16 +68,15 @@ export default function Gallery({ data }: PageProps<GalleryPagePropsData>) {
 
         <Spacer className="mt-6 lg:mt-12" />
 
-        <Block padding="none">
+        <Block>
           <div className="lg:w-1/5">
             <Select
               onChange={handleOnChange}
               options={[
-                { label: "Sort", value: "" },
-                { label: "A-z", value: "alpha-asc" },
-                { label: "Z-a", value: "alpha-desc" },
-                { label: "Featured", value: "featured-asc" },
-                { label: "Random", value: "random" },
+                { label: "Sort", value: "published-desc" },
+                { label: "Featured", value: "featured-desc" },
+                { label: "A - Z", value: "alpha-asc" },
+                { label: "Restored %", value: "restored-desc" },
               ]}
             />
           </div>
@@ -85,9 +84,11 @@ export default function Gallery({ data }: PageProps<GalleryPagePropsData>) {
 
         <Spacer />
 
-        <Block>
-          <CardGrid items={cards} />
-        </Block>
+        {[sortMode].map(key => (
+          <Block key={key}>
+            <CardGrid items={cards} />
+          </Block>
+        ))}
 
         <Spacer />
       </div>
@@ -99,6 +100,7 @@ export const query = graphql`
   query GalleryJSONDataQuery {
     allContentfulFriendsOfNotreDameArtefact(
       filter: { node_locale: { eq: "en-US" } }
+      sort: { fields: title }
     ) {
       edges {
         node {
@@ -106,6 +108,8 @@ export const query = graphql`
           title
           id
           restorationProgress
+          restorationComplete
+          featured
           images {
             resize(height: 488, width: 610) {
               width

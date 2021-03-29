@@ -16,6 +16,8 @@ export interface ArtefactType {
   title: string
   id: string
   restorationProgress: number
+  restorationComplete?: boolean
+  campaignPageUrl: string
   featured: boolean
   images: Array<{
     resize: ImageType

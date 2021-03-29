@@ -40,14 +40,14 @@ function Header(props: Props) {
       className={cx(
         "Header py-4 px-8 lg:px-0",
         {
-          "fixed top-0 left-0 w-full z-10": !!props.fixed,
+          "fixed top-0 left-0 w-full z-10 pointer-events-none": !!props.fixed,
           "is-faded": isFaded,
         },
         props.className
       )}
     >
       <div className="container mx-auto flex justify-between items-center">
-        <ul className="Header__menu--home">
+        <ul className="Header__menu--home pointer-events-auto">
           <NavItem
             href="/"
             label="Home"
@@ -56,7 +56,7 @@ function Header(props: Props) {
             hideBorder={isFaded}
           />
         </ul>
-        <div className="md:hidden -mt-2 -mr-4">
+        <div className="md:hidden -mt-2 -mr-4 pointer-events-auto">
           <Hamburger
             color="white"
             animationStyle="spin"
@@ -66,7 +66,7 @@ function Header(props: Props) {
         </div>
         <ul
           className={cx(
-            "Header__menu--mobile md:hidden absolute top-0 left-0 w-full px-8 pt-16 bg-black border-b pb-6 border-white border-opacity-10 z-30",
+            "Header__menu--mobile md:hidden absolute top-0 left-0 w-full px-8 pt-16 bg-black border-b pb-6 border-white border-opacity-10 z-30 pointer-events-auto",
             {
               "Header__menu--mobile--inactive": !mobileMenuIsActive,
               "Header__menu--mobile--active": mobileMenuIsActive,
@@ -82,7 +82,7 @@ function Header(props: Props) {
             />
           ))}
         </ul>
-        <ul className="Header__menu--desktop hidden md:flex md:w-auto px-4 md:px-0 border-b md:border-none border-white border-opacity-10 z-50">
+        <ul className="Header__menu--desktop hidden md:flex md:w-auto px-4 md:px-0 border-b md:border-none border-white border-opacity-10 z-50 pointer-events-auto">
           {props.navItems.map((navItem, i) => (
             <NavItem
               key={i}

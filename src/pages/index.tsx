@@ -1,5 +1,6 @@
 import { graphql, PageProps } from "gatsby"
 import React, { useState } from "react"
+import cx from "classnames"
 import CardGrid from "../components/CardGrid"
 import Icon from "../components/Icon"
 import Link from "../components/Link"
@@ -11,11 +12,16 @@ import VideoCard from "../components/VideoCard"
 import TypeScreen from "../components/TypeScreen"
 import { GalleryPagePropsData, VideoPagePropsData } from "../types"
 import { PseudoButton } from "../components/FormElements"
-import CubeAnimation from "../components/CubeAnimation"
+import logo from "../assets/fond-logo.png"
+import infoIcon from "../assets/fond-info.png"
+import TransitionWrapper, {
+  TransitionState,
+} from "../components/TransitionWrapper"
 export default function Home({
   data,
 }: PageProps<GalleryPagePropsData & VideoPagePropsData>) {
   const [autoFlipTrigger, setAutoFlipTrigger] = useState<number | null>(null)
+  const [showInfoPane, setShowInfoPane] = useState(false)
   const cards = data.allContentfulFriendsOfNotreDameArtefact.edges
   const videos = data.allContentfulFriendsOfNotreDameVideo.edges
 
@@ -31,17 +37,63 @@ export default function Home({
           padding="narrow"
           className="flex flex-wrap lg:flex-nowrap justify-between"
         >
-          <div className="w-full lg:w-1/2 flex-shrink-0">
+          <div className="w-full lg:w-1/2 flex-shrink-0 relative">
             <Puzzle triggerAutoFlip={autoFlipTrigger} />
+            <span
+              onClick={() => {
+                setShowInfoPane(!showInfoPane)
+              }}
+              className="absolute -bottom-4 -right-4 w-12 h-12 bg-black rounded-full cursor-pointer"
+            >
+              <img src={infoIcon} width={44} height={44} alt="Info" />
+            </span>
+            <TransitionWrapper isVisibleOnLoad={showInfoPane} duration={700}>
+              {transition =>
+                transition.isVisible ? (
+                  <div
+                    className={cx(
+                      "border border-white border-opacity-60 bg-black px-6 absolute bottom-8 left-1/2 w-3/4 transform -translate-x-1/2 z-20 transition duration-700",
+                      {
+                        "opacity-0":
+                          transition.transitionState === TransitionState.OUT,
+                        "opacity-100":
+                          transition.transitionState === TransitionState.IN,
+                      }
+                    )}
+                    onClick={() => setShowInfoPane(false)}
+                  >
+                    <Paragraph.Base>
+                      Hover over a puzzle piece to reveal the artefact. Click on
+                      the artefact to learn more.
+                    </Paragraph.Base>
+                    <Paragraph.Base>
+                      Puzzle pieces in white are fully restored.
+                    </Paragraph.Base>
+                  </div>
+                ) : (
+                  <></>
+                )
+              }
+            </TransitionWrapper>
           </div>
           <div className="w-full lg:w-1/2 mt-16 lg:pl-32">
-            <Title className="text-justify">
-              Friends of
-              <br />
-              Notre-Dame
-              <br />
-              de Paris
-            </Title>
+            <div>
+              <Title className="text-justify hidden">
+                Friends of
+                <br />
+                Notre-Dame
+                <br />
+                de Paris
+              </Title>
+              <img
+                className="md:w-1/2 lg:w-full mb-8 block"
+                src={logo}
+                width={949}
+                height={341}
+                alt="Friends of Notre-Dame de Paris"
+              />
+            </div>
+
             <Paragraph.Base>
               Lorem in exercitation elit esse minim fugiat. Pariatur
               exercitation ex ipsum tempor enim proident. Nulla aliquip ad ipsum
@@ -138,6 +190,7 @@ export const query = graphql`
           title
           id
           restorationProgress
+          restorationComplete
           images {
             resize(height: 488, width: 610) {
               width

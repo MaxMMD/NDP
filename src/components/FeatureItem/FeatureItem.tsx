@@ -8,6 +8,7 @@ import ProgressBar from "../ProgressBar"
 import { Paragraph, Subheading } from "../Typography"
 import FeaturedImages from "../FeaturedImages"
 import { ImageType } from "../../types"
+import Icon from "../Icon"
 
 export interface Props {
   id: string
@@ -15,6 +16,8 @@ export interface Props {
   progress: number
   body?: string
   images?: ImageType[]
+  restorationComplete?: boolean
+  campaignPageUrl: string
 }
 
 function FeatureItem(props: Props) {
@@ -26,10 +29,17 @@ function FeatureItem(props: Props) {
       <div className="lg:w-3/5 md:flex lg:max-h-featuregallery">
         <FeaturedImages images={featuredImages} />
       </div>
-      <div className="lg:w-2/5 mt-6 md:mt-12 lg:mt-0 lg:pl-16">
-        <Subheading tag="h1" className="font-normal">
+      <div className="lg:w-2/5 mt-6 md:mt-12 lg:mt-0 lg:pl-16 relative">
+        <Subheading tag="h1" className="font-normal w-4/5">
           {props.title}
         </Subheading>
+
+        {props.restorationComplete || props.progress === 100 ? (
+          <span className="absolute top-2 right-0 rounded-full w-6 h-6 bg-white inline-flex justify-center items-center">
+            <Icon.Tick fill="black" width={10} />
+          </span>
+        ) : null}
+
         {props.body ? (
           <MDXProvider
             components={{
@@ -43,7 +53,7 @@ function FeatureItem(props: Props) {
         <Spacer className="mt-8" />
 
         <div className="flex justify-end">
-          <PseudoButton buttonStyle="squished" href="#">
+          <PseudoButton buttonStyle="squished" href={props.campaignPageUrl}>
             Donate
           </PseudoButton>
         </div>

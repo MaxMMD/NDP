@@ -12,7 +12,7 @@ export interface Props {
   onClose: () => void
 }
 
-const TYPE_SPEED = 50
+// const TYPE_SPEED = 50
 const TRANSITION_OUT_DELAY = 1500
 const TRANSITION_IN_DELAY = 700
 
@@ -62,9 +62,13 @@ function TypeScreen(props: Props) {
 
     setIsVisible(true)
 
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setIsGoingVisible(true)
     }, 700)
+
+    return () => {
+      clearTimeout(timeout)
+    }
   }, [props.isVisibleOnLoad])
 
   useEffect(() => {
@@ -223,7 +227,7 @@ function TypeScreen(props: Props) {
             onClick={() => onClose()}
             className="absolute bottom-0 right-8 lg:right-32 font-light text-xl md:text-3xl tracking-wide cursor-pointer"
           >
-            Continue
+            Skip
           </span>
         </Block>
       </div>

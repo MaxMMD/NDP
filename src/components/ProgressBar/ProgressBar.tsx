@@ -10,7 +10,7 @@ function ProgressBar(props: Props) {
   return (
     <div
       className={cx(
-        "ProgressBar relative h-4 rounded overflow-hidden border border-gray-700 bg-white bg-opacity-10",
+        "ProgressBar relative h-3 rounded overflow-hidden border border-gray-700 bg-white bg-opacity-10",
         props.className
       )}
     >

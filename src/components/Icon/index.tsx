@@ -158,6 +158,17 @@ export const Play = (props: IconProps) => (
   </Base>
 )
 
+export const Tick = (props: IconProps) => (
+  <Base name="Tick" viewbox="0 0 30 30" {...props}>
+    <path
+      stroke="none"
+      fillRule="evenodd"
+      fill={props.fill}
+      d="M 27.6875 1.734375 L 12.113281 24.164062 L 1.777344 15.726562 L 0 17.90625 L 12.6875 28.265625 L 30 3.339844 Z M 27.6875 1.734375 "
+    />
+  </Base>
+)
+
 export default {
   Arrow: Arrow,
   Chevron: Chevron,
@@ -170,4 +181,5 @@ export default {
   Instagram: Instagram,
   ExternalLink: ExternalLink,
   Play: Play,
+  Tick: Tick,
 }

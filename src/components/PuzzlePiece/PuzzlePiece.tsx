@@ -5,6 +5,7 @@ import framepng from "../../assets/fond_frame.png"
 
 import "./PuzzlePiece.css"
 import Link from "../Link"
+import Icon from "../Icon"
 
 export interface Props {
   className?: string
@@ -72,9 +73,11 @@ function PuzzlePiece({ cardLinkPath = "/gallery", ...props }: Props) {
                   })}
                 >
                   <img
-                    className="w-full h-full"
+                    className={cx("w-full h-full", {
+                      invert: props.card?.node?.restorationComplete,
+                    })}
                     src={puzzleImgSrc}
-                    alt="Avatar"
+                    alt={`${props.card?.node?.title || "Piece"} preview`}
                   />
                 </div>
                 {!props.disableFlip ? (
@@ -93,6 +96,11 @@ function PuzzlePiece({ cardLinkPath = "/gallery", ...props }: Props) {
                       })}
                       {...reverseImage}
                     />
+                    {props.card?.node?.restorationComplete ? (
+                      <span className="rounded-full w-6 h-6 bg-white inline-flex justify-center items-center absolute inset-1/2 transform -translate-y-1/2 -translate-x-1/2">
+                        <Icon.Tick fill="black" width={10} />
+                      </span>
+                    ) : null}
                   </div>
                 ) : null}
               </div>

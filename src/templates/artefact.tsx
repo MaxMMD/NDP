@@ -17,6 +17,8 @@ export default function Artefact({
     description,
     images: resizedImages,
     restorationProgress,
+    restorationComplete,
+    campaignPageUrl,
     related = [],
   } = pageContext
 
@@ -47,6 +49,8 @@ export default function Artefact({
             title={title}
             body={body}
             images={images}
+            restorationComplete={restorationComplete}
+            campaignPageUrl={campaignPageUrl}
           />
         </Block>
 

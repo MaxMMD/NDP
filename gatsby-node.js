@@ -13,6 +13,8 @@ exports.createPages = async function ({ actions, graphql }) {
             title
             id
             restorationProgress
+            restorationComplete
+            campaignPageUrl
             description {
               childMdx {
                 body
