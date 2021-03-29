@@ -17,6 +17,16 @@ function Header(props: Props) {
   const closeMobileMenu = () => setMobileMenuIsActive(false)
 
   useEffect(() => {
+    if (mobileMenuIsActive) {
+      document.body.classList.add("fixed")
+      document.body.classList.add("md:relative")
+    } else {
+      document.body.classList.remove("fixed")
+      document.body.classList.remove("md:relative")
+    }
+  }, [mobileMenuIsActive])
+
+  useEffect(() => {
     if (typeof window === undefined) {
       return
     }
@@ -30,6 +40,7 @@ function Header(props: Props) {
     }
 
     window.addEventListener("scroll", scrollListener)
+
     ;() => {
       window.removeEventListener("scroll", scrollListener)
     }
@@ -56,7 +67,27 @@ function Header(props: Props) {
             hideBorder={isFaded}
           />
         </ul>
-        <div className="md:hidden -mt-2 -mr-4 pointer-events-auto">
+        <ul
+          className={cx(
+            "Header__menu--mobile md:hidden absolute top-0 left-0 w-screen h-screen px-8 pt-16 bg-black border-b pb-6 border-white border-opacity-10 z-30 pointer-events-auto flex flex-col items-center justify-center",
+            {
+              "Header__menu--mobile--inactive": !mobileMenuIsActive,
+              "Header__menu--mobile--active": mobileMenuIsActive,
+            }
+          )}
+        >
+          <NavItem href="/" label="Home" onClick={closeMobileMenu} hideBorder />
+          {props.navItems.map((navItem, i) => (
+            <NavItem
+              key={i}
+              {...navItem}
+              onClick={closeMobileMenu}
+              hideBorder
+              highlight={false}
+            />
+          ))}
+        </ul>
+        <div className="md:hidden -mt-2 -mr-4 pointer-events-auto z-30">
           <Hamburger
             color="white"
             animationStyle="spin"
@@ -64,24 +95,6 @@ function Header(props: Props) {
             onToggle={setMobileMenuIsActive}
           />
         </div>
-        <ul
-          className={cx(
-            "Header__menu--mobile md:hidden absolute top-0 left-0 w-full px-8 pt-16 bg-black border-b pb-6 border-white border-opacity-10 z-30 pointer-events-auto",
-            {
-              "Header__menu--mobile--inactive": !mobileMenuIsActive,
-              "Header__menu--mobile--active": mobileMenuIsActive,
-            }
-          )}
-        >
-          {props.navItems.map((navItem, i) => (
-            <NavItem
-              key={i}
-              {...navItem}
-              onClick={closeMobileMenu}
-              hideBorder
-            />
-          ))}
-        </ul>
         <ul className="Header__menu--desktop hidden md:flex md:w-auto px-4 md:px-0 border-b md:border-none border-white border-opacity-10 z-50 pointer-events-auto">
           {props.navItems.map((navItem, i) => (
             <NavItem

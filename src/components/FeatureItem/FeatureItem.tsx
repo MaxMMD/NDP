@@ -26,10 +26,10 @@ function FeatureItem(props: Props) {
 
   return (
     <div className="flex flex-wrap lg:flex-nowrap justify-center lg:justify-between">
-      <div className="lg:w-3/5 md:flex lg:max-h-featuregallery">
+      <div className="w-full lg:w-3/5 md:flex lg:max-h-featuregallery">
         <FeaturedImages images={featuredImages} />
       </div>
-      <div className="lg:w-2/5 mt-6 md:mt-12 lg:mt-0 lg:pl-16 relative">
+      <div className="w-full lg:w-2/5 mt-6 md:mt-12 lg:mt-0 lg:pl-16 relative">
         <Subheading tag="h1" className="font-normal w-4/5">
           {props.title}
         </Subheading>

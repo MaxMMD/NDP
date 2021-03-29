@@ -8,7 +8,9 @@ require("dotenv").config({
 })
 
 module.exports = {
-  /* Your site config here */
+  siteMetadata: {
+    title: "Friends of Notre-Dame de Paris",
+  },
   plugins: [
     {
       resolve: `gatsby-source-contentful`,
@@ -22,6 +24,7 @@ module.exports = {
     "gatsby-plugin-postcss",
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-transition-link",
+    // Disabled because cookie confirmation not required
     // {
     //   resolve: `gatsby-plugin-gdpr-cookies`,
     //   options: {

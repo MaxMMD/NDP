@@ -53,14 +53,14 @@ function Puzzle(props: Props) {
   return (
     <div
       ref={puzzleRef}
-      className={cx("Puzzle w-full flex flex-wrap pt-2 pl-2", {
+      className={cx("Puzzle w-full flex flex-wrap", {
         // "pt-2 pl-2": useJigsawPuzzle
       })}
     >
       {arr.map((a, i) => (
         <PuzzlePiece
           key={a}
-          id={a + 2}
+          index={a}
           card={cards?.[i]}
           disableFlip={props.disableAutoFlip}
           // className="-mt-2 -ml-2"

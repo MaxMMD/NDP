@@ -51,6 +51,14 @@ export interface Node<T> {
   node: T
 }
 
+export interface BasicPagePropsData {
+  site: {
+    siteMetadata: {
+      title: string
+    }
+  }
+}
+
 export interface GalleryPagePropsData {
   allContentfulFriendsOfNotreDameArtefact: {
     edges: Node<ArtefactType>[]

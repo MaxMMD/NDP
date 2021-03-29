@@ -8,9 +8,11 @@ import Image from "../components/Image"
 import { PseudoButton } from "../components/FormElements"
 import SocialLinks from "../components/SocialLinks"
 import { graphql, PageProps } from "gatsby"
-import { ContentfulPagePropsData } from "../types"
+import { BasicPagePropsData, ContentfulPagePropsData } from "../types"
 
-export default function About({ data }: PageProps<ContentfulPagePropsData>) {
+export default function About({
+  data,
+}: PageProps<ContentfulPagePropsData & BasicPagePropsData>) {
   const { introduction, image } =
     data.allContentfulFriendsOfNotreDamePage?.edges?.[0]?.node || {}
   const body = introduction?.childMdx?.body
@@ -18,11 +20,11 @@ export default function About({ data }: PageProps<ContentfulPagePropsData>) {
   return (
     <Root
       className="about-page page bg-black text-white"
-      title="About | Friends of Notre Dame"
+      title={`About | ${data.site.siteMetadata.title}`}
       description="Nostrud ullamco aute elit duis culpa aliqua amet occaecat irure."
     >
       <div className="container mx-auto text-white py-6">
-        <Block padding="none" className="md:flex">
+        <Block className="md:flex">
           <div className="w-full md:w-1/2 mb-6 md:mb-0">
             {image && image.fluid ? (
               <Image
@@ -76,7 +78,12 @@ export default function About({ data }: PageProps<ContentfulPagePropsData>) {
 }
 
 export const query = graphql`
-  query AboutPageDataQuery {
+  query {
+    site {
+      siteMetadata {
+        title
+      }
+    }
     allContentfulFriendsOfNotreDamePage(
       filter: { pageName: { eq: "About" }, node_locale: { eq: "en-US" } }
       limit: 1

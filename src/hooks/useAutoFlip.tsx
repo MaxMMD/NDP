@@ -44,8 +44,6 @@ export function useAutoFlip(options: any, triggers: any[] = []) {
       }
     }
 
-    console.log("trigger autoflip")
-
     flipPiece(0)
   }, triggers)
 }

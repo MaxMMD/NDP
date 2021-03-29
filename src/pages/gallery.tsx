@@ -6,10 +6,12 @@ import Root from "../components/Root"
 import { Block, Spacer } from "../components/Layout"
 import { Paragraph } from "../components/Typography"
 import Select from "../components/Select"
-import { GalleryPagePropsData } from "../types"
+import { BasicPagePropsData, GalleryPagePropsData } from "../types"
 import cardSorting from "../utils/card-sorting"
 
-export default function Gallery({ data }: PageProps<GalleryPagePropsData>) {
+export default function Gallery({
+  data,
+}: PageProps<GalleryPagePropsData & BasicPagePropsData>) {
   const cardData = data.allContentfulFriendsOfNotreDameArtefact.edges
   const [cards, setCards] = useState(cardData)
   const [sortMode, setSortMode] = useState("published-desc")
@@ -52,7 +54,7 @@ export default function Gallery({ data }: PageProps<GalleryPagePropsData>) {
   return (
     <Root
       className="gallery-page page bg-black text-white"
-      title="Gallery | Friends of Notre Dame"
+      title={`Gallery | ${data.site.siteMetadata.title}`}
       description="Nostrud ullamco aute elit duis culpa aliqua amet occaecat irure."
       showFrame
     >
@@ -97,10 +99,15 @@ export default function Gallery({ data }: PageProps<GalleryPagePropsData>) {
 }
 
 export const query = graphql`
-  query GalleryJSONDataQuery {
+  query {
+    site {
+      siteMetadata {
+        title
+      }
+    }
     allContentfulFriendsOfNotreDameArtefact(
       filter: { node_locale: { eq: "en-US" } }
-      sort: { fields: title }
+      sort: { fields: featured, order: DESC }
     ) {
       edges {
         node {

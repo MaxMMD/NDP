@@ -18,10 +18,54 @@ const TRANSITION_IN_DELAY = 700
 
 async function wait(ms: number) {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(null)
+    let timeout = setTimeout(() => {
+      resolve(timeout)
     }, ms)
   })
+}
+
+async function animateTextBlocks(
+  textRef: React.RefObject<HTMLDivElement>,
+  text: string[],
+  onClose: () => void
+) {
+  if (!textRef.current) {
+    return
+  }
+  function showBlock(i = 0) {
+    const p = textRef.current
+
+    if (p && text[i]) {
+      p.style.opacity = "1.0"
+      showParagraph(i)
+    }
+  }
+
+  async function showParagraph(blockIndex = 0) {
+    const p = textRef.current
+
+    if (p && text[blockIndex]) {
+      const str = text[blockIndex]
+      p.innerHTML = str
+
+      await wait(5000)
+      await wait(TRANSITION_OUT_DELAY)
+
+      p.style.opacity = "0"
+
+      await wait(TRANSITION_IN_DELAY)
+
+      showBlock(blockIndex + 1)
+    }
+
+    if (blockIndex + 1 >= text.length) {
+      setTimeout(onClose, 500)
+      return
+    }
+  }
+
+  await wait(1000)
+  showBlock()
 }
 
 function TypeScreen(props: Props) {
@@ -49,6 +93,13 @@ function TypeScreen(props: Props) {
     props.onClose()
   }
 
+  async function animateIn() {
+    setIsVisible(true)
+
+    await wait(700)
+    setIsGoingVisible(true)
+  }
+
   useEffect(() => {
     const hasDismissed =
       typeof window !== "undefined"
@@ -60,24 +111,18 @@ function TypeScreen(props: Props) {
       return
     }
 
-    setIsVisible(true)
-
-    const timeout = setTimeout(() => {
-      setIsGoingVisible(true)
-    }, 700)
-
-    return () => {
-      clearTimeout(timeout)
-    }
+    animateIn()
   }, [props.isVisibleOnLoad])
 
   useEffect(() => {
     if (isVisible) {
-      document.body.style.height = "100vh"
-      document.body.style.overflow = "hidden"
+      // document.body.style.height = "100vh"
+      // document.body.style.overflow = "hidden"
+      document.body.classList.add("h-screen")
+      document.body.classList.add("overflow-hidden")
     } else {
-      document.body.style.height = "auto"
-      document.body.style.overflow = "auto"
+      document.body.classList.remove("h-screen")
+      document.body.classList.remove("overflow-hidden")
     }
   }, [isVisible])
 
@@ -86,73 +131,7 @@ function TypeScreen(props: Props) {
       return
     }
 
-    function showBlock(i = 0) {
-      const p = textRef.current
-
-      if (p && props.text[i]) {
-        p.style.opacity = "1.0"
-        // addType(i)
-        showParagraph(i)
-      }
-    }
-
-    function showParagraph(blockIndex = 0) {
-      const p = textRef.current
-
-      if (p && props.text[blockIndex]) {
-        const str = props.text[blockIndex]
-        p.innerHTML = str
-
-        setTimeout(() => {
-          setTimeout(() => {
-            p.style.opacity = "0"
-
-            setTimeout(() => {
-              showBlock(blockIndex + 1)
-            }, TRANSITION_IN_DELAY)
-          }, TRANSITION_OUT_DELAY)
-        }, 5000)
-      }
-
-      if (blockIndex + 1 >= props.text.length) {
-        setTimeout(onClose, 5000)
-        return
-      }
-    }
-
-    // function addType(blockIndex = 0, n = 1) {
-    //   const p = textRef.current
-
-    //   if (p && props.text[blockIndex]) {
-    //     if (n > props.text[blockIndex].length) {
-    //       if (blockIndex + 1 >= props.text.length) {
-    //         setTimeout(onClose, 1000)
-    //         return
-    //       }
-
-    //       setTimeout(() => {
-    //         p.style.opacity = "0"
-
-    //         setTimeout(() => {
-    //           showBlock(blockIndex + 1)
-    //         }, TRANSITION_IN_DELAY)
-    //       }, TRANSITION_OUT_DELAY)
-
-    //       return
-    //     }
-
-    //     const str = props.text[blockIndex].slice(0, n)
-    //     p.innerHTML = str
-
-    //     setTimeout(() => {
-    //       addType(blockIndex, n + 1)
-    //     }, TYPE_SPEED)
-    //   }
-    // }
-
-    setTimeout(() => {
-      showBlock()
-    }, 1000)
+    animateTextBlocks(textRef, props.text, onClose)
   }, [isVisible])
 
   // useEffect(() => {

@@ -1,6 +1,5 @@
 import { graphql, PageProps } from "gatsby"
 import React, { useState } from "react"
-import cx from "classnames"
 import CardGrid from "../components/CardGrid"
 import Icon from "../components/Icon"
 import Link from "../components/Link"
@@ -10,16 +9,19 @@ import { Block, Spacer } from "../components/Layout"
 import { Paragraph, Subheading, Title } from "../components/Typography"
 import VideoCard from "../components/VideoCard"
 import TypeScreen from "../components/TypeScreen"
-import { GalleryPagePropsData, VideoPagePropsData } from "../types"
+import {
+  BasicPagePropsData,
+  GalleryPagePropsData,
+  VideoPagePropsData,
+} from "../types"
 import { PseudoButton } from "../components/FormElements"
 import logo from "../assets/fond-logo.png"
 import infoIcon from "../assets/fond-info.png"
-import TransitionWrapper, {
-  TransitionState,
-} from "../components/TransitionWrapper"
+import InfoPane from "../components/InfoPane"
+
 export default function Home({
   data,
-}: PageProps<GalleryPagePropsData & VideoPagePropsData>) {
+}: PageProps<GalleryPagePropsData & VideoPagePropsData & BasicPagePropsData>) {
   const [autoFlipTrigger, setAutoFlipTrigger] = useState<number | null>(null)
   const [showInfoPane, setShowInfoPane] = useState(false)
   const cards = data.allContentfulFriendsOfNotreDameArtefact.edges
@@ -28,7 +30,7 @@ export default function Home({
   return (
     <Root
       className="homepage page bg-black text-white"
-      title="Friends of Notre Dame"
+      title={data.site.siteMetadata.title}
       description="Nostrud ullamco aute elit duis culpa aliqua amet occaecat irure."
       showFrame
     >
@@ -37,46 +39,25 @@ export default function Home({
           padding="narrow"
           className="flex flex-wrap lg:flex-nowrap justify-between"
         >
-          <div className="w-full lg:w-1/2 flex-shrink-0 relative">
-            <Puzzle triggerAutoFlip={autoFlipTrigger} />
-            <span
-              onClick={() => {
-                setShowInfoPane(!showInfoPane)
-              }}
-              className="absolute -bottom-4 -right-4 w-12 h-12 bg-black rounded-full cursor-pointer"
-            >
-              <img src={infoIcon} width={44} height={44} alt="Info" />
-            </span>
-            <TransitionWrapper isVisibleOnLoad={showInfoPane} duration={700}>
-              {transition =>
-                transition.isVisible ? (
-                  <div
-                    className={cx(
-                      "border border-white border-opacity-60 bg-black px-6 absolute bottom-8 left-1/2 w-3/4 transform -translate-x-1/2 z-20 transition duration-700",
-                      {
-                        "opacity-0":
-                          transition.transitionState === TransitionState.OUT,
-                        "opacity-100":
-                          transition.transitionState === TransitionState.IN,
-                      }
-                    )}
-                    onClick={() => setShowInfoPane(false)}
-                  >
-                    <Paragraph.Base>
-                      Hover over a puzzle piece to reveal the artefact. Click on
-                      the artefact to learn more.
-                    </Paragraph.Base>
-                    <Paragraph.Base>
-                      Puzzle pieces in white are fully restored.
-                    </Paragraph.Base>
-                  </div>
-                ) : (
-                  <></>
-                )
-              }
-            </TransitionWrapper>
+          <div className="w-full lg:w-1/2 flex-shrink-0">
+            <div className="relative">
+              <Puzzle triggerAutoFlip={autoFlipTrigger} />
+              <span
+                onClick={() => {
+                  setShowInfoPane(!showInfoPane)
+                }}
+                className="absolute -bottom-4 -right-4 w-12 h-12 bg-black rounded-full cursor-pointer"
+              >
+                <img src={infoIcon} width={44} height={44} alt="Info" />
+              </span>
+              <InfoPane
+                isVisible={showInfoPane}
+                className="absolute bottom-8 left-1/2 w-3/4 transform -translate-x-1/2"
+                onClick={() => setShowInfoPane(false)}
+              />
+            </div>
           </div>
-          <div className="w-full lg:w-1/2 mt-16 lg:pl-32">
+          <div className="w-full lg:w-1/2 mt-16 lg:mt-0 xl:mt-16 lg:pl-16 xl:pl-32">
             <div>
               <Title className="text-justify hidden">
                 Friends of
@@ -179,7 +160,12 @@ export default function Home({
 }
 
 export const query = graphql`
-  query JSONDataQuery {
+  query {
+    site {
+      siteMetadata {
+        title
+      }
+    }
     allContentfulFriendsOfNotreDameArtefact(
       limit: 16
       filter: { node_locale: { eq: "en-US" } }

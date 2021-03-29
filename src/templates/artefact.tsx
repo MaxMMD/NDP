@@ -22,9 +22,11 @@ export default function Artefact({
     related = [],
   } = pageContext
 
+  console.log(related, pageContext)
+
   const body = description?.childMdx?.body || ""
-  const images = resizedImages.map(r => r.resize)
-  const cards = related.map(r => ({ node: r }))
+  const images = resizedImages?.map(r => r.resize) || []
+  const cards = related?.map(r => ({ node: r })) || []
 
   return (
     <Root

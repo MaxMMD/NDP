@@ -2,14 +2,13 @@ import React from "react"
 import cx from "classnames"
 import { ArtefactType, Node } from "../../types"
 import framepng from "../../assets/fond_frame.png"
-
-import "./PuzzlePiece.css"
 import Link from "../Link"
 import Icon from "../Icon"
+import "./PuzzlePiece.css"
 
 export interface Props {
   className?: string
-  id: number
+  index: number
   flipped?: boolean
   card?: Node<ArtefactType>
   disableFlip?: boolean
@@ -17,7 +16,7 @@ export interface Props {
 }
 
 function PuzzlePiece({ cardLinkPath = "/gallery", ...props }: Props) {
-  if (!props.id) {
+  if (!props.index && props.index !== 0) {
     return null
   }
 
@@ -34,13 +33,12 @@ function PuzzlePiece({ cardLinkPath = "/gallery", ...props }: Props) {
   const LinkWrapper = ({ children }: any) =>
     slug ? <Link href={`${cardLinkPath}/${slug}`}>{children}</Link> : children
 
-  let puzzleImgSrc = `/images/puzzle-pieces/Notre_Dame_R3-${props.id.toLocaleString(
-    "en-US",
-    {
-      minimumIntegerDigits: 2,
-      useGrouping: false,
-    }
-  )}.svg`
+  let puzzleImgSrc = `/images/puzzle-pieces-test/ND_Outline_Updated-${(
+    props.index + 1
+  ).toLocaleString("en-US", {
+    minimumIntegerDigits: 2,
+    useGrouping: false,
+  })}.svg`
 
   // if (props.id < 6) {
   //   puzzleImgSrc = `/images/puzzle-pieces-test/ND_Puzzle_Outline_Test-${props.id.toLocaleString(
@@ -70,12 +68,15 @@ function PuzzlePiece({ cardLinkPath = "/gallery", ...props }: Props) {
                 <div
                   className={cx("absolute w-full h-full", {
                     "flip-card-front": !props.disableFlip,
+                    "bg-white": props.card?.node?.restorationComplete,
                   })}
                 >
                   <img
                     className={cx("w-full h-full", {
                       invert: props.card?.node?.restorationComplete,
                     })}
+                    width={50}
+                    height={50}
                     src={puzzleImgSrc}
                     alt={`${props.card?.node?.title || "Piece"} preview`}
                   />
@@ -83,8 +84,10 @@ function PuzzlePiece({ cardLinkPath = "/gallery", ...props }: Props) {
                 {!props.disableFlip ? (
                   <div
                     className={cx(
-                      "flip-card-back absolute w-full h-full bg-black border border-white",
+                      "flip-card-back absolute w-full h-full border border-white",
                       {
+                        "bg-black": !props.card?.node?.restorationComplete,
+                        "bg-white": props.card?.node?.restorationComplete,
                         "p-6 border-opacity-10": !hasImage,
                         "p-2 border-opacity-60": hasImage,
                       }
