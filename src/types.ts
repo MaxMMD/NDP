@@ -55,6 +55,13 @@ export interface BasicPagePropsData {
   site: {
     siteMetadata: {
       title: string
+      description: string
+      donationLink: string
+      socialMedia: {
+        facebook: string
+        twitter: string
+        instagram: string
+      }
     }
   }
 }
@@ -72,7 +79,5 @@ export interface VideoPagePropsData {
 }
 
 export interface ContentfulPagePropsData {
-  allContentfulFriendsOfNotreDamePage: {
-    edges: Node<ContentfulPageType>[]
-  }
+  contentfulFriendsOfNotreDamePage: ContentfulPageType
 }

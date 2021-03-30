@@ -6,11 +6,14 @@ import CardGrid from "../components/CardGrid"
 import Icon from "../components/Icon"
 import FeatureItem from "../components/FeatureItem"
 import { PageProps } from "gatsby"
-import { ArtefactType } from "../types"
+import { ArtefactType, BasicPagePropsData } from "../types"
 
-export default function Artefact({
-  pageContext,
-}: PageProps<any, ArtefactType>) {
+interface Props {
+  node: ArtefactType
+  page: BasicPagePropsData
+}
+
+export default function Artefact({ pageContext }: PageProps<any, Props>) {
   const {
     slug,
     title,
@@ -20,9 +23,7 @@ export default function Artefact({
     restorationComplete,
     campaignPageUrl,
     related = [],
-  } = pageContext
-
-  console.log(related, pageContext)
+  } = pageContext.node
 
   const body = description?.childMdx?.body || ""
   const images = resizedImages?.map(r => r.resize) || []

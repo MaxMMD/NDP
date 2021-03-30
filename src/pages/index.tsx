@@ -164,6 +164,7 @@ export const query = graphql`
     site {
       siteMetadata {
         title
+        donationLink
       }
     }
     allContentfulFriendsOfNotreDameArtefact(
@@ -202,6 +203,17 @@ export const query = graphql`
               srcSet
             }
           }
+        }
+      }
+    }
+    contentfulFriendsOfNotreDamePage(
+      pageName: { eq: "Homepage" }
+      node_locale: { eq: "en-US" }
+    ) {
+      pageTitle
+      introduction {
+        childMdx {
+          body
         }
       }
     }

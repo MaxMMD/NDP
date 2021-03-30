@@ -5,8 +5,24 @@ import { Paragraph } from "./Typography"
 import { PseudoButton } from "./FormElements"
 import SocialLinks from "./SocialLinks"
 import { Spacer } from "./Layout"
+import { BasicPagePropsData } from "../types"
+import { graphql, useStaticQuery } from "gatsby"
 
 function Footer(props: { className?: string }) {
+  const data: BasicPagePropsData = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          socialMedia {
+            twitter
+            instagram
+            facebook
+          }
+        }
+      }
+    }
+  `)
+
   return (
     <footer className={cx("Footer container mx-auto", props.className)}>
       <div className="mx-8 lg:mx-16 flex flex-col md:flex-row border-t border-gray-200 py-8 justify-between">
@@ -29,7 +45,10 @@ function Footer(props: { className?: string }) {
         <div className="mb-6 md:mb-0 md:pr-32">
           <Paragraph.Medium>Social</Paragraph.Medium>
           <Spacer className="mt-4" />
-          <SocialLinks alignment="left" />
+          <SocialLinks
+            links={data.site.siteMetadata.socialMedia}
+            alignment="left"
+          />
         </div>
       </div>
     </footer>

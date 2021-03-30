@@ -31,5 +31,16 @@ export const query = graphql`
         title
       }
     }
+    contentfulFriendsOfNotreDamePage(
+      pageName: { eq: "Donate" }
+      node_locale: { eq: "en-US" }
+    ) {
+      pageTitle
+      introduction {
+        childMdx {
+          body
+        }
+      }
+    }
   }
 `

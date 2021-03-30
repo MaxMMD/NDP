@@ -10,14 +10,21 @@ require("dotenv").config({
 module.exports = {
   siteMetadata: {
     title: "Friends of Notre-Dame de Paris",
+    description:
+      "Eiusmod esse anim non excepteur occaecat exercitation aliqua.",
+    socialMedia: {
+      twitter: "https://twitter.com/friendsofnotredame",
+      facebook: "https://facebook.com/friendsofnotredame",
+      instagram: "https://instagram/friendsofnd",
+    },
   },
   plugins: [
     {
       resolve: `gatsby-source-contentful`,
       options: {
-        spaceId: process.env.CONTENTFUL_SPACE_ID,
+        spaceId: process.env.GATSBY_CONTENTFUL_SPACE_ID,
         // Learn about environment variables: https://gatsby.dev/env-vars
-        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+        accessToken: process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN,
       },
     },
     "gatsby-plugin-mdx",

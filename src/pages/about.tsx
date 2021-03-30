@@ -13,8 +13,7 @@ import { BasicPagePropsData, ContentfulPagePropsData } from "../types"
 export default function About({
   data,
 }: PageProps<ContentfulPagePropsData & BasicPagePropsData>) {
-  const { introduction, image } =
-    data.allContentfulFriendsOfNotreDamePage?.edges?.[0]?.node || {}
+  const { introduction, image } = data.contentfulFriendsOfNotreDamePage || {}
   const body = introduction?.childMdx?.body
 
   return (
@@ -62,7 +61,10 @@ export default function About({
 
               <Spacer className="mt-4" />
 
-              <SocialLinks alignment="right" />
+              <SocialLinks
+                links={data.site.siteMetadata.socialMedia}
+                alignment="right"
+              />
 
               <Spacer />
 
@@ -82,26 +84,27 @@ export const query = graphql`
     site {
       siteMetadata {
         title
+        socialMedia {
+          twitter
+          instagram
+          facebook
+        }
       }
     }
-    allContentfulFriendsOfNotreDamePage(
-      filter: { pageName: { eq: "About" }, node_locale: { eq: "en-US" } }
-      limit: 1
+    contentfulFriendsOfNotreDamePage(
+      pageName: { eq: "About" }
+      node_locale: { eq: "en-US" }
     ) {
-      edges {
-        node {
-          pageTitle
-          introduction {
-            childMdx {
-              body
-            }
-          }
-          image {
-            fluid(maxHeight: 1100, maxWidth: 1650) {
-              src
-              srcSet
-            }
-          }
+      pageTitle
+      introduction {
+        childMdx {
+          body
+        }
+      }
+      image {
+        fluid(maxHeight: 1100, maxWidth: 1650) {
+          src
+          srcSet
         }
       }
     }

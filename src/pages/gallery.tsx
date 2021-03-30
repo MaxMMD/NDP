@@ -1,20 +1,47 @@
 import { graphql, PageProps } from "gatsby"
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { shuffle } from "lodash"
 import CardGrid from "../components/CardGrid"
 import Root from "../components/Root"
 import { Block, Spacer } from "../components/Layout"
 import { Paragraph } from "../components/Typography"
 import Select from "../components/Select"
-import { BasicPagePropsData, GalleryPagePropsData } from "../types"
+import {
+  ArtefactType,
+  BasicPagePropsData,
+  GalleryPagePropsData,
+  Node,
+} from "../types"
 import cardSorting from "../utils/card-sorting"
+// import ContentfulServiceWrapper from "../components/ContentfulServiceWrapper"
+// import { ServiceContext } from "../context/service-context"
+// import ContentfulService from "../services/contentful-service"
+// import { normaliseEntryToCard } from "../utils/card-normaliser"
 
-export default function Gallery({
+export type ArtefactList = ArtefactType[]
+
+function Gallery({
   data,
 }: PageProps<GalleryPagePropsData & BasicPagePropsData>) {
   const cardData = data.allContentfulFriendsOfNotreDameArtefact.edges
   const [cards, setCards] = useState(cardData)
   const [sortMode, setSortMode] = useState("published-desc")
+
+  //?: When sortMode changes, we might want to fetch fresh data from Contentful
+  // const contentfulService: ContentfulService = useContext(ServiceContext)
+  //
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     contentfulService
+  //       .fetch({
+  //         content_type: "friendsOfNotreDameArtefact",
+  //       })
+  //       .then(r => {
+  //         const newCards = normaliseEntryToCard(r.items);
+  //         setCards(newCards)
+  //       })
+  //   }
+  // }, [sortMode])
 
   useEffect(() => {
     let newCards = []
@@ -98,6 +125,22 @@ export default function Gallery({
   )
 }
 
+export default Gallery
+
+//?: Use the service wrapper to fetch data client-side from Contentful
+// export default function GalleryWrapper(
+//   props: PageProps<GalleryPagePropsData & BasicPagePropsData>
+// ) {
+//   return (
+//     <ContentfulServiceWrapper
+//       spaceId={process.env.GATSBY_CONTENTFUL_SPACE_ID}
+//       accessToken={process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN}
+//     >
+//       <Gallery {...props} />
+//     </ContentfulServiceWrapper>
+//   )
+// }
+
 export const query = graphql`
   query {
     site {
@@ -124,6 +167,17 @@ export const query = graphql`
               src
             }
           }
+        }
+      }
+    }
+    contentfulFriendsOfNotreDamePage(
+      pageName: { eq: "Gallery" }
+      node_locale: { eq: "en-US" }
+    ) {
+      pageTitle
+      introduction {
+        childMdx {
+          body
         }
       }
     }

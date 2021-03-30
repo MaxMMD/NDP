@@ -17,6 +17,7 @@
     "@mdx-js/mdx": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
     "classnames": "^2.2.6",
+    "contentful": "^8.2.1",
     "gatsby": "^2.32.0",
     "gatsby-plugin-gdpr-cookies": "^1.0.12",
     "gatsby-plugin-mdx": "^2.1.0",

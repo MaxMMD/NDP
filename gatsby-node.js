@@ -3,7 +3,7 @@ const path = require("path")
 exports.createPages = async function ({ actions, graphql }) {
   const template = require.resolve(`./src/templates/artefact.tsx`)
   const result = await graphql(`
-    query JSONDataQuery {
+    query {
       allContentfulFriendsOfNotreDameArtefact(
         filter: { node_locale: { eq: "en-US" } }
       ) {
@@ -43,6 +43,12 @@ exports.createPages = async function ({ actions, graphql }) {
           }
         }
       }
+      contentfulFriendsOfNotreDamePage(
+        pageName: { eq: "Artefact" }
+        node_locale: { eq: "en-US" }
+      ) {
+        pageTitle
+      }
     }
   `)
 
@@ -59,7 +65,10 @@ exports.createPages = async function ({ actions, graphql }) {
         return actions.createPage({
           path: slug,
           component: template,
-          context: node,
+          context: {
+            node: node,
+            page: result.data.contentfulFriendsOfNotreDamePage || {},
+          },
         })
       }
     )

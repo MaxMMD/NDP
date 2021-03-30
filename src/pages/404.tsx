@@ -37,5 +37,16 @@ export const query = graphql`
         title
       }
     }
+    contentfulFriendsOfNotreDamePage(
+      pageName: { eq: "404" }
+      node_locale: { eq: "en-US" }
+    ) {
+      pageTitle
+      introduction {
+        childMdx {
+          body
+        }
+      }
+    }
   }
 `

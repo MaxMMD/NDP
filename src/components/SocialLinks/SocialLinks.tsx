@@ -5,17 +5,33 @@ import Icon from "../Icon"
 interface Props {
   className?: string
   alignment?: "left" | "right" | "center"
+  links: {
+    twitter: string
+    facebook: string
+    instagram: string
+  }
 }
 
-const platforms = [Icon.Facebook, Icon.Twitter, Icon.Instagram]
+const platforms = [
+  {
+    id: "facebook",
+    comp: Icon.Facebook,
+  },
+  {
+    id: "twitter",
+    comp: Icon.Twitter,
+  },
+  { id: "instagram", comp: Icon.Instagram },
+]
 
 function SocialLinks(props: Props) {
+  const links: any = props.links || {}
   return (
     <div className={cx("SocialLinks flex", props.className)}>
       {platforms.map((Comp, i) => (
         <a
-          key={i}
-          href="#"
+          key={Comp.id}
+          href={links?.[Comp.id]}
           className={cx(
             "border rounded-full border-white h-10 w-10 inline-flex justify-center items-center",
             {
@@ -25,7 +41,7 @@ function SocialLinks(props: Props) {
             }
           )}
         >
-          <Comp width={20} />
+          <Comp.comp width={20} />
         </a>
       ))}
     </div>

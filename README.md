@@ -19,8 +19,8 @@ yarn install
 To get started developing, create a `.env.development` file for the build variables:
 
 ```text
-CONTENTFUL_ACCESS_TOKEN=
-CONTENTFUL_SPACE_ID=
+GATSBY_CONTENTFUL_ACCESS_TOKEN=
+GATSBY_CONTENTFUL_SPACE_ID=
 ```
 
 Then run:
