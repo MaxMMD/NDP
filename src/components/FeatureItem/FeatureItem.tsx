@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { MDXProvider } from "@mdx-js/react"
 import { useInView } from "react-hook-inview"
@@ -9,6 +9,8 @@ import { Paragraph, Subheading } from "../Typography"
 import FeaturedImages from "../FeaturedImages"
 import { ImageType } from "../../types"
 import Icon from "../Icon"
+import GlobalDOMContext from "../../context/global-dom-context"
+import GiveLivelyWidget from "../GiveLivelyWidget"
 
 export interface Props {
   id: string
@@ -21,8 +23,25 @@ export interface Props {
 }
 
 function FeatureItem(props: Props) {
+  const { updateStore } = useContext(GlobalDOMContext)
   const [progressRef, progressInView] = useInView()
   const featuredImages = props.images || []
+
+  function handleOnClick(e: any) {
+    if (!updateStore) {
+      return
+    }
+
+    e.preventDefault()
+
+    updateStore({
+      context: "modal",
+      options: {
+        fullscreen: true,
+      },
+      content: () => <GiveLivelyWidget />,
+    })
+  }
 
   return (
     <div className="flex flex-wrap lg:flex-nowrap justify-center lg:justify-between">
@@ -53,8 +72,12 @@ function FeatureItem(props: Props) {
         <Spacer className="mt-8" />
 
         <div className="flex justify-end">
-          <PseudoButton buttonStyle="squished" href={props.campaignPageUrl}>
-            Donate
+          <PseudoButton
+            onClick={handleOnClick}
+            buttonStyle="squished"
+            href={props.campaignPageUrl}
+          >
+            Restore
           </PseudoButton>
         </div>
 

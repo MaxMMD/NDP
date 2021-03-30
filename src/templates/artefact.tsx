@@ -7,6 +7,7 @@ import Icon from "../components/Icon"
 import FeatureItem from "../components/FeatureItem"
 import { PageProps } from "gatsby"
 import { ArtefactType, BasicPagePropsData } from "../types"
+import GiveLivelyWidget from "../components/GiveLivelyWidget"
 
 interface Props {
   node: ArtefactType

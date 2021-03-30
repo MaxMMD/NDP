@@ -1,16 +1,34 @@
 // @ts-nocheck
+import {
+  WebGLRenderer,
+  ObjectLoader,
+  sRGBEncoding,
+  MeshBasicMaterial,
+  EdgesGeometry,
+  LineBasicMaterial,
+  LineSegments,
+  Math as ThreeMath,
+} from "three"
 
 var APP = {
   Player: function (customEvents: any) {
-    var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+    window.THREE = {
+      MeshBasicMaterial,
+      EdgesGeometry,
+      LineBasicMaterial,
+      LineSegments,
+      Math: ThreeMath,
+    }
+
+    var renderer = new WebGLRenderer({ antialias: true, alpha: true })
     renderer.setPixelRatio(window.devicePixelRatio) // TODO: Use player.setPixelRatio()
-    renderer.outputEncoding = THREE.sRGBEncoding
+    renderer.outputEncoding = sRGBEncoding
     renderer.setClearColor(0x000000, 0)
 
-    var loader = new THREE.ObjectLoader()
+    var loader = new ObjectLoader()
     var camera, scene
 
-    var vrButton = VRButton.createButton(renderer) // eslint-disable-line no-undef
+    // var vrButton = VRButton.createButton(renderer) // eslint-disable-line no-undef
 
     var events = {}
 
@@ -22,7 +40,7 @@ var APP = {
     this.width = 500
     this.height = 500
 
-    this.load = function (json) {
+    this.load = json => {
       var project = json.project
 
       if (project.vr !== undefined) renderer.xr.enabled = project.vr
@@ -82,8 +100,6 @@ var APP = {
             scriptWrapParams,
             script.source + "\nreturn " + scriptWrapResult + ";"
           ).bind(object)(this, renderer, scene, camera)
-
-          console.log(functions)
 
           for (var name in functions) {
             if (functions[name] === undefined) continue
@@ -159,7 +175,7 @@ var APP = {
     }
 
     this.play = function () {
-      if (renderer.xr.enabled) dom.append(vrButton)
+      // if (renderer.xr.enabled) dom.append(vrButton)
 
       startTime = prevTime = performance.now()
 
@@ -175,7 +191,7 @@ var APP = {
     }
 
     this.stop = function () {
-      if (renderer.xr.enabled) vrButton.remove()
+      // if (renderer.xr.enabled) vrButton.remove()
 
       document.removeEventListener("keydown", onKeyDown)
       document.removeEventListener("keyup", onKeyUp)

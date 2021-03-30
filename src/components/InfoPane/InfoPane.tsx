@@ -7,6 +7,7 @@ export interface Props {
   className?: string
   isVisible?: boolean
   onClick?: () => void
+  children: JSX.Element | JSX.Element[]
 }
 
 function InfoPane(props: Props) {
@@ -26,13 +27,7 @@ function InfoPane(props: Props) {
             )}
             onClick={props.onClick}
           >
-            <Paragraph.Base>
-              Hover over a puzzle piece to reveal the artefact. Click on the
-              artefact to learn more.
-            </Paragraph.Base>
-            <Paragraph.Base>
-              Puzzle pieces in white are fully restored.
-            </Paragraph.Base>
+            {props.children}
           </div>
         ) : (
           <></>

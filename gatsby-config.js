@@ -12,6 +12,7 @@ module.exports = {
     title: "Friends of Notre-Dame de Paris",
     description:
       "Eiusmod esse anim non excepteur occaecat exercitation aliqua.",
+    donationLink: "",
     socialMedia: {
       twitter: "https://twitter.com/friendsofnotredame",
       facebook: "https://facebook.com/friendsofnotredame",

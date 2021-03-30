@@ -5,6 +5,7 @@ import { Block, Spacer } from "../components/Layout"
 import { Paragraph } from "../components/Typography"
 import VideoCard from "../components/VideoCard"
 import { VideoPagePropsData } from "../types"
+import Link from "../components/Link"
 
 export default function Progress({ data }: PageProps<VideoPagePropsData>) {
   const videos = data.allContentfulFriendsOfNotreDameVideo.edges
@@ -16,12 +17,13 @@ export default function Progress({ data }: PageProps<VideoPagePropsData>) {
       showFrame
     >
       <div className="container mx-auto text-white py-6">
-        <Block padding="none">
+        <Block>
           <Paragraph.Base className="lg:w-1/2">
-            Laborum cillum officia commodo quis. Reprehenderit exercitation do
-            deserunt ipsum nostrud deserunt reprehenderit sunt. Ipsum proident
-            veniam nulla officia dolore incididunt culpa nisi ea sint. Amet sit
-            excepteur ut aute proident amet ad.
+            Get a behind the scenes look and track the progress of the
+            restoration of the Notre-Dame Cathedral. Updates will be made
+            regularly, in the meantime, <Link href="/gallery">learn more</Link>{" "}
+            about the artifacts currently being restored or{" "}
+            <Link href="#">make a donation</Link>.
           </Paragraph.Base>
         </Block>
 

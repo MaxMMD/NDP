@@ -37,6 +37,7 @@ function VideoCard(props: Props) {
       <Image
         containerClassName="aspect-ratio aspect-ratio-16:9"
         className="w-full h-full"
+        loading="lazy"
         {...props.coverImage.fluid}
       />
       <span className="absolute inset-1/2 w-20 h-20 bg-black border border-white rounded-full transform -translate-y-1/2 -translate-x-1/2 flex items-center justify-center transition-transform hover:scale-105 duration-700">

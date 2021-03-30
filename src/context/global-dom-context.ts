@@ -11,10 +11,14 @@ export type DOMElement =
 export interface DOMContextRecord {
   context?: string
   content?: DOMElement
+  options?: any
 }
 
 export interface DOMContextStore {
-  [key: string]: DOMElement
+  [key: string]: {
+    content: DOMElement
+    options?: any
+  }
 }
 
 const GlobalDOMContext = React.createContext<{

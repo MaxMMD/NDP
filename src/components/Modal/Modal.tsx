@@ -3,6 +3,8 @@ import cx from "classnames"
 import GlobalDOMContext from "../../context/global-dom-context"
 import Icon from "../Icon"
 
+let scrollPosition = 0
+
 function Modal() {
   const {
     store,
@@ -10,8 +12,8 @@ function Modal() {
     renderer = (c: any) => c,
   } = useContext(GlobalDOMContext)
   const [isVisible, setIsVisible] = useState(false)
-  const content = store?.modal
-
+  const { content, options = {} } = store?.modal || {}
+  const { fullscreen = false } = options
   useEffect(() => {
     if (!!content) {
       setTimeout(() => {
@@ -25,7 +27,7 @@ function Modal() {
     return (
       <div
         className={cx(
-          "Modal fixed top-0 left-0 z-50 w-screen h-screen overflow-hidden bg-black bg-opacity-70 flex justify-center items-center transition duration-1000",
+          "Modal fixed top-0 left-0 z-50 w-screen h-screen overflow-hidden bg-black bg-opacity-70 flex justify-center items-center transition duration-1000 px-2 pt-8 md:p-16",
           {
             "opacity-100": isVisible,
             "opacity-0": !isVisible,
@@ -38,12 +40,19 @@ function Modal() {
             {
               "translate-y-full opacity-0 delay-0": !isVisible,
               "translate-y-0 opacity-100 delay-500": isVisible,
+              "w-full h-full": fullscreen,
             }
           )}
         >
-          <>{renderer(content)}</>
+          <div
+            className={cx({
+              "w-full h-full overflow-y-auto overscroll-contain": fullscreen,
+            })}
+          >
+            {renderer(content)}
+          </div>
           <span
-            className="absolute top-0 right-6 md:-top-12 md:-right-12 text-lg cursor-pointer"
+            className="absolute -top-2 right-4 md:-top-12 md:-right-12 text-lg cursor-pointer"
             onClick={() => {
               setIsVisible(false)
               setTimeout(() => {

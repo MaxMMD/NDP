@@ -54,7 +54,13 @@ export default function Home({
                 isVisible={showInfoPane}
                 className="absolute bottom-8 left-1/2 w-3/4 transform -translate-x-1/2"
                 onClick={() => setShowInfoPane(false)}
-              />
+              >
+                <Paragraph.Base>
+                  Hover the image to discover each piece of work and to explore
+                  the puzzle. Each piece represents an artifact within the
+                  cathedral that needs restoration.
+                </Paragraph.Base>
+              </InfoPane>
             </div>
           </div>
           <div className="w-full lg:w-1/2 mt-16 lg:mt-0 xl:mt-16 lg:pl-16 xl:pl-32">
@@ -76,14 +82,16 @@ export default function Home({
             </div>
 
             <Paragraph.Base>
-              Lorem in exercitation elit esse minim fugiat. Pariatur
-              exercitation ex ipsum tempor enim proident. Nulla aliquip ad ipsum
-              amet duis consequat duis sint enim cupidatat.
+              Our organization was established in 2017 to support the
+              preservation of the Notre-Dame Cathedral. The cathedral was in
+              desperate need of attention and infrastructure repairs, so we made
+              it our mission to provide the support for this internationally
+              beloved monument.
             </Paragraph.Base>
             <Paragraph.Base>
-              Est ad non commodo occaecat incididunt aliqua enim ipsum consequat
-              labore anim. Officia fugiat proident tempor ut nisi laborum
-              excepteur tempor ullamco aliquip anim irure.
+              Our mission, however, changed in 2019 with the tragic fire that
+              set the cathedral ablaze. We are now determined to restore,
+              rebuild, and preserve the cathedral. And we would love your help.
             </Paragraph.Base>
           </div>
         </Block>
@@ -99,9 +107,9 @@ export default function Home({
 
         <Block>
           <Paragraph.Base className="lg:w-1/2">
-            Eiusmod sit duis esse sit. Cillum nisi magna occaecat consequat
-            incididunt occaecat eu occaecat laboris cupidatat ut anim nostrud
-            ullamco.
+            Track the restoration progress of each artifact within the
+            Notre-Dame Cathedral. Click through to learn more about each
+            artifact and to make a donation.
           </Paragraph.Base>
           <CardGrid items={cards} carousel />
         </Block>
@@ -117,9 +125,8 @@ export default function Home({
 
         <Block>
           <Paragraph.Base className="lg:w-1/2">
-            Eiusmod sit duis esse sit. Cillum nisi magna occaecat consequat
-            incididunt occaecat eu occaecat laboris cupidatat ut anim nostrud
-            ullamco.
+            Get a behind the scenes look and track the progress of the
+            restoration of the Notre-Dame Cathedral.
           </Paragraph.Base>
 
           <Spacer className="mt-4 lg:mt-8" />
@@ -144,14 +151,16 @@ export default function Home({
 
       <TypeScreen
         text={[
-          "Screen 1. Irure mollit exercitation voluptate id esse nulla eiusmod. Nostrud commodo irure occaecat labore. Amet irure commodo minim anim cillum cupidatat enim ipsum magna proident commodo exercitation.",
-          "Screen 2. Elit esse pariatur laboris quis id velit.",
-          "Screen 3. Et cillum deserunt consequat cupidatat veniam dolore. Excepteur labore elit deserunt minim dolore elit ex. Ad enim elit ex velit velit ea mollit et enim.",
+          "On April 15, 2019, the Notre-Dame Cathedral tragically caught fire.",
+          "Since then, the Friends of Notre-Dame de Paris have been devoted to rebuilding, restoring, and preserving the rich history of the beloved Cathedral.",
+          "This project is an opportunity for everyone, no matter where in the world, to become an integral part of piecing the puzzle back together.",
+          "We invite you to explore the work to be done and we ask of you to contribute to the restoration while you do.",
         ]}
         isVisibleOnLoad
         onClose={() => {
           setTimeout(() => {
             setAutoFlipTrigger(Date.now())
+            console.log("trigger autoflip")
           }, 200)
         }}
       />

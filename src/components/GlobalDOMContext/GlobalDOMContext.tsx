@@ -11,12 +11,19 @@ function reducer(
     type: string
     context?: string
     content?: DOMElement
+    options?: any
   }
 ) {
   switch (action.type) {
     case "update":
       return action.context
-        ? { ...store, [action.context]: action.content }
+        ? {
+            ...store,
+            [action.context]: {
+              content: action.content,
+              options: action.options,
+            },
+          }
         : store
     default:
       throw new Error()
@@ -38,6 +45,7 @@ export function GlobalDOMContextProvider(props: any) {
             type: "update",
             content: record.content,
             context: record.context,
+            options: record.options,
           })
         },
         renderer: (content: DOMElement) =>
