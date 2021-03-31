@@ -15,16 +15,16 @@ function PuzzleInfoContent() {
         restoration.
       </Paragraph.Base>
 
-      <div className="border-t border-white border-b py-2 flex justify-between">
+      <div className="border-t border-white border-b py-2 md:flex justify-between">
         <ParagraphBase className="text-md font-normal m-0">Key</ParagraphBase>
-        <div className="flex">
+        <div className="md:flex">
           <span className="flex items-center">
             <span className="inline-block w-4 h-4 overflow-hidden bg-white border border-white border-opacity-60" />
             <ParagraphBase className="text-md font-light inline m-0 pl-2">
               Restored
             </ParagraphBase>
           </span>
-          <span className="flex items-center ml-4">
+          <span className="flex items-center md:ml-4">
             <span className="inline-block w-4 h-4 overflow-hidden bg-black border border-white border-opacity-60" />
             <ParagraphBase className="text-md font-light inline m-0 pl-2">
               Not restored

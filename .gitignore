@@ -70,3 +70,5 @@ yarn-error.log
 
 .vercel
 .vscode
+
+.git_old

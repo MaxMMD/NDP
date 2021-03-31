@@ -61,7 +61,7 @@ export default function Home({
               </span>
               <InfoPane
                 isVisible={showInfoPane}
-                className="absolute bottom-8 left-1/2 w-3/4 transform -translate-x-1/2"
+                className="absolute bottom-8 left-1/2 w-full md:w-3/4 transform -translate-x-1/2"
                 onClick={() => setShowInfoPane(false)}
               >
                 <PuzzleInfoContent />

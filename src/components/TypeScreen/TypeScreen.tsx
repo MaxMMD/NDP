@@ -74,6 +74,7 @@ function TypeScreen(props: Props) {
   // const puzzleContainerRef = useRef<HTMLDivElement>(null)
   const [isGoingVisible, setIsGoingVisible] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
+  const [isDisplayUI, setIsDisplayUI] = useState(false)
   const [displayFinalAnimation, setDisplayFinalAnimation] = useState(false)
   const [animationIsVisible, setAnimationIsVisible] = useState(false)
 
@@ -85,9 +86,12 @@ function TypeScreen(props: Props) {
   async function onClose() {
     sessionStorage?.setItem("fond-skip-intro", "true")
     setDisplayFinalAnimation(true)
-    await wait(500)
+    await wait(200)
     setAnimationIsVisible(true)
     await wait(4000)
+    setIsDisplayUI(false)
+    setAnimationIsVisible(false)
+    await wait(1000)
     setIsGoingVisible(false)
     await wait(700)
     setIsVisible(false)
@@ -99,6 +103,9 @@ function TypeScreen(props: Props) {
 
     await wait(700)
     setIsGoingVisible(true)
+
+    await wait(100)
+    setIsDisplayUI(true)
   }
 
   useEffect(() => {
@@ -107,7 +114,11 @@ function TypeScreen(props: Props) {
         ? sessionStorage?.getItem("fond-skip-intro")
         : false
 
-    if (hasDismissed || !props.isVisibleOnLoad) {
+    if (
+      typeof window === "undefined" ||
+      hasDismissed ||
+      !props.isVisibleOnLoad
+    ) {
       props.onClose()
       return
     }
@@ -171,7 +182,7 @@ function TypeScreen(props: Props) {
   // }, 20)
   // }, [isVisible])
 
-  if (!isVisible) {
+  if (!isVisible || typeof window === "undefined") {
     return null
   }
 
@@ -194,43 +205,59 @@ function TypeScreen(props: Props) {
         </div>
         <Puzzle disableAutoFlip />
       </div> */}
-      <div className="relative container mx-auto h-full flex items-center">
-        <Block padding="narrow" className="lg:ml-16 lg:mr-0">
+      <div
+        className={cx("relative container mx-auto h-full flex items-center")}
+      >
+        <Block
+          padding="narrow"
+          className={cx("lg:ml-8 lg:mr-8 transition duration-800", {
+            "opacity-0": !isDisplayUI,
+            "opacity-100": isDisplayUI,
+          })}
+        >
           <p
             ref={textRef}
             className="font-light text-2xl md:text-4xl leading-snug tracking-wide transition opacity-0 duration-1000"
           />
           <Spacer />
-          <span
-            onClick={() => onClose()}
-            className="absolute bottom-0 right-8 lg:right-32 font-light text-xl md:text-3xl tracking-wide cursor-pointer"
-          >
-            Skip
-          </span>
-          <span
-            className={cx(
-              "absolute top-0 left-8 lg:left-32 transition duration-1000",
-              {
-                "opacity-100": isGoingVisible,
-                "opacity-0": !isGoingVisible,
-              }
-            )}
-          >
-            <SoundFile />
-          </span>
+          {isDisplayUI ? (
+            <>
+              <span
+                onClick={() => onClose()}
+                className="absolute bottom-0 right-8 lg:right-32 font-light text-xl md:text-3xl tracking-wide cursor-pointer"
+              >
+                Skip
+              </span>
+              <div
+                className={cx(
+                  "absolute top-0 left-8 lg:left-32 duration-1000 transition",
+                  {
+                    "opacity-0": !isGoingVisible,
+                    "opacity-100": isGoingVisible,
+                  }
+                )}
+              >
+                <SoundFile />
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
         </Block>
       </div>
       {displayFinalAnimation && isVisible ? (
-        <div
-          className={cx(
-            "w-screen h-screen fixed top-0 left-0 bg-black z-50 flex items-center transition-all duration-700",
-            {
-              "opacity-0": !animationIsVisible,
-              "opacity-100": animationIsVisible,
-            }
-          )}
-        >
-          <CubeAnimation />
+        <div className="w-screen h-screen fixed top-0 left-0 bg-transparent z-50 flex items-center">
+          <div
+            className={cx(
+              "w-screen h-screen bg-black transition-all duration-700",
+              {
+                "opacity-0": !animationIsVisible,
+                "opacity-100": animationIsVisible,
+              }
+            )}
+          >
+            <CubeAnimation />
+          </div>
         </div>
       ) : null}
     </div>
