@@ -45,6 +45,9 @@ export interface ContentfulPageType {
   }
   copyBlock1?: MDXNode
   copyBlock2?: MDXNode
+  plainText1?: {
+    plainText1?: string
+  }
 }
 
 export interface Node<T> {

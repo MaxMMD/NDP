@@ -5,6 +5,7 @@ import { Block, Spacer } from "../Layout"
 // import { shuffle } from "lodash"
 // import TestSvg from "../TestSvg"
 import CubeAnimation from "../CubeAnimation"
+import SoundFile from "../SoundFile"
 
 export interface Props {
   text: string[]
@@ -116,8 +117,6 @@ function TypeScreen(props: Props) {
 
   useEffect(() => {
     if (isVisible) {
-      // document.body.style.height = "100vh"
-      // document.body.style.overflow = "hidden"
       document.body.classList.add("h-screen")
       document.body.classList.add("overflow-hidden")
     } else {
@@ -208,12 +207,23 @@ function TypeScreen(props: Props) {
           >
             Skip
           </span>
+          <span
+            className={cx(
+              "absolute top-0 left-8 lg:left-32 transition duration-1000",
+              {
+                "opacity-100": isGoingVisible,
+                "opacity-0": !isGoingVisible,
+              }
+            )}
+          >
+            <SoundFile />
+          </span>
         </Block>
       </div>
       {displayFinalAnimation && isVisible ? (
         <div
           className={cx(
-            "w-screen h-screen fixed top-0 left-0 bg-black z-50 flex items-center transition-all duration-1000",
+            "w-screen h-screen fixed top-0 left-0 bg-black z-50 flex items-center transition-all duration-700",
             {
               "opacity-0": !animationIsVisible,
               "opacity-100": animationIsVisible,

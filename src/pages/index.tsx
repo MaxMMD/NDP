@@ -1,16 +1,18 @@
 import { graphql, PageProps } from "gatsby"
 import React, { useState } from "react"
+import { MDXRenderer } from "gatsby-plugin-mdx"
 import CardGrid from "../components/CardGrid"
 import Icon from "../components/Icon"
 import Link from "../components/Link"
-import Puzzle from "../components/Puzzle"
+import Puzzle, { PuzzleInfoContent } from "../components/Puzzle"
 import Root from "../components/Root"
 import { Block, Spacer } from "../components/Layout"
-import { Paragraph, Subheading, Title } from "../components/Typography"
+import { Subheading, Title } from "../components/Typography"
 import VideoCard from "../components/VideoCard"
 import TypeScreen from "../components/TypeScreen"
 import {
   BasicPagePropsData,
+  ContentfulPagePropsData,
   GalleryPagePropsData,
   VideoPagePropsData,
 } from "../types"
@@ -21,17 +23,24 @@ import InfoPane from "../components/InfoPane"
 
 export default function Home({
   data,
-}: PageProps<GalleryPagePropsData & VideoPagePropsData & BasicPagePropsData>) {
+}: PageProps<
+  GalleryPagePropsData &
+    VideoPagePropsData &
+    BasicPagePropsData &
+    ContentfulPagePropsData
+>) {
   const [autoFlipTrigger, setAutoFlipTrigger] = useState<number | null>(null)
   const [showInfoPane, setShowInfoPane] = useState(false)
   const cards = data.allContentfulFriendsOfNotreDameArtefact.edges
   const videos = data.allContentfulFriendsOfNotreDameVideo.edges
+  const page = data.contentfulFriendsOfNotreDamePage
+  const typeScreenText = page?.plainText1?.plainText1
 
   return (
     <Root
       className="homepage page bg-black text-white"
       title={data.site.siteMetadata.title}
-      description="Nostrud ullamco aute elit duis culpa aliqua amet occaecat irure."
+      description={data.site.siteMetadata.description}
       showFrame
     >
       <div className="container mx-auto text-white py-6">
@@ -55,11 +64,7 @@ export default function Home({
                 className="absolute bottom-8 left-1/2 w-3/4 transform -translate-x-1/2"
                 onClick={() => setShowInfoPane(false)}
               >
-                <Paragraph.Base>
-                  Hover the image to discover each piece of work and to explore
-                  the puzzle. Each piece represents an artifact within the
-                  cathedral that needs restoration.
-                </Paragraph.Base>
+                <PuzzleInfoContent />
               </InfoPane>
             </div>
           </div>
@@ -81,18 +86,7 @@ export default function Home({
               />
             </div>
 
-            <Paragraph.Base>
-              Our organization was established in 2017 to support the
-              preservation of the Notre-Dame Cathedral. The cathedral was in
-              desperate need of attention and infrastructure repairs, so we made
-              it our mission to provide the support for this internationally
-              beloved monument.
-            </Paragraph.Base>
-            <Paragraph.Base>
-              Our mission, however, changed in 2019 with the tragic fire that
-              set the cathedral ablaze. We are now determined to restore,
-              rebuild, and preserve the cathedral. And we would love your help.
-            </Paragraph.Base>
+            <MDXRenderer>{page.introduction?.childMdx?.body || ""}</MDXRenderer>
           </div>
         </Block>
 
@@ -106,11 +100,9 @@ export default function Home({
         </Block>
 
         <Block>
-          <Paragraph.Base className="lg:w-1/2">
-            Track the restoration progress of each artifact within the
-            Notre-Dame Cathedral. Click through to learn more about each
-            artifact and to make a donation.
-          </Paragraph.Base>
+          <div className="lg:w-1/2">
+            <MDXRenderer>{page.copyBlock1?.childMdx?.body || ""}</MDXRenderer>
+          </div>
           <CardGrid items={cards} carousel />
         </Block>
 
@@ -124,10 +116,9 @@ export default function Home({
         </Block>
 
         <Block>
-          <Paragraph.Base className="lg:w-1/2">
-            Get a behind the scenes look and track the progress of the
-            restoration of the Notre-Dame Cathedral.
-          </Paragraph.Base>
+          <div className="lg:w-1/2">
+            <MDXRenderer>{page.copyBlock2?.childMdx?.body || ""}</MDXRenderer>
+          </div>
 
           <Spacer className="mt-4 lg:mt-8" />
 
@@ -145,25 +136,23 @@ export default function Home({
         <Spacer />
 
         <div className="mx-8 lg:mx-16 flex pt-20 pb-12 border-t border-gray-200 justify-center items-center">
-          <PseudoButton>Donate</PseudoButton>
+          <PseudoButton href="/donate">Donate</PseudoButton>
         </div>
       </div>
 
-      <TypeScreen
-        text={[
-          "On April 15, 2019, the Notre-Dame Cathedral tragically caught fire.",
-          "Since then, the Friends of Notre-Dame de Paris have been devoted to rebuilding, restoring, and preserving the rich history of the beloved Cathedral.",
-          "This project is an opportunity for everyone, no matter where in the world, to become an integral part of piecing the puzzle back together.",
-          "We invite you to explore the work to be done and we ask of you to contribute to the restoration while you do.",
-        ]}
-        isVisibleOnLoad
-        onClose={() => {
-          setTimeout(() => {
-            setAutoFlipTrigger(Date.now())
-            console.log("trigger autoflip")
-          }, 200)
-        }}
-      />
+      {typeScreenText ? (
+        <TypeScreen
+          text={typeScreenText.split(/\r?\n/).filter(ln => !!ln)}
+          isVisibleOnLoad
+          onClose={() => {
+            setTimeout(() => {
+              setAutoFlipTrigger(Date.now())
+            }, 200)
+          }}
+        />
+      ) : (
+        <></>
+      )}
     </Root>
   )
 }
@@ -173,7 +162,7 @@ export const query = graphql`
     site {
       siteMetadata {
         title
-        donationLink
+        description
       }
     }
     allContentfulFriendsOfNotreDameArtefact(
@@ -224,6 +213,19 @@ export const query = graphql`
         childMdx {
           body
         }
+      }
+      copyBlock1 {
+        childMdx {
+          body
+        }
+      }
+      copyBlock2 {
+        childMdx {
+          body
+        }
+      }
+      plainText1 {
+        plainText1
       }
     }
   }

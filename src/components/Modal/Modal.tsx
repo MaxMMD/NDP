@@ -23,6 +23,19 @@ function Modal() {
     }
   }, [content])
 
+  useEffect(() => {
+    if (!fullscreen) {
+      return
+    }
+    if (isVisible) {
+      scrollPosition = window.scrollY
+      document.body.classList.add("fixed", "w-full")
+    } else {
+      document.body.classList.remove("fixed", "w-full")
+      document.documentElement.scrollTop = scrollPosition
+    }
+  }, [isVisible])
+
   if (content) {
     return (
       <div
@@ -40,7 +53,7 @@ function Modal() {
             {
               "translate-y-full opacity-0 delay-0": !isVisible,
               "translate-y-0 opacity-100 delay-500": isVisible,
-              "w-full h-full": fullscreen,
+              "w-full h-full xl:px-32": fullscreen,
             }
           )}
         >
@@ -52,7 +65,10 @@ function Modal() {
             {renderer(content)}
           </div>
           <span
-            className="absolute -top-2 right-4 md:-top-12 md:-right-12 text-lg cursor-pointer"
+            className={cx("absolute text-lg cursor-pointer -top-3 right-4", {
+              "md:-top-12 md:-right-12": !fullscreen,
+              "xl:right-24": fullscreen,
+            })}
             onClick={() => {
               setIsVisible(false)
               setTimeout(() => {

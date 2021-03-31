@@ -1,4 +1,5 @@
 import React from "react"
+import { MDXProvider } from "@mdx-js/react"
 import { Helmet } from "react-helmet"
 import Footer from "../Footer"
 import Header from "../Header"
@@ -7,6 +8,7 @@ import { Spacer } from "../Layout"
 import { GlobalDOMContextProvider } from "../GlobalDOMContext/GlobalDOMContext"
 import Modal from "../Modal"
 import Frame from "../Frame"
+import { Paragraph } from "../Typography"
 
 interface Props {
   className?: string
@@ -36,7 +38,9 @@ function Root(props: Props) {
           ]}
         />
         <Spacer className="mt-32" />
-        <main>{props.children}</main>
+        <MDXProvider components={{ p: Paragraph.Base }}>
+          <main>{props.children}</main>
+        </MDXProvider>
         <Footer />
         {props.showFrame ? <Frame /> : null}
         <Modal />

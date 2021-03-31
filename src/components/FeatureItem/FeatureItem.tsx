@@ -39,7 +39,7 @@ function FeatureItem(props: Props) {
       options: {
         fullscreen: true,
       },
-      content: () => <GiveLivelyWidget />,
+      content: () => <GiveLivelyWidget widgetSrc={props.campaignPageUrl} />,
     })
   }
 

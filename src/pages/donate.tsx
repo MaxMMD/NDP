@@ -1,13 +1,16 @@
 import React from "react"
+import { MDXRenderer } from "gatsby-plugin-mdx"
 import Root from "../components/Root"
 import { Block, Spacer } from "../components/Layout"
-import { Paragraph, Subheading } from "../components/Typography"
+import { Subheading } from "../components/Typography"
 import { graphql, PageProps } from "gatsby"
-import { BasicPagePropsData } from "../types"
-import Link from "../components/Link"
+import { BasicPagePropsData, ContentfulPagePropsData } from "../types"
 import GiveLivelyWidget from "../components/GiveLivelyWidget"
 
-export default function Donate({ data }: PageProps<BasicPagePropsData>) {
+export default function Donate({
+  data,
+}: PageProps<BasicPagePropsData & ContentfulPagePropsData>) {
+  const page = data.contentfulFriendsOfNotreDamePage
   return (
     <Root
       className="about-page page bg-black text-white"
@@ -17,24 +20,13 @@ export default function Donate({ data }: PageProps<BasicPagePropsData>) {
       <div className="container mx-auto text-white py-6">
         <Block>
           <Subheading tag="h1">Donate</Subheading>
-
-          <Paragraph.Base>
-            Through a general donation to the Friends of Notre-Dame de Paris,
-            you become an integral part of the future of the Cathedral. The
-            restoration needs all of our help to remain a persistent part of our
-            global culture for years to come.
-          </Paragraph.Base>
-
-          <Paragraph.Base>
-            If you’d like to donate to a specific artifact in the collection,
-            please <Link href="/gallery">visit this page</Link>.
-          </Paragraph.Base>
+          <MDXRenderer>{page?.introduction?.childMdx?.body || ""}</MDXRenderer>
         </Block>
 
         <Spacer />
 
         <Block>
-          <GiveLivelyWidget />
+          <GiveLivelyWidget widgetSrc={data.site.siteMetadata.donationLink} />
         </Block>
 
         <Spacer className="mt-16" />
@@ -48,6 +40,7 @@ export const query = graphql`
     site {
       siteMetadata {
         title
+        donationLink
       }
     }
     contentfulFriendsOfNotreDamePage(

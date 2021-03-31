@@ -2,13 +2,15 @@ import { graphql, PageProps } from "gatsby"
 import React from "react"
 import Root from "../components/Root"
 import { Block, Spacer } from "../components/Layout"
-import { Paragraph } from "../components/Typography"
 import VideoCard from "../components/VideoCard"
-import { VideoPagePropsData } from "../types"
-import Link from "../components/Link"
+import { ContentfulPagePropsData, VideoPagePropsData } from "../types"
+import { MDXRenderer } from "gatsby-plugin-mdx"
 
-export default function Progress({ data }: PageProps<VideoPagePropsData>) {
+export default function Progress({
+  data,
+}: PageProps<VideoPagePropsData & ContentfulPagePropsData>) {
   const videos = data.allContentfulFriendsOfNotreDameVideo.edges
+  const page = data.contentfulFriendsOfNotreDamePage
   return (
     <Root
       className="progress-page page bg-black text-white"
@@ -18,13 +20,11 @@ export default function Progress({ data }: PageProps<VideoPagePropsData>) {
     >
       <div className="container mx-auto text-white py-6">
         <Block>
-          <Paragraph.Base className="lg:w-1/2">
-            Get a behind the scenes look and track the progress of the
-            restoration of the Notre-Dame Cathedral. Updates will be made
-            regularly, in the meantime, <Link href="/gallery">learn more</Link>{" "}
-            about the artifacts currently being restored or{" "}
-            <Link href="#">make a donation</Link>.
-          </Paragraph.Base>
+          <div className="lg:w-1/2">
+            <MDXRenderer>
+              {page?.introduction?.childMdx?.body || ""}
+            </MDXRenderer>
+          </div>
         </Block>
 
         <Spacer className="mt-6 md:mt-12" />

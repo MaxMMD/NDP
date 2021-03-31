@@ -1,6 +1,7 @@
 import React from "react"
 import cx from "classnames"
 import checkboxStyles from "./FormElements.module.css"
+import Link from "../Link"
 
 export function TextField({
   className,
@@ -58,9 +59,9 @@ export function PseudoButton({
   HTMLAnchorElement
 >) {
   return (
-    <a className={getButtonStyles(buttonStyle, className)} {...props}>
+    <Link className={getButtonStyles(buttonStyle, className)} {...props}>
       {children}
-    </a>
+    </Link>
   )
 }
 

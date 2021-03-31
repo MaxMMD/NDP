@@ -8,16 +8,16 @@ import { shuffle } from "lodash"
 import CardGrid from "../components/CardGrid"
 import Root from "../components/Root"
 import { Block, Spacer } from "../components/Layout"
-import { Paragraph } from "../components/Typography"
 import Select from "../components/Select"
 import {
   ArtefactType,
   BasicPagePropsData,
+  ContentfulPagePropsData,
   GalleryPagePropsData,
   // Node,
 } from "../types"
 import cardSorting from "../utils/card-sorting"
-import Link from "../components/Link"
+import { MDXRenderer } from "gatsby-plugin-mdx"
 // import ContentfulServiceWrapper from "../components/ContentfulServiceWrapper"
 // import { ServiceContext } from "../context/service-context"
 // import ContentfulService from "../services/contentful-service"
@@ -27,8 +27,11 @@ export type ArtefactList = ArtefactType[]
 
 function Gallery({
   data,
-}: PageProps<GalleryPagePropsData & BasicPagePropsData>) {
+}: PageProps<
+  GalleryPagePropsData & BasicPagePropsData & ContentfulPagePropsData
+>) {
   const cardData = data.allContentfulFriendsOfNotreDameArtefact.edges
+  const page = data.contentfulFriendsOfNotreDamePage
   const [cards, setCards] = useState(cardData)
   const [sortMode, setSortMode] = useState("published-desc")
 
@@ -92,15 +95,11 @@ function Gallery({
     >
       <div className="container mx-auto text-white py-6">
         <Block>
-          <Paragraph.Base className="lg:w-1/2">
-            This gallery allows you to track the restoration progress of each
-            artifact within the Notre-Dame Cathedral. Click through to learn
-            more about each artifact and to make a donation.
-          </Paragraph.Base>
-          <Paragraph.Base className="lg:w-1/2">
-            If you’d rather make a general donation to the restoration,{" "}
-            <Link href="#">click here</Link>.
-          </Paragraph.Base>
+          <div className="lg:w-1/2">
+            <MDXRenderer>
+              {page?.introduction?.childMdx?.body || ""}
+            </MDXRenderer>
+          </div>
         </Block>
 
         <Spacer className="mt-6 lg:mt-12" />

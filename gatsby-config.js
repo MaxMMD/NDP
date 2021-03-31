@@ -12,7 +12,8 @@ module.exports = {
     title: "Friends of Notre-Dame de Paris",
     description:
       "Eiusmod esse anim non excepteur occaecat exercitation aliqua.",
-    donationLink: "",
+    donationLink:
+      "https://secure.givelively.org/donate/friends-of-notre-dame-de-paris-inc/humanity-rising-notre-dame-reborn",
     socialMedia: {
       twitter: "https://twitter.com/friendsofnotredame",
       facebook: "https://facebook.com/friendsofnotredame",
