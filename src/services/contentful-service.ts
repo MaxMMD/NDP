@@ -1,4 +1,4 @@
-import { createClient, ContentfulClientApi, EntryCollection } from "contentful"
+import { createClient, ContentfulClientApi } from "contentful"
 
 export default class ContentfulService {
   client: ContentfulClientApi

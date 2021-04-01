@@ -1,7 +1,6 @@
 import React from "react"
 import cx from "classnames"
 import TransitionWrapper, { TransitionState } from "../TransitionWrapper"
-import { Paragraph } from "../Typography"
 
 export interface Props {
   className?: string

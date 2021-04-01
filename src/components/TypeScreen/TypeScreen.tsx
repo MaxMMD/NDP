@@ -1,9 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import cx from "classnames"
 import { Block, Spacer } from "../Layout"
-// import Puzzle from "../Puzzle"
-// import { shuffle } from "lodash"
-// import TestSvg from "../TestSvg"
 import CubeAnimation from "../CubeAnimation"
 import SoundFile from "../SoundFile"
 
@@ -71,17 +68,11 @@ async function animateTextBlocks(
 
 function TypeScreen(props: Props) {
   const textRef = useRef<HTMLParagraphElement>(null)
-  // const puzzleContainerRef = useRef<HTMLDivElement>(null)
   const [isGoingVisible, setIsGoingVisible] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const [isDisplayUI, setIsDisplayUI] = useState(false)
   const [displayFinalAnimation, setDisplayFinalAnimation] = useState(false)
   const [animationIsVisible, setAnimationIsVisible] = useState(false)
-
-  // const totalTypeScreenDuration = props.text.reduce((prev, current) => {
-  //   const textCompleteDuration = current.length * TYPE_SPEED
-  //   return prev + textCompleteDuration + TRANSITION_OUT_DELAY
-  // }, 0)
 
   async function onClose() {
     sessionStorage?.setItem("fond-skip-intro", "true")
@@ -144,44 +135,6 @@ function TypeScreen(props: Props) {
     animateTextBlocks(textRef, props.text, onClose)
   }, [isVisible])
 
-  // useEffect(() => {
-  //!: Pieces animation
-  // if (!isVisible || !puzzleContainerRef.current) {
-  //   return
-  // }
-  // const pieces = shuffle([
-  //   ...(puzzleContainerRef.current.querySelectorAll(".PuzzlePiece") as any),
-  // ])
-  // const len = pieces.length
-  // const initialSpeed = totalTypeScreenDuration / len
-  // pieces.forEach((piece: any, i: number) => {
-  //   piece.style.opacity = "0"
-  //   piece.style.transition = `opacity 1s ease-in-out`
-  //   setTimeout(() => {
-  //     piece.style.opacity = "1.0"
-  //   }, initialSpeed * i)
-  // })
-
-  //!: Scale animation
-  // if (!isVisible || !puzzleContainerRef.current) {
-  //   return
-  // }
-
-  // const container: any = puzzleContainerRef.current.querySelector(
-  //   ".TestSvg__container"
-  // )
-
-  // container.style.transform = "scale(3)"
-  // container.style.transformOrigin = "center center"
-  // container.style.opacity = 0.15
-
-  // setTimeout(() => {
-  //   container.style.transition = `all ${totalTypeScreenDuration}ms linear`
-  //   container.style.transform = "scale(0.3)"
-  //   container.style.opacity = 0.6
-  // }, 20)
-  // }, [isVisible])
-
   if (!isVisible || typeof window === "undefined") {
     return null
   }
@@ -196,15 +149,6 @@ function TypeScreen(props: Props) {
         }
       )}
     >
-      {/* <div
-        ref={puzzleContainerRef}
-        className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 w-full h-full opacity-30 flex items-center"
-      >
-        <div className="TestSvg__container w-full h-full flex items-center">
-          <TestSvg />
-        </div>
-        <Puzzle disableAutoFlip />
-      </div> */}
       <div
         className={cx("relative container mx-auto h-full flex items-center")}
       >
