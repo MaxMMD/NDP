@@ -33,7 +33,7 @@ export default function Artefact({ pageContext }: PageProps<any, Props>) {
   return (
     <Root
       className="artefact-page page bg-black text-white"
-      title="Artefact | Friends of Notre Dame"
+      title={`${title} | Friends of Notre-Dame de Paris`}
       description="Nostrud ullamco aute elit duis culpa aliqua amet occaecat irure."
       showFrame
     >
