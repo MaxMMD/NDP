@@ -1,13 +1,18 @@
-stages: [test]
+stages: [deploy]
 
 variables:
   CI_NODEJS_VERSION: 12-2020.11.30
 
-test:
+deploy:
   interruptible: true
-  stage: test
+  stage: deploy
   image: ekino/ci-node:${CI_NODEJS_VERSION}
   tags: [docker, ek-docker, ekino, france]
   script:
-    - echo "testing"
-
+    - npm config set user 0
+    - npm config set unsafe-perm true
+    - npm i -g vercel
+    - vercel --name $VERCEL_PROJECT_NAME --confirm -t $VERCEL_TOKEN --prod
+  only:
+    - master
+    - ci/deploy-from-gitlab
