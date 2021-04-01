@@ -9,6 +9,7 @@ import { GlobalDOMContextProvider } from "../GlobalDOMContext/GlobalDOMContext"
 import Modal from "../Modal"
 import Frame from "../Frame"
 import { Paragraph } from "../Typography"
+import Link from "../Link"
 
 interface Props {
   className?: string
@@ -38,7 +39,7 @@ function Root(props: Props) {
           ]}
         />
         <Spacer className="mt-32" />
-        <MDXProvider components={{ p: Paragraph.Base }}>
+        <MDXProvider components={{ p: Paragraph.Base, a: Link }}>
           <main>{props.children}</main>
         </MDXProvider>
         <Footer />

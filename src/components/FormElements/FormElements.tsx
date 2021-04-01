@@ -1,7 +1,9 @@
-import React from "react"
+import React, { useRef, useState } from "react"
 import cx from "classnames"
 import checkboxStyles from "./FormElements.module.css"
 import Link from "../Link"
+import Icon from "../Icon"
+import { useOutsideAlerter } from "../../hooks/useOutsideAlerter"
 
 export function TextField({
   className,
@@ -83,5 +85,50 @@ export function Checkbox({
         )}
       ></span>
     </label>
+  )
+}
+
+export type Option = { value: string; label: string }
+
+export function CustomSelect({
+  options = [],
+  getClassNames = () => ({}),
+  ...props
+}: {
+  options: Array<Option>
+  label: string
+  onSelect: (opt: Option) => void
+  getClassNames?: (isActive: boolean) => any
+}) {
+  const selectRef = useRef(null)
+  const [isActive, setIsActive] = useState(false)
+
+  useOutsideAlerter(selectRef, () => {
+    setIsActive(false)
+  })
+
+  const classes = getClassNames(isActive)
+
+  return (
+    <div ref={selectRef} className={cx("CustomSelect", classes.CustomSelect)}>
+      <span onClick={() => setIsActive(!isActive)} className={classes.Label}>
+        {props.label}
+
+        <Icon.Triangle width={10} className={classes.Icon} />
+      </span>
+      <div className={cx("CustomSelect__options", classes.Options)}>
+        {options.map(opt => (
+          <span
+            onClick={() => {
+              setIsActive(false)
+              props.onSelect(opt)
+            }}
+            className={classes.Option}
+          >
+            {opt.label}
+          </span>
+        ))}
+      </div>
+    </div>
   )
 }

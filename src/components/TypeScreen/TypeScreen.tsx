@@ -3,6 +3,7 @@ import cx from "classnames"
 import { Block, Spacer } from "../Layout"
 import CubeAnimation from "../CubeAnimation"
 import SoundFile from "../SoundFile"
+import { chunk } from "lodash"
 
 export interface Props {
   text: string[]
@@ -10,9 +11,9 @@ export interface Props {
   onClose: () => void
 }
 
-// const TYPE_SPEED = 50
+const TEXT_DELAY = 3000
 const TRANSITION_OUT_DELAY = 1500
-const TRANSITION_IN_DELAY = 700
+const TRANSITION_IN_DELAY = 1500
 
 async function wait(ms: number) {
   return new Promise((resolve, reject) => {
@@ -23,33 +24,47 @@ async function wait(ms: number) {
 }
 
 async function animateTextBlocks(
-  textRef: React.RefObject<HTMLDivElement>,
-  text: string[],
+  textRef: React.RefObject<HTMLDivElement>[],
+  text: string[][],
   onClose: () => void
 ) {
-  if (!textRef.current) {
+  const [textRef1, textRef2] = textRef
+
+  if (!textRef1.current || !textRef2.current) {
     return
   }
   function showBlock(i = 0) {
-    const p = textRef.current
+    const p1 = textRef1.current
+    const p2 = textRef2.current
 
-    if (p && text[i]) {
-      p.style.opacity = "1.0"
+    if (p1 && p2 && text[i]) {
       showParagraph(i)
     }
   }
 
   async function showParagraph(blockIndex = 0) {
-    const p = textRef.current
+    const p1 = textRef1.current
+    const p2 = textRef2.current
 
-    if (p && text[blockIndex]) {
-      const str = text[blockIndex]
-      p.innerHTML = str
+    if (p1 && p2 && text[blockIndex]) {
+      const [str1 = "", str2 = ""] = text[blockIndex]
+      p1.innerHTML = str1
+      p2.innerHTML = str2
 
-      await wait(5000)
+      p1.style.opacity = "1.0"
+
+      await wait(TEXT_DELAY)
+
+      p2.style.opacity = "1.0"
+
+      await wait(TEXT_DELAY)
       await wait(TRANSITION_OUT_DELAY)
 
-      p.style.opacity = "0"
+      p1.style.opacity = "0"
+
+      await wait(TEXT_DELAY)
+
+      p2.style.opacity = "0"
 
       await wait(TRANSITION_IN_DELAY)
 
@@ -62,12 +77,13 @@ async function animateTextBlocks(
     }
   }
 
-  await wait(1000)
+  await wait(1000) // brief pause before showing first paragraph
   showBlock()
 }
 
 function TypeScreen(props: Props) {
-  const textRef = useRef<HTMLParagraphElement>(null)
+  const textRef1 = useRef<HTMLParagraphElement>(null)
+  const textRef2 = useRef<HTMLParagraphElement>(null)
   const [isGoingVisible, setIsGoingVisible] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const [isDisplayUI, setIsDisplayUI] = useState(false)
@@ -76,17 +92,23 @@ function TypeScreen(props: Props) {
 
   async function onClose() {
     sessionStorage?.setItem("fond-skip-intro", "true")
-    setDisplayFinalAnimation(true)
+    setDisplayFinalAnimation(true) // render CubeAnimation in dom
     await wait(200)
-    setAnimationIsVisible(true)
+    setAnimationIsVisible(true) // Fade CubeAnimation in
     await wait(4000)
-    setIsDisplayUI(false)
-    setAnimationIsVisible(false)
+    setIsDisplayUI(false) // Hide sound controls
+    setAnimationIsVisible(false) // Fade CubeAnimation out
     await wait(1000)
-    setIsGoingVisible(false)
+    setIsGoingVisible(false) // Fade TypeScreen out
     await wait(700)
-    setIsVisible(false)
+    setIsVisible(false) // remove Typescreen from dom
     props.onClose()
+  }
+
+  function onLoad() {
+    return typeof window !== "undefined"
+      ? sessionStorage?.getItem("fond-skip-intro")
+      : false
   }
 
   async function animateIn() {
@@ -100,10 +122,7 @@ function TypeScreen(props: Props) {
   }
 
   useEffect(() => {
-    const hasDismissed =
-      typeof window !== "undefined"
-        ? sessionStorage?.getItem("fond-skip-intro")
-        : false
+    const hasDismissed = onLoad()
 
     if (
       typeof window === "undefined" ||
@@ -132,7 +151,9 @@ function TypeScreen(props: Props) {
       return
     }
 
-    animateTextBlocks(textRef, props.text, onClose)
+    const text = chunk(props.text, 2)
+
+    animateTextBlocks([textRef1, textRef2], text, onClose)
   }, [isVisible])
 
   if (!isVisible || typeof window === "undefined") {
@@ -160,8 +181,12 @@ function TypeScreen(props: Props) {
           })}
         >
           <p
-            ref={textRef}
-            className="font-light text-2xl md:text-4xl leading-snug tracking-wide transition opacity-0 duration-1000"
+            ref={textRef1}
+            className="font-light text-xl md:text-4xl leading-snug md:leading-snug tracking-wide transition opacity-0 duration-1000"
+          />
+          <p
+            ref={textRef2}
+            className="font-light text-xl md:text-4xl mt-6 md:mt-12 leading-snug md:leading-snug tracking-wide transition opacity-0 duration-1000"
           />
           <Spacer />
           {isDisplayUI ? (
@@ -174,7 +199,7 @@ function TypeScreen(props: Props) {
               </span>
               <div
                 className={cx(
-                  "absolute top-0 left-8 lg:left-32 duration-1000 transition",
+                  "absolute -bottom-4 lg:-bottom-2 left-4 md:left-8 lg:left-32 duration-1000 transition",
                   {
                     "opacity-0": !isGoingVisible,
                     "opacity-100": isGoingVisible,

@@ -169,6 +169,16 @@ export const Tick = (props: IconProps) => (
   </Base>
 )
 
+export const Triangle = (props: IconProps) => (
+  <Base name="Triangle" viewbox="0 0 531.74 460.5" {...props}>
+    <polygon
+      fillRule="evenodd"
+      fill={props.fill}
+      points="530.874,0.5 265.87,459.5 0.866,0.5 "
+    />
+  </Base>
+)
+
 export default {
   Arrow: Arrow,
   Chevron: Chevron,
@@ -182,4 +192,5 @@ export default {
   ExternalLink: ExternalLink,
   Play: Play,
   Tick: Tick,
+  Triangle: Triangle,
 }

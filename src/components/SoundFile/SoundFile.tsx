@@ -48,7 +48,7 @@ function SoundFile() {
   return (
     <figure
       onClick={handleOnClick}
-      className="relative w-8 h-8 overflow-hidden cursor-pointer"
+      className="relative w-16 h-16 overflow-hidden cursor-pointer"
     >
       <audio
         ref={audioRef}
@@ -63,20 +63,24 @@ function SoundFile() {
       <span className="">
         <img
           className={cx(
-            "absolute top-0 left-0 opacity-0 transition duration-700 max-w-full",
+            "absolute top-0 left-0 transition duration-700 max-w-full",
             {
-              "opacity-100": !isPlaying,
+              "opacity-100": isPlaying,
+              "opacity-0": !isPlaying,
             }
           )}
           src={audioIcon}
-          width={148}
-          height={113}
+          width={108}
+          height={109}
         />
         <img
-          className={cx("absolute top-0 left-0 max-w-full")}
+          className={cx("absolute top-0 left-0 max-w-full", {
+            "opacity-100": !isPlaying,
+            "opacity-0": isPlaying,
+          })}
           src={audioIconMuted}
-          width={148}
-          height={113}
+          width={108}
+          height={109}
         />
       </span>
     </figure>

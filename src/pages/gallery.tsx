@@ -8,7 +8,6 @@ import { shuffle } from "lodash"
 import CardGrid from "../components/CardGrid"
 import Root from "../components/Root"
 import { Block, Spacer } from "../components/Layout"
-import Select from "../components/Select"
 import {
   ArtefactType,
   BasicPagePropsData,
@@ -16,8 +15,9 @@ import {
   GalleryPagePropsData,
   // Node,
 } from "../types"
-import cardSorting from "../utils/card-sorting"
+import cardSorting, { sortOptions, getSortLabel } from "../utils/card-sorting"
 import { MDXRenderer } from "gatsby-plugin-mdx"
+import SnazzySelect from "../components/SnazzySelect/SnazzySelect"
 // import ContentfulServiceWrapper from "../components/ContentfulServiceWrapper"
 // import { ServiceContext } from "../context/service-context"
 // import ContentfulService from "../services/contentful-service"
@@ -106,7 +106,13 @@ function Gallery({
 
         <Block>
           <div className="lg:w-1/5">
-            <Select
+            <SnazzySelect
+              label={getSortLabel(sortMode)}
+              options={sortOptions}
+              onSelect={opt => handleOnChange({ target: { value: opt.value } })}
+            />
+
+            {/* <Select
               onChange={handleOnChange}
               options={[
                 { label: "Sort", value: "published-desc" },
@@ -114,11 +120,11 @@ function Gallery({
                 { label: "A - Z", value: "alpha-asc" },
                 { label: "Restored %", value: "restored-desc" },
               ]}
-            />
+            /> */}
           </div>
         </Block>
 
-        <Spacer />
+        <Spacer className="mt-4 lg:mt-8" />
 
         {[sortMode].map(key => (
           <Block key={key}>
