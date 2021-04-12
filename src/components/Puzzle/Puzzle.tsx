@@ -22,6 +22,7 @@ function Puzzle(props: Props) {
             slug
             id
             restorationComplete
+            restorationProgress
             featured
             images {
               resize(height: 150, width: 150) {

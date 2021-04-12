@@ -33,6 +33,10 @@ function PuzzlePiece({ cardLinkPath = "/gallery", ...props }: Props) {
   const LinkWrapper = ({ children }: any) =>
     slug ? <Link href={`${cardLinkPath}/${slug}`}>{children}</Link> : children
 
+  const restorationComplete =
+    props.card?.node?.restorationComplete ||
+    props.card?.node?.restorationProgress === 100
+
   let puzzleImgSrc = `/images/puzzle-pieces-test/ND_Outline_Updated-${(
     props.index + 1
   ).toLocaleString("en-US", {
@@ -68,12 +72,12 @@ function PuzzlePiece({ cardLinkPath = "/gallery", ...props }: Props) {
                 <div
                   className={cx("absolute w-full h-full", {
                     "flip-card-front": !props.disableFlip,
-                    "bg-white": props.card?.node?.restorationComplete,
+                    "bg-white": restorationComplete,
                   })}
                 >
                   <img
                     className={cx("w-full h-full", {
-                      invert: props.card?.node?.restorationComplete,
+                      invert: restorationComplete,
                     })}
                     width={50}
                     height={50}
@@ -86,8 +90,8 @@ function PuzzlePiece({ cardLinkPath = "/gallery", ...props }: Props) {
                     className={cx(
                       "flip-card-back absolute w-full h-full border border-white",
                       {
-                        "bg-black": !props.card?.node?.restorationComplete,
-                        "bg-white": props.card?.node?.restorationComplete,
+                        "bg-black": !restorationComplete,
+                        "bg-white": restorationComplete,
                         "p-6 border-opacity-10": !hasImage,
                         "p-2 border-opacity-60": hasImage,
                       }
@@ -99,7 +103,7 @@ function PuzzlePiece({ cardLinkPath = "/gallery", ...props }: Props) {
                       })}
                       {...reverseImage}
                     />
-                    {props.card?.node?.restorationComplete ? (
+                    {restorationComplete ? (
                       <span className="rounded-full w-6 h-6 bg-white inline-flex justify-center items-center absolute inset-1/2 transform -translate-y-1/2 -translate-x-1/2">
                         <Icon.Tick fill="black" width={10} />
                       </span>
