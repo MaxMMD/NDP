@@ -37,12 +37,19 @@ function PuzzlePiece({ cardLinkPath = "/gallery", ...props }: Props) {
     props.card?.node?.restorationComplete ||
     props.card?.node?.restorationProgress === 100
 
-  let puzzleImgSrc = `/images/puzzle-pieces-test/ND_Outline_Updated-${(
+  let puzzleImgSrc = `/images/puzzle-pieces-latest/ND_Outline_Thicker_16.04.21-${(
     props.index + 1
   ).toLocaleString("en-US", {
     minimumIntegerDigits: 2,
     useGrouping: false,
   })}.svg`
+
+  // let puzzleImgSrc = `/images/puzzle-pieces-test/ND_Outline_Updated-${(
+  //   props.index + 1
+  // ).toLocaleString("en-US", {
+  //   minimumIntegerDigits: 2,
+  //   useGrouping: false,
+  // })}.svg`
 
   // if (props.id < 6) {
   //   puzzleImgSrc = `/images/puzzle-pieces-test/ND_Puzzle_Outline_Test-${props.id.toLocaleString(

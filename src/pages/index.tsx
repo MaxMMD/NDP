@@ -106,7 +106,7 @@ export default function Home({
           <CardGrid items={cards} carousel />
         </Block>
 
-        <Spacer className="mt-16 lg:mt-32" />
+        {/* <Spacer className="mt-16 lg:mt-32" />
 
         <Block className="flex justify-between items-end pb-6 border-b border-gray-600">
           <Subheading>Progress</Subheading>
@@ -131,7 +131,7 @@ export default function Home({
               />
             ))}
           </div>
-        </Block>
+        </Block> */}
 
         <Spacer />
 
