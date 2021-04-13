@@ -26,6 +26,11 @@ p a {
   text-decoration: underline;
 }
 
+/** Fixes **/
+body > section > .NavItem__border {
+  display: none;
+}
+
 /** Custom Utilities **/
 
 .section-marker[id] {

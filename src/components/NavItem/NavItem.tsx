@@ -29,7 +29,7 @@ function NavItem(props: Props) {
       </Link>
       <div
         className={cx(
-          "w-full mt-4 h-3 overflow-hidden border-l border-white border-opacity-40 transform transition-all duration-400",
+          "NavItem__border w-full mt-4 h-3 overflow-hidden border-l border-white border-opacity-40 transform transition-all duration-400",
           {
             "opacity-0": props.hideBorder,
           }

@@ -68,7 +68,7 @@ export default function About({
 
               <Spacer />
 
-              <PseudoButton href="#">Donate</PseudoButton>
+              <PseudoButton href="/donate">Donate</PseudoButton>
             </div>
           </div>
         </Block>
