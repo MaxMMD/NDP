@@ -54,7 +54,7 @@ function Puzzle(props: Props) {
   return (
     <div
       ref={puzzleRef}
-      className={cx("Puzzle w-full flex flex-wrap", {
+      className={cx("Puzzle w-full flex flex-wrap border border-white", {
         // "pt-2 pl-2": useJigsawPuzzle
       })}
     >

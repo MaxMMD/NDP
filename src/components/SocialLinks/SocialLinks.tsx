@@ -32,6 +32,8 @@ function SocialLinks(props: Props) {
         <a
           key={Comp.id}
           href={links?.[Comp.id]}
+          target="_blank"
+          rel="noopener noreferrer"
           className={cx(
             "border rounded-full border-white h-10 w-10 inline-flex justify-center items-center",
             {

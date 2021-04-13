@@ -11,9 +11,9 @@ export interface Props {
   onClose: () => void
 }
 
-const TEXT_DELAY = 3000
-const TRANSITION_OUT_DELAY = 1500
-const TRANSITION_IN_DELAY = 1500
+const TEXT_DELAY = 2000
+const TRANSITION_OUT_DELAY = 1000
+const TRANSITION_IN_DELAY = 1000
 
 async function wait(ms: number) {
   return new Promise((resolve, reject) => {
@@ -77,7 +77,7 @@ async function animateTextBlocks(
     }
   }
 
-  await wait(1000) // brief pause before showing first paragraph
+  await wait(2000) // brief pause before showing first paragraph
   showBlock()
 }
 
