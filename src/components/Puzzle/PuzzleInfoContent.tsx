@@ -15,20 +15,18 @@ function PuzzleInfoContent() {
         restoration.
       </Paragraph.Base>
 
-      <div className="border-t border-white border-b py-2 md:flex justify-between">
-        <ParagraphBase className="text-md font-normal m-0 md:pr-6 lg:pr-0">
-          Key
-        </ParagraphBase>
-        <div className="md:flex">
+      <div className="border-t border-white border-b py-2 xl:flex justify-between">
+        <ParagraphBase className="text-md font-normal m-0">Key</ParagraphBase>
+        <div className="xl:flex">
           <span className="flex items-center">
             <span className="inline-block w-4 h-4 overflow-hidden bg-white border border-white border-opacity-60" />
-            <ParagraphBase className="text-base md:text-sm lg:text-base font-light inline m-0 pl-2">
+            <ParagraphBase className="text-base font-light inline m-0 pl-2">
               Restoration Funded
             </ParagraphBase>
           </span>
-          <span className="flex items-center md:ml-4">
+          <span className="flex items-center xl:ml-4">
             <span className="inline-block w-4 h-4 overflow-hidden bg-black border border-white border-opacity-60" />
-            <ParagraphBase className="text-base md:text-sm lg:text-base font-light inline m-0 pl-2">
+            <ParagraphBase className="text-base font-light inline m-0 pl-2">
               Not Funded
             </ParagraphBase>
           </span>
