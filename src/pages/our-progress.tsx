@@ -3,19 +3,25 @@ import React from "react"
 import Root from "../components/Root"
 import { Block, Spacer } from "../components/Layout"
 import VideoCard from "../components/VideoCard"
-import { ContentfulPagePropsData, VideoPagePropsData } from "../types"
+import {
+  BasicPagePropsData,
+  ContentfulPagePropsData,
+  VideoPagePropsData,
+} from "../types"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
 export default function Progress({
   data,
-}: PageProps<VideoPagePropsData & ContentfulPagePropsData>) {
+}: PageProps<
+  VideoPagePropsData & ContentfulPagePropsData & BasicPagePropsData
+>) {
   const videos = data.allContentfulFriendsOfNotreDameVideo?.edges || []
   const page = data.contentfulFriendsOfNotreDamePage
   return (
     <Root
       className="progress-page page bg-black text-white"
-      title="Our Progress | Friends of Notre Dame"
-      description="Nostrud ullamco aute elit duis culpa aliqua amet occaecat irure."
+      title={`Our Progress | ${data.site.siteMetadata.title}`}
+      description={data?.site?.siteMetadata?.description}
       showFrame
     >
       <div className="container mx-auto text-white py-6">
@@ -49,6 +55,12 @@ export default function Progress({
 
 export const query = graphql`
   query {
+    site {
+      siteMetadata {
+        title
+        description
+      }
+    }
     contentfulFriendsOfNotreDamePage(
       pageName: { eq: "Our Progress" }
       node_locale: { eq: "en-US" }

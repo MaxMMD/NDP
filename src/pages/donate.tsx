@@ -15,7 +15,7 @@ export default function Donate({
     <Root
       className="about-page page bg-black text-white"
       title={`Donate | ${data.site.siteMetadata.title}`}
-      description="Nostrud ullamco aute elit duis culpa aliqua amet occaecat irure."
+      description={data?.site?.siteMetadata?.description}
     >
       <div className="container mx-auto text-white py-6">
         <Block>
@@ -40,6 +40,7 @@ export const query = graphql`
     site {
       siteMetadata {
         title
+        description
         donationLink
       }
     }

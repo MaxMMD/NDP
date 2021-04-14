@@ -90,7 +90,7 @@ function Gallery({
     <Root
       className="gallery-page page bg-black text-white"
       title={`Gallery | ${data.site.siteMetadata.title}`}
-      description="Nostrud ullamco aute elit duis culpa aliqua amet occaecat irure."
+      description={data?.site?.siteMetadata?.description}
       showFrame
     >
       <div className="container mx-auto text-white py-6">
@@ -159,6 +159,7 @@ export const query = graphql`
     site {
       siteMetadata {
         title
+        description
       }
     }
     allContentfulFriendsOfNotreDameArtefact(

@@ -20,7 +20,7 @@ export default function About({
     <Root
       className="about-page page bg-black text-white"
       title={`About | ${data.site.siteMetadata.title}`}
-      description="Nostrud ullamco aute elit duis culpa aliqua amet occaecat irure."
+      description={data?.site?.siteMetadata?.description}
     >
       <div className="container mx-auto text-white py-6">
         <Block className="md:flex">
@@ -84,6 +84,7 @@ export const query = graphql`
     site {
       siteMetadata {
         title
+        description
         socialMedia {
           twitter
           instagram
