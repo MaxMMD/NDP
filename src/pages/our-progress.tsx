@@ -9,7 +9,7 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 export default function Progress({
   data,
 }: PageProps<VideoPagePropsData & ContentfulPagePropsData>) {
-  const videos = data.allContentfulFriendsOfNotreDameVideo.edges
+  const videos = data.allContentfulFriendsOfNotreDameVideo?.edges || []
   const page = data.contentfulFriendsOfNotreDamePage
   return (
     <Root
@@ -49,23 +49,6 @@ export default function Progress({
 
 export const query = graphql`
   query {
-    allContentfulFriendsOfNotreDameVideo(
-      filter: { node_locale: { eq: "en-US" } }
-    ) {
-      edges {
-        node {
-          videoEmbedUrl
-          title
-          id
-          coverImage {
-            fluid(maxWidth: 800, maxHeight: 450) {
-              src
-              srcSet
-            }
-          }
-        }
-      }
-    }
     contentfulFriendsOfNotreDamePage(
       pageName: { eq: "Our Progress" }
       node_locale: { eq: "en-US" }
@@ -79,3 +62,23 @@ export const query = graphql`
     }
   }
 `
+
+// To fetch progress entries, add this query:
+
+// allContentfulFriendsOfNotreDameVideo(
+//   filter: { node_locale: { eq: "en-US" } }
+// ) {
+//   edges {
+//     node {
+//       videoEmbedUrl
+//       title
+//       id
+//       coverImage {
+//         fluid(maxWidth: 800, maxHeight: 450) {
+//           src
+//           srcSet
+//         }
+//       }
+//     }
+//   }
+// }

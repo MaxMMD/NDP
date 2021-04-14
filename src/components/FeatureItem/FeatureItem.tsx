@@ -83,7 +83,7 @@ function FeatureItem(props: Props) {
 
         <Spacer className="mt-8" />
 
-        <span className="block text-sm mb-1">Restoration progress</span>
+        <span className="block text-sm mb-1">Restoration funding progress</span>
         <ProgressBar width={progressInView ? props.progress : 0} />
         <span ref={progressRef} />
       </div>

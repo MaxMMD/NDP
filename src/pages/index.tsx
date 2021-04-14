@@ -8,7 +8,7 @@ import Puzzle, { PuzzleInfoContent } from "../components/Puzzle"
 import Root from "../components/Root"
 import { Block, Spacer } from "../components/Layout"
 import { Subheading, Title } from "../components/Typography"
-import VideoCard from "../components/VideoCard"
+// import VideoCard from "../components/VideoCard"
 import TypeScreen from "../components/TypeScreen"
 import {
   BasicPagePropsData,
@@ -32,7 +32,7 @@ export default function Home({
   const [autoFlipTrigger, setAutoFlipTrigger] = useState<number | null>(null)
   const [showInfoPane, setShowInfoPane] = useState(false)
   const cards = data.allContentfulFriendsOfNotreDameArtefact.edges
-  const videos = data.allContentfulFriendsOfNotreDameVideo.edges
+  // const videos = data.allContentfulFriendsOfNotreDameVideo.edges
   const page = data.contentfulFriendsOfNotreDamePage
   const typeScreenText = page?.plainText1?.plainText1
 
@@ -168,6 +168,7 @@ export const query = graphql`
     allContentfulFriendsOfNotreDameArtefact(
       limit: 16
       filter: { node_locale: { eq: "en-US" } }
+      sort: { fields: restorationProgress, order: ASC }
     ) {
       edges {
         node {
@@ -181,24 +182,6 @@ export const query = graphql`
               width
               height
               src
-            }
-          }
-        }
-      }
-    }
-    allContentfulFriendsOfNotreDameVideo(
-      limit: 3
-      filter: { node_locale: { eq: "en-US" } }
-    ) {
-      edges {
-        node {
-          videoEmbedUrl
-          title
-          id
-          coverImage {
-            fluid(maxWidth: 800, maxHeight: 450) {
-              src
-              srcSet
             }
           }
         }
@@ -230,3 +213,24 @@ export const query = graphql`
     }
   }
 `
+
+/** To fetch latest progress, add the following query to the graphql above */
+
+// allContentfulFriendsOfNotreDameVideo(
+//   limit: 3
+//   filter: { node_locale: { eq: "en-US" } }
+// ) {
+//   edges {
+//     node {
+//       videoEmbedUrl
+//       title
+//       id
+//       coverImage {
+//         fluid(maxWidth: 800, maxHeight: 450) {
+//           src
+//           srcSet
+//         }
+//       }
+//     }
+//   }
+// }

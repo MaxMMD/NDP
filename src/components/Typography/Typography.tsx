@@ -71,7 +71,7 @@ export function ParagraphBase(props: ParagraphProps) {
   return (
     <Tag
       className={cx(
-        "leading-loose tracking-wide",
+        "leading-relaxed tracking-wide",
         props.className || "text-md md:text-xl"
       )}
     >

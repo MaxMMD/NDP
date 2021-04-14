@@ -33,6 +33,11 @@ function Footer(props: { className?: string }) {
             leading the international fundraising efforts to rebuild and restore
             Notre-Dame Cathedral.
           </Paragraph.Small>
+          <Paragraph.Small className="mt-2">
+            <a href="www.friendsofnotredamedeparis.org">
+              www.friendsofnotredamedeparis.org
+            </a>
+          </Paragraph.Small>
         </div>
         <div className="mb-6 md:mb-0 md:pr-32 md:w-1/3">
           <Paragraph.Medium>Contact</Paragraph.Medium>
@@ -43,9 +48,7 @@ function Footer(props: { className?: string }) {
             <br />
             Suite 425,
             <br />
-            Washington,
-            <br />
-            DC 20006
+            Washington, DC 20006
             <br />
             &copy;2021 Friends of Notre-Dame de Paris
           </Paragraph.Small>
