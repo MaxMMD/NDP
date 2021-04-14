@@ -15,9 +15,12 @@ interface Props {
   className?: string
   title: string
   description?: string
+  image?: string
   children: JSX.Element | JSX.Element[]
   showFrame?: boolean
 }
+
+const DEFAULT_IMG_SRC = "/images/FNDP_Google_Preview-02.png"
 
 function Root(props: Props) {
   return (
@@ -27,6 +30,9 @@ function Root(props: Props) {
           <meta charSet="utf-8" />
           <title>{props.title}</title>
           <meta name="description" content={props.description} />
+          <meta property="og:title" content={props.title} />
+          <meta property="og:description" content={props.description} />
+          <meta property="og:image" content={props.image || DEFAULT_IMG_SRC} />
         </Helmet>
         <MetaTags />
         <Header

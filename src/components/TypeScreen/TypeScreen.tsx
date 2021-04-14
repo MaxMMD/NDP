@@ -8,6 +8,7 @@ import { chunk } from "lodash"
 export interface Props {
   text: string[]
   isVisibleOnLoad?: boolean
+  beforeOnClose?: () => void
   onClose: () => void
 }
 
@@ -81,6 +82,14 @@ async function animateTextBlocks(
   showBlock()
 }
 
+export const typescreenManager = {
+  dismiss: () => sessionStorage?.setItem("fond-skip-intro", "true"),
+  isDismissed: () =>
+    typeof window !== "undefined"
+      ? sessionStorage?.getItem("fond-skip-intro")
+      : false,
+}
+
 function TypeScreen(props: Props) {
   const textRef1 = useRef<HTMLParagraphElement>(null)
   const textRef2 = useRef<HTMLParagraphElement>(null)
@@ -91,7 +100,12 @@ function TypeScreen(props: Props) {
   const [animationIsVisible, setAnimationIsVisible] = useState(false)
 
   async function onClose() {
-    sessionStorage?.setItem("fond-skip-intro", "true")
+    typescreenManager.dismiss()
+
+    if (props.beforeOnClose) {
+      props.beforeOnClose()
+    }
+
     setDisplayFinalAnimation(true) // render CubeAnimation in dom
     await wait(200)
     setAnimationIsVisible(true) // Fade CubeAnimation in
@@ -106,9 +120,7 @@ function TypeScreen(props: Props) {
   }
 
   function onLoad() {
-    return typeof window !== "undefined"
-      ? sessionStorage?.getItem("fond-skip-intro")
-      : false
+    return typescreenManager.isDismissed()
   }
 
   async function animateIn() {
@@ -129,6 +141,9 @@ function TypeScreen(props: Props) {
       hasDismissed ||
       !props.isVisibleOnLoad
     ) {
+      if (props.beforeOnClose) {
+        props.beforeOnClose()
+      }
       props.onClose()
       return
     }

@@ -7,9 +7,8 @@ import Icon from "../components/Icon"
 import FeatureItem from "../components/FeatureItem"
 import { PageProps } from "gatsby"
 import { ArtefactType, BasicPagePropsData } from "../types"
-import GiveLivelyWidget from "../components/GiveLivelyWidget"
 
-interface Props {
+interface Props extends BasicPagePropsData {
   node: ArtefactType
   page: BasicPagePropsData
 }
@@ -27,14 +26,18 @@ export default function Artefact({ pageContext }: PageProps<any, Props>) {
   } = pageContext.node
 
   const body = description?.childMdx?.body || ""
+  const excerpt =
+    description?.childMdx?.excerpt || pageContext.site.siteMetadata.description
   const images = resizedImages?.map(r => r.resize) || []
+  const seoImageSrc = resizedImages?.map(r => r.fixed)?.[0]?.src
   const cards = related?.map(r => ({ node: r })) || []
 
   return (
     <Root
       className="artefact-page page bg-black text-white"
       title={`${title} | Friends of Notre-Dame de Paris`}
-      description="Nostrud ullamco aute elit duis culpa aliqua amet occaecat irure."
+      description={excerpt}
+      image={seoImageSrc}
       showFrame
     >
       <div className="container mx-auto text-white py-6">

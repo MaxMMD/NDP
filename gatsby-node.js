@@ -4,6 +4,12 @@ exports.createPages = async function ({ actions, graphql }) {
   const template = require.resolve(`./src/templates/artefact.tsx`)
   const result = await graphql(`
     query {
+      site {
+        siteMetadata {
+          title
+          description
+        }
+      }
       allContentfulFriendsOfNotreDameArtefact(
         filter: { node_locale: { eq: "en-US" } }
       ) {
@@ -18,12 +24,16 @@ exports.createPages = async function ({ actions, graphql }) {
             description {
               childMdx {
                 body
+                excerpt(truncate: false)
               }
             }
             images {
               resize(height: 488, width: 610) {
                 width
                 height
+                src
+              }
+              fixed(width: 1200, height: 627) {
                 src
               }
             }
@@ -68,6 +78,7 @@ exports.createPages = async function ({ actions, graphql }) {
           context: {
             node: node,
             page: result.data.contentfulFriendsOfNotreDamePage || {},
+            site: result.data.site,
           },
         })
       }

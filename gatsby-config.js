@@ -11,9 +11,9 @@ module.exports = {
   siteMetadata: {
     title: "Friends of Notre-Dame de Paris",
     description:
-      "Eiusmod esse anim non excepteur occaecat exercitation aliqua.",
+      "Friends of Notre-Dame de Paris is the official charity leading the international fundraising efforts to rebuild and restore Notre-Dame Cathedral.",
     donationLink:
-      "https://secure.givelively.org/donate/friends-of-notre-dame-de-paris-inc/humanity-rising-notre-dame-reborn",
+      "https://secure.givelively.org/donate/friends-of-notre-dame-de-paris-inc/notre-dame-de-paris-the-pieces-of-a-puzzle",
     socialMedia: {
       twitter: "https://twitter.com/_NotreDameParis",
       facebook: "https://www.facebook.com/FriendsofNotreDamedeParis",

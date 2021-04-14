@@ -1,3 +1,4 @@
-import TypeScreen from "./TypeScreen"
+import TypeScreen, { typescreenManager } from "./TypeScreen"
 
 export default TypeScreen
+export { typescreenManager }

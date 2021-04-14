@@ -8,6 +8,7 @@ export interface ImageType {
 export interface MDXNode {
   childMdx: {
     body: string
+    excerpt: string
   }
 }
 
@@ -22,6 +23,7 @@ export interface ArtefactType {
   images: Array<{
     resize: ImageType
     fluid: ImageType
+    fixed: ImageType
   }>
   description: MDXNode
   related?: ArtefactType[]

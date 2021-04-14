@@ -29,6 +29,7 @@ export default function Home({
     BasicPagePropsData &
     ContentfulPagePropsData
 >) {
+  const [hasDismissedTypescreen, setHasDismissedTypescreen] = useState(false)
   const [autoFlipTrigger, setAutoFlipTrigger] = useState<number | null>(null)
   const [showInfoPane, setShowInfoPane] = useState(false)
   const cards = data.allContentfulFriendsOfNotreDameArtefact.edges
@@ -140,10 +141,19 @@ export default function Home({
         </div>
       </div>
 
+      {!hasDismissedTypescreen ? (
+        <div className="w-screen h-screen fixed top-0 left-0 bg-black z-20 pointer-events-none" />
+      ) : (
+        <></>
+      )}
+
       {typeScreenText ? (
         <TypeScreen
           text={typeScreenText.split(/\r?\n/).filter(ln => !!ln)}
           isVisibleOnLoad
+          beforeOnClose={() => {
+            setHasDismissedTypescreen(true)
+          }}
           onClose={() => {
             setTimeout(() => {
               setAutoFlipTrigger(Date.now())
